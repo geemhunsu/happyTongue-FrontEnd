@@ -1,23 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import {Grid, Image, Button} from "./elements"
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Grid>
+        <Image/>
+        <Button btn_color="yellow" font_color="blue" text="버튼"/>
+        <Button is_float text="버튼쿤쿤"/>
+      </Grid>
     </div>
   );
 }
