@@ -1,15 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import {Grid, Image, Button} from "./elements"
-
+import {Route} from "react-router-dom"
+import PostList from "./pages/PostList";
 
 function App() {
   return (
     <div className="App">
-      <Grid>
-        <Image/>
-        <Button btn_color="yellow" font_color="blue" text="버튼"/>
-        <Button is_float text="버튼쿤쿤"/>
+      <Grid margin="auto">
+        <Route path="/" exact component={PostList}/>
       </Grid>
     </div>
   );
