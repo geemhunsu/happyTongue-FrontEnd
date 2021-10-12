@@ -9,8 +9,7 @@ const PostDetail = (props) => {
       <Grid>
         <Search />
         <Grid padding="16px">   {/*이미지 Grid*/}
-          
-          <Image shape="rectangle" margin="auto" width="60%" height="400px" />
+          <Image shape="rectangle" margin="auto" width="60%" height="400px"/>
         </Grid>
         <Grid margin="auto" width="60%" padding="16px"> {/*컨텐츠 Grid*/}
           <Grid>

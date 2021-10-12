@@ -6,7 +6,7 @@ const Comment = (props) => {
     <React.Fragment>
       <Grid flex="space-between">
         <Grid flex width="30%">
-            <Image src={user_profile} size ="30" margin ="0px 5px 0px 0px"/>
+            <Image src={user_profile} size ="30" margin ="0px 5px 0px 0px" shape = "circle"/>
             <Text>{user_id}</Text>
         </Grid>
         <Text>{content}</Text>
