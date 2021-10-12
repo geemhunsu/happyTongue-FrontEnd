@@ -16,7 +16,17 @@ const PostWrite = (props) => {
                     </Grid>
                     <Grid flex="space-between" width="100%">
                         <Text>지역</Text>
-                        <SelectBox />
+                        <SelectBox padding="5px 1em">
+                            <option selected>지역 선택</option>
+                            <option>서울</option>
+                            <option>경기</option>
+                            <option>강원</option>
+                            <option>전남</option>
+                            <option>전북</option>
+                            <option>경남</option>
+                            <option>경북</option>                            
+                            <option>인천</option>                            
+                        </SelectBox>
                     </Grid>
                 </Grid>
             </Grid>
