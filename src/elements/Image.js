@@ -9,7 +9,9 @@ const Image = (props) => {
     margin,
     padding,
     width,
-    height,    
+    height,
+    border_radius,
+    is_center,
   } = props;
 
 	const styles = {
@@ -19,6 +21,8 @@ const Image = (props) => {
 		padding,
     width,
     height,
+    border_radius,
+    is_center,
 	}
 
 	if (shape === "rectangle") {
@@ -32,13 +36,15 @@ const Image = (props) => {
 };
 
 Image.defaultProps = {
-  shape: "circle",
+  shape: null,
   src: "https://mblogthumb-phinf.pstatic.net/20140830_73/hkjwow_1409374816444cxF8E_JPEG/%B0%DF%BA%F3_%281%29.jpg?type=w2",
   size: 36,
-  width: null,
-  height: null,
+  width: "100%",
+  height: "auto",
   margin: null,
   padding: null,
+  border_radius: null,
+  is_center: false,
 };
 
 const ImageRectangle = styled.div`  
@@ -46,8 +52,11 @@ const ImageRectangle = styled.div`
   height: ${props => props.height};
   background-image: url("${(props) => props.src}");
   background-size: cover;
+  ${props => props.is_center ?
+  `background-position: center;` : "" };
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
+  border-radius: ${props => props.border_radius};
 `;
 
 const ImageCircle = styled.div`
