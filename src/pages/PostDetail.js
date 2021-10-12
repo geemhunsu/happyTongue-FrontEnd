@@ -3,15 +3,17 @@ import CommentList from "../components/CommentList";
 import CommentWrite from "../components/CommentWrite";
 import Search from "../components/Search";
 import { Grid, Image, Text, Button } from "../elements/index";
+
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { yellow , red} from '@mui/material/colors';
+
 const PostDetail = (props) => {
   const [is_like, setIsLike] = React.useState(false);
   const [is_favorite, setIsFavorite] = React.useState(false);
-
+  
   const like =() => {
     if(is_like ) {
       setIsLike(false);
@@ -28,6 +30,7 @@ const PostDetail = (props) => {
       setIsFavorite(true);
     }
   }
+  
   return (
     <React.Fragment>
       <Grid>
