@@ -67,7 +67,7 @@ const GridBox = styled.div`
     flex-direction: ${props => props.flex_direction};
     box-sizing: border-box;
     border: ${props => props.border};
-    border-radius: ${props => props.border_radius}
+    border-radius: ${props => props.border_radius};
 `;
 
 export default Grid;
