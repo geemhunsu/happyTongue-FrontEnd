@@ -1,17 +1,27 @@
 import React from "react";
 import styled from 'styled-components';
-import { Grid, Button, Input, Text } from '../elements';
+import { Grid, Text, Image } from '../elements';
+import { AiFillStar } from "react-icons/ai";
 
 const Post = (props) => {
 
     return(
         <React.Fragment>
-            <Grid bg="pink" width="300px" height="250px">
+            <Grid padding="0px" flex="center" flex_direction="column" padding="0px" margin="20px" width="300px" height="250px" border="1px solid #d3d9dc">
                 {/* 사진 */}
-                <Grid width="300px" height="160px" bg="lightblue"/>
+                <Grid width="100%" height="180px">
+                    <Image src="https://mp-seoul-image-production-s3.mangoplate.com/2022803_1628401967909724.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80" 
+                    width="100%" height="100%" shape="rectangle"></Image>
+                </Grid>
                 {/* 제목 */}
-                <Grid>
-                    <Text>쭈꾸미먹고싶어</Text>
+                <Grid height="70px" width="100%" margin="0px">
+                    <Grid height="36px" flex="space-between">
+                        <Text family="Wemakeprice-Bold" margin="0px" padding="7px" size="18px" bold>지아니스나폴리</Text>
+                        <Grid is_center width="50px" height="30px">
+                            <AiFillStar size="30px" color="#FDD835"/>
+                        </Grid>
+                    </Grid>
+                    <Text family="GowunDodum-Regular" margin="0px" padding="3px 7px" size="13px">인천/ 해산물</Text>
                 </Grid>
             </Grid>
         </React.Fragment>
