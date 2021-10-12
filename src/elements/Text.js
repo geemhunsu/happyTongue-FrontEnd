@@ -42,3 +42,5 @@ const TextBox = styled.p`
     ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
     ${(props) => (props.family ? `font-family: ${props.family};` : "")}
 `;
+
+export default Text;

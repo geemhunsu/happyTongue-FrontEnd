@@ -4,7 +4,7 @@ const PostList = (props) => {
     return (
         <React.Fragment>
             <Grid>
-                ㅁㄴㅇㅁㄴㅇ
+                
             </Grid>
         </React.Fragment>
     );
