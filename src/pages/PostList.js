@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from "../components/Search";
 import Post from "../components/Post";
-import {Grid,Button} from "../elements/index";
+import {Grid} from "../elements/index";
 
 const PostList = (props) => {
     return (
@@ -9,8 +9,16 @@ const PostList = (props) => {
             <Grid>
                 <Search />
             </Grid>
-            <Grid>
+            <Grid width = "90%" padding="16px" margin ="auto" flex="flex-evenly" flex_wrap="wrap">
                 <Post/>
+                <Post/>
+                <Post/>
+                <Post/>
+                <Post/>
+                <Post/>
+                <Post/>
+                <Post/>
+                
             </Grid>
         </React.Fragment>
     );

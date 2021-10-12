@@ -7,7 +7,7 @@ import { yellow } from '@mui/material/colors';
 const Post = (props) => {
     return(
         <React.Fragment>
-            <Grid padding="0px" flex="center" flex_direction="column" padding="0px" margin="20px" width="300px" height="250px" border="1px solid #d3d9dc">
+            <Grid padding="0px" flex="center" flex_direction="column" margin="20px" width="300px" height="250px" border="1px solid #d3d9dc">
                 {/* 사진 */}
                 <Grid width="100%" height="180px">
                     <Image src="https://mp-seoul-image-production-s3.mangoplate.com/2022803_1628401967909724.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80" 

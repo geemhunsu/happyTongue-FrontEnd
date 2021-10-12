@@ -2,7 +2,6 @@ import React from 'react';
 import {Grid} from "../elements/index";
 import Comment from "../components/Comment";
 const CommentList = (props) => {
-    console.log(comment_list.length);
     // comment_list가 없으면 return
     if(!comment_list) {
         return;
