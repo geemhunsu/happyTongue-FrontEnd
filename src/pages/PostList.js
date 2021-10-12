@@ -1,9 +1,11 @@
 import React from 'react';
+import Search from "../components/Search";
 import {Grid,Button} from "../elements/index";
 const PostList = (props) => {
     return (
         <React.Fragment>
-            <Grid flex bg="red" width ="100%" height="50px">
+            <Grid>
+                <Search />
             </Grid>
             <Grid>
             </Grid>
