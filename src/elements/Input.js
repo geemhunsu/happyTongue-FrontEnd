@@ -72,3 +72,5 @@ const InputTextArea = styled.textarea`
     ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
     ${(props) => (props.family ? `font-family: ${props.family};` : "")}
 `;
+
+export default Input;
