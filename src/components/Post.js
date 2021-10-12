@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { Grid, Text, Image } from '../elements';
 // import { AiFillStar } from "react-icons/ai";
 import StarIcon from '@mui/icons-material/Star';
-
+import { yellow } from '@mui/material/colors';
 const Post = (props) => {
-
     return(
         <React.Fragment>
             <Grid padding="0px" flex="center" flex_direction="column" padding="0px" margin="20px" width="300px" height="250px" border="1px solid #d3d9dc">
@@ -19,7 +18,7 @@ const Post = (props) => {
                     <Grid height="36px" flex="space-between">
                         <Text family="Wemakeprice-Bold" margin="0px" padding="7px" size="18px" bold>지아니스나폴리</Text>
                         <Grid is_center width="50px" height="30px">
-                            <StarIcon/>
+                            <StarIcon sx={{ color: yellow[500] }}/>
                         </Grid>
                     </Grid>
                     <Text family="GowunDodum-Regular" margin="0px" padding="3px 7px" size="13px">인천/ 해산물</Text>
