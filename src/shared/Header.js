@@ -1,13 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import Logo from "../happytonguelogo.png"
 import { Grid, Button, Text, Image } from '../elements';
+
 
 const Header = (props) => {
     return (
         <React.Fragment>
             <Grid padding="1em" flex="space-between" width="100%" bg="rgba(254, 255, 189, 0.34)">
-                <Grid width="auto">
-                    <Image src={Logo} shape="rectangle" size="70" />
+                <Grid>
+                    <ElA>
+                        <img src={Logo} style={{width: "100%"}}/>
+                    </ElA>
                 </Grid>
                 <Grid width="25%">
                     <Grid flex margin="0 0 5px 0">
@@ -53,5 +58,12 @@ const Header = (props) => {
         </React.Fragment>
     );
 };
+
+const ElA = styled.a`
+    display:block;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+`;
 
 export default Header;

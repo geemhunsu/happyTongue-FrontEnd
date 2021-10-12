@@ -8,6 +8,8 @@ const Image = (props) => {
     size, // 이미지 크기. 가로세로 동일
     margin,
     padding,
+    width,
+    height,    
   } = props;
 
 	const styles = {
@@ -15,6 +17,8 @@ const Image = (props) => {
 		size,
 		margin,
 		padding,
+    width,
+    height,
 	}
 
 	if (shape === "rectangle") {
@@ -31,14 +35,15 @@ Image.defaultProps = {
   shape: "circle",
   src: "https://mblogthumb-phinf.pstatic.net/20140830_73/hkjwow_1409374816444cxF8E_JPEG/%B0%DF%BA%F3_%281%29.jpg?type=w2",
   size: 36,
+  width: null,
+  height: null,
   margin: null,
   padding: null,
 };
 
-const ImageRectangle = styled.div`
-  --size: ${(props) => props.size}px;
-  width: var(--size);
-  height: var(--size);
+const ImageRectangle = styled.div`  
+  width: ${props => props.width};
+  height: ${props => props.height};
   background-image: url("${(props) => props.src}");
   background-size: cover;
   margin: ${(props) => props.margin};

@@ -59,7 +59,7 @@ const GridBox = styled.div`
     padding: ${props => props.padding};
     width: ${props => props.width};
     height: ${props => props.height};
-    background-color: ${props => props.bg};    
+    background-color: ${props => props.bg};
     ${props => props.flex ? 
         `display: flex; align-items: center; justify-content: ${props.flex};` : ""}
     ${props => props.is_center ?
