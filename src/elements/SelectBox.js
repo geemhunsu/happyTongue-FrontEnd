@@ -50,10 +50,18 @@ const ESelect = styled.select`
     border-top: 1.5px solid #F18C8E;
     border-left: 1.5px solid #F18C8E;    
     border-radius: 7px;
+    font-family: GowunDodum-Regular;
+    font-weight: bold;
+    transition: 0.3s all ease;
 
     :focus {
-        outline: 2px solid #F18C8E;
+        outline: 1px solid #F18C8E;
         
+    }
+    :hover{
+        background-color: #FEFFBD;
+        cursor: pointer;
+        color: #b56b6d;
     }
 `;
 
