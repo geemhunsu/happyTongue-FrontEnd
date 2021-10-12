@@ -12,7 +12,9 @@ const Grid = (props) => {
         bg, 
         flex, // justify-content의 값 설정
         is_center, // 글자 가운데 정렬
-        _onClick
+        _onClick,
+        border,
+        flex_direction,
     } = props;
     const styles = { // props 중에서 스타일 부분만 따로 묶음
         margin, 
@@ -21,7 +23,11 @@ const Grid = (props) => {
         height, 
         bg, 
         flex, 
-        is_center}
+        is_center,
+        border,
+        flex_direction,
+
+    }
     
     return (
         <React.Fragment>
@@ -34,12 +40,13 @@ Grid.defaultProps = {
     children: null,
     margin: null,
     padding: null,
-    width: null,
+    width: "100%",
     height: "100%",
     bg: null,    
     flex: null,
     flex_direction: null,
     is_center: false,
+    border: null,
     _onClick: () => {},
 
 }
@@ -56,6 +63,8 @@ const GridBox = styled.div`
     ${props => props.is_center ?
      `text-align: center;` : ""}
     flex-direction: ${props => props.flex_direction};
+    box-sizing: border-box;
+    border: ${props => props.border};
 `;
 
 export default Grid;
