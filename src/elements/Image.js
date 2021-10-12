@@ -12,6 +12,7 @@ const Image = (props) => {
     height,
     border_radius,
     is_center,
+    border,
   } = props;
 
 	const styles = {
@@ -23,6 +24,7 @@ const Image = (props) => {
     height,
     border_radius,
     is_center,
+    border,
 	}
 
 	if (shape === "rectangle") {
@@ -45,6 +47,7 @@ Image.defaultProps = {
   padding: null,
   border_radius: null,
   is_center: false,
+  border: null,
 };
 
 const ImageRectangle = styled.div`  
@@ -57,6 +60,7 @@ const ImageRectangle = styled.div`
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
   border-radius: ${props => props.border_radius};
+  border: ${props => props.border};
 `;
 
 const ImageCircle = styled.div`
@@ -69,6 +73,7 @@ const ImageCircle = styled.div`
   background-size: cover;
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
+  border: ${props => props.border};
 `;
 
 export default Image;

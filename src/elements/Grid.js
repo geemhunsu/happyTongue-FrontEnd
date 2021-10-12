@@ -52,10 +52,10 @@ Grid.defaultProps = {
     flex_direction: null,
     is_center: false,
     border: null,
-    border_radius: null,
+    border_radius: null,    
     _onClick: () => {},
     flex_item : null,
-    flex_wrap: null
+    flex_wrap: null,
 }
 
 // flex의 경우 justify-content의 값만 바꾸는 것으로
