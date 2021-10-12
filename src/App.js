@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Signup from './pages/Signup';
 import Header from './shared/Header';
 import PostWrite from './pages/PostWrite';
+import Mypage from './pages/Mypage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" exact component={Login}/>
         <Route path="/signup" exact component={Signup}/>
         <Route path="/write" exact component={PostWrite}/>
+        <Route path="/mypage" exact component={Mypage}/>
       </Grid>
     </div>
   );
