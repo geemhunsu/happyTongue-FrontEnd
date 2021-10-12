@@ -4,8 +4,6 @@ const PostList = (props) => {
     return (
         <React.Fragment>
             <Grid flex bg="red" width ="100%" height="50px">
-                <Grid width = "300px"><Button /></Grid>
-                <Grid width ="300px"><Button/></Grid>
             </Grid>
             <Grid>
             </Grid>
