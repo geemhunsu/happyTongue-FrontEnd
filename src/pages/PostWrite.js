@@ -6,7 +6,8 @@ const PostWrite = (props) => {
     return (
         <React.Fragment>
             <Grid width="60%" margin="0 auto">
-                <Image shape="rectangle" width="100%" height="400px" is_center/>                
+                <Text></Text>
+                <Image shape="rectangle" width="50%" height="500px" is_center/>                
             </Grid>
         </React.Fragment>
     );
