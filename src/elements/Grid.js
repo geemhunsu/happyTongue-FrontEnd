@@ -16,6 +16,8 @@ const Grid = (props) => {
         border,
         flex_direction,
         border_radius,
+        flex_item,
+        flex_wrap
     } = props;
     const styles = { // props 중에서 스타일 부분만 따로 묶음
         margin, 
@@ -28,6 +30,8 @@ const Grid = (props) => {
         border,
         flex_direction,
         border_radius,
+        flex_item,
+        flex_wrap
     }
     
     return (
@@ -48,9 +52,10 @@ Grid.defaultProps = {
     flex_direction: null,
     is_center: false,
     border: null,
-    border_radius: null,
+    border_radius: null,    
     _onClick: () => {},
-
+    flex_item : null,
+    flex_wrap: null,
 }
 
 // flex의 경우 justify-content의 값만 바꾸는 것으로
@@ -67,7 +72,7 @@ const GridBox = styled.div`
     flex-direction: ${props => props.flex_direction};
     box-sizing: border-box;
     border: ${props => props.border};
-    border-radius: ${props => props.border_radius}
+    border-radius: ${props => props.border_radius};
+    flex-wrap : ${props=>props.flex_wrap};
 `;
-
 export default Grid;

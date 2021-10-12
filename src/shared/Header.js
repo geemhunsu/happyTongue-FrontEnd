@@ -61,8 +61,8 @@ const Header = (props) => {
 
 const ElA = styled.a`
     display:block;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
 `;
 
