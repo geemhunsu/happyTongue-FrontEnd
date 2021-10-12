@@ -1,7 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
 import { Grid, Text, Image } from '../elements';
-import { AiFillStar } from "react-icons/ai";
+// import { AiFillStar } from "react-icons/ai";
+import StarIcon from '@mui/icons-material/Star';
 
 const Post = (props) => {
 
@@ -18,7 +19,7 @@ const Post = (props) => {
                     <Grid height="36px" flex="space-between">
                         <Text family="Wemakeprice-Bold" margin="0px" padding="7px" size="18px" bold>지아니스나폴리</Text>
                         <Grid is_center width="50px" height="30px">
-                            <AiFillStar size="30px" color="#FDD835"/>
+                            <StarIcon/>
                         </Grid>
                     </Grid>
                     <Text family="GowunDodum-Regular" margin="0px" padding="3px 7px" size="13px">인천/ 해산물</Text>
