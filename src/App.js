@@ -10,6 +10,7 @@ import PostDetail from "./pages/PostDetail";
 import Login from "./pages/Login";
 import Signup from './pages/Signup';
 import PostWrite from './pages/PostWrite';
+import Mypage from './pages/Mypage';
 
 import Header from './shared/Header';
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" exact component={Login}/>
           <Route path="/signup" exact component={Signup}/>
           <Route path="/write" exact component={PostWrite}/>
+          <Route path="/mypage" exact component={Mypage}/>
         </ConnectedRouter>
       </Grid>
     </div>
