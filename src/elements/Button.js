@@ -12,9 +12,10 @@ const Button = (props) => {
     margin, // margin
     padding, // padding
     is_float, // true면 원형 버튼 false면 사각형 버튼
+    border_radius, // (김현수) border-radius추가
   } = props;
 
-  const style = { btn_color, font_color, border, width, margin, padding };
+  const style = { btn_color, font_color, border, width, margin, padding, border_radius };
   
   if (is_float) {  // 동그란버튼은 스타일 조정 불가.
       return(
@@ -50,6 +51,7 @@ const ElButton = styled.button`
   ${(props) => (props.width ? `width : ${props.width}` : `width : 80%`)};   // width 기본 80%
   ${(props) => (props.margin ? `margin : ${props.margin}` : null)};     // margin 기본 null
   ${(props) => props.padding ? `padding : ${props.padding}` : `padding : 15px, 0px`};   // padding 기본 위아래 15px, 가로 0px
+  ${(props) => props.border_radius ? `border-radius: ${props.border_radius};` : null}
   /* box-sizing : border-box; */
 `;
 

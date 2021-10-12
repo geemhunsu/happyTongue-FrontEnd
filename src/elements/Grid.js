@@ -15,6 +15,7 @@ const Grid = (props) => {
         _onClick,
         border,
         flex_direction,
+        border_radius,
     } = props;
     const styles = { // props 중에서 스타일 부분만 따로 묶음
         margin, 
@@ -26,7 +27,7 @@ const Grid = (props) => {
         is_center,
         border,
         flex_direction,
-
+        border_radius,
     }
     
     return (
@@ -47,6 +48,7 @@ Grid.defaultProps = {
     flex_direction: null,
     is_center: false,
     border: null,
+    border_radius: null,
     _onClick: () => {},
 
 }
@@ -65,6 +67,7 @@ const GridBox = styled.div`
     flex-direction: ${props => props.flex_direction};
     box-sizing: border-box;
     border: ${props => props.border};
+    border-radius: ${props => props.border_radius}
 `;
 
 export default Grid;
