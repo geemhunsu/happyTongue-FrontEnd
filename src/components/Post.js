@@ -6,7 +6,6 @@ import { Grid, Text, Image } from "../elements";
 import StarIcon from "@mui/icons-material/Star";
 import { yellow } from "@mui/material/colors";
 const Post = (props) => {
-    
   return (
     <React.Fragment>
       <Grid
@@ -21,7 +20,7 @@ const Post = (props) => {
         {/* 사진 */}
         <Grid width="100%" height="180px">
           <Image
-            src={props.src}
+            src={props.imgUrl}
             width="100%"
             height="100%"
             shape="rectangle"
@@ -49,7 +48,7 @@ const Post = (props) => {
             padding="3px 7px"
             size="13px"
           >
-            {props.area}
+            {props.storeArea}
           </Text>
         </Grid>
       </Grid>
