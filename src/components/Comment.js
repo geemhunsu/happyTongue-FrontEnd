@@ -1,25 +1,61 @@
 import React from "react";
 import { Grid, Text, Image } from "../elements";
+import Time from "../shared/Time";
 const Comment = (props) => {
-    const {user_profile, user_id, content, time } = props;
+  const { user_profile, user_id, comment, insert_dt, is_even } = props;
+  if (!insert_dt) {
+    return;
+  }
+
   return (
     <React.Fragment>
-      <Grid flex="space-between">
-        <Grid flex width="30%">
-            <Image src={user_profile} size ="30" margin ="0px 5px 0px 0px" shape = "circle"/>
+      {/* 댓글 구분을 위해 줄 바뀔때 색 변경*/}
+      {is_even ? (
+        <Grid flex="space-between" bg="#eeeeee">    {/*짝수 줄*/}
+          <Grid flex width="30%">
+            <Image
+              src={user_profile}
+              size="30"
+              margin="0px 5px 0px 0px"
+              shape="circle"
+            />
             <Text>{user_id}</Text>
+          </Grid>
+          <Grid width="65%">
+            <Text>{comment}</Text>
+          </Grid>
+          <Grid width="5%">
+            <Text>{Time(insert_dt)}</Text>
+          </Grid>
         </Grid>
-        <Text>{content}</Text>
-        <Text>{time}</Text>
-      </Grid>
+      ) : (
+        <Grid flex="space-between">     {/*홀수 줄*/}
+          <Grid flex width="30%">
+            <Image
+              src={user_profile}
+              size="30"
+              margin="0px 5px 0px 0px"
+              shape="circle"
+            />
+            <Text>{user_id}</Text>
+          </Grid>
+          <Grid width="65%">
+            <Text>{comment}</Text>
+          </Grid>
+          <Grid width="5%">
+            <Text>{Time(insert_dt)}</Text>
+          </Grid>
+        </Grid>
+      )}
     </React.Fragment>
   );
 };
 
 Comment.defaultProps = {
-    user_profile : "https://mblogthumb-phinf.pstatic.net/20140830_73/hkjwow_1409374816444cxF8E_JPEG/%B0%DF%BA%F3_%281%29.jpg?type=w2",
-    user_id : "만준",
-    content : "굳",
-    time : "50분전",
-}
+  user_profile: "",
+  user_id: "",
+  comment: "",
+  insert_dt: "",
+  is_even: false,
+};
 export default Comment;
