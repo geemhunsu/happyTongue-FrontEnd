@@ -11,7 +11,7 @@ const instance = axios.create({
 export const apis = {
   getPost: () => instance.post("posts"),
   creatUser: (user) => instance.post("user", user),
-  getPost: () => instance.get("posts"),
-  getOnePost: () => instance.get("posts?id"),
-  getSearchPost: () => instance.get("posr?search={keyword}"),
+  getOnePost: () => instance.get("posts"),
+  getSearchPost: () => instance.get("posts?search={keyword}"),
+  addComment : (comment) => instance.post("comments",comment),
 };

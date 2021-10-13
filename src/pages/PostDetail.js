@@ -21,6 +21,7 @@ const PostDetail = (props) => {
   const _id = props.match.params.id;
   const post_idx = post_list.findIndex((p) => p.id === _id);
   const post = post_list[post_idx];
+  console.log(post_list);
   const like = () => {
     if (is_like) {
       setIsLike(false);
