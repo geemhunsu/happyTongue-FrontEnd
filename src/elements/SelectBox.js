@@ -10,16 +10,17 @@ const SelectBox = (props) => {
         margin,
         width,
         height,
+        _onChange,
     } = props;
     const styles = {
         padding,
         margin,
         width,
-        height,
+        height,        
     }
     return (
         <React.Fragment>
-            <ESelect {...styles}>
+            <ESelect {...styles} onChange={_onChange}>
                 {children}
             </ESelect>
         </React.Fragment>
@@ -32,6 +33,7 @@ SelectBox.defaultProps = {
     margin: null,
     width : null,
     height: null,
+    _onChange: () => {},
 }
 
 const ESelect = styled.select`

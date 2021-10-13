@@ -13,9 +13,33 @@ const Button = (props) => {
     padding, // padding
     is_float, // true면 원형 버튼 false면 사각형 버튼
     border_radius, // (김현수) border-radius추가
+    hover,
+    family,
+    bold,
+    border_right,
+    border_left,
+    border_top,
+    border_bottom,
+    transition,
   } = props;
 
-  const style = { btn_color, font_color, border, width, margin, padding, border_radius };
+  const style = { 
+    btn_color, 
+    font_color, 
+    border, 
+    width, 
+    margin, 
+    padding, 
+    border_radius,
+    hover,
+    family,
+    bold,
+    border_right,
+    border_left,
+    border_top,
+    border_bottom,
+    transition,
+  };
   
   if (is_float) {  // 동그란버튼은 스타일 조정 불가.
       return(
@@ -38,6 +62,14 @@ Button.defaultProps = {
   text: "텍스트",
   _onClick: () => {},
   is_float: false,
+  hover: null,
+  family: null,
+  bold: false,
+  border_right: null,
+  border_left: null,
+  border_top: null,
+  border_bottom: null,
+  transition: null,
 };
 
 // 사각형 버튼
@@ -53,6 +85,17 @@ const ElButton = styled.button`
   ${(props) => props.padding ? `padding : ${props.padding}` : `padding : 15px, 0px`};   // padding 기본 위아래 15px, 가로 0px
   ${(props) => props.border_radius ? `border-radius: ${props.border_radius};` : null}
   /* box-sizing : border-box; */
+  font-family: ${props => props.family};
+  ${props => props.bold ? `font-weight: bold;` : ""}
+  border-right: ${props => props.border_right};
+  border-left: ${props => props.border_left};
+  border-top: ${props => props.border_top};
+  border-bottom: ${props => props.border_bottom};
+  transition: ${props => props.transition};
+
+  :hover {
+
+  }
 `;
 
 // 원형 버튼
