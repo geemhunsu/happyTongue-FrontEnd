@@ -24,6 +24,7 @@ const Header = (props) => {
                             border="none"
                             margin="0 10px 0 0"
                             border_radius="10px"
+                            family="GowunDodum-Regular" bold
                             ></Button>
                         <Button
                             text="로그아웃"
@@ -32,6 +33,7 @@ const Header = (props) => {
                             btn_color="#FF9696"
                             border="none"
                             border_radius="10px"
+                            family="GowunDodum-Regular" bold
                             ></Button>
                     </Grid>
                     <Grid flex>
@@ -43,6 +45,7 @@ const Header = (props) => {
                             border="none"
                             margin="0 10px 0 0"
                             border_radius="10px"
+                            family="GowunDodum-Regular" bold
                             ></Button>
                         <Button
                             text="회원가입"
@@ -51,6 +54,7 @@ const Header = (props) => {
                             btn_color="#FF9696"
                             border="none"
                             border_radius="10px"
+                            family="GowunDodum-Regular" bold
                             ></Button>
                     </Grid>
                 </Grid>
