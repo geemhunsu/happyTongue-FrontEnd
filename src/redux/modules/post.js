@@ -30,6 +30,7 @@ const getOnePostMW = () => {
     return function (dispatch) {
         apis.getOnePost().then ((res) => {
             const post = res.data;
+            console.log(post);
             dispatch(getPost(post));
         }).catch((err) => {
             console.error(err);
@@ -44,6 +45,14 @@ const getSearchPostMW= () => {
             dispatch(getPost(post_list));
         }).catch((err) => {
             console.err(err);
+        })
+    }
+}
+
+const addCommentMW = (comment) => {   // 댓글달기
+    return function (dispatch) {
+        apis.addComment(comment).then(() => {
+            console.log("완료!");
         })
     }
 }
@@ -62,6 +71,7 @@ const actionCreators = {
     getPostMW,
     getOnePostMW,
     getSearchPostMW,
+    addCommentMW,
 }
 
 export {actionCreators};
