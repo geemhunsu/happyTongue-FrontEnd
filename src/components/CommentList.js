@@ -13,19 +13,12 @@ const CommentList = (props) => {
   return (
     <Grid width="60%" margin="auto" padding="16px">
       {comment.map((c, index) => {
-        if (index % 2 === 0) {
-          return (
-            <Grid width="auto" key={c.id}>  {/* 짝수일 때*/}
-              <Comment {...c} is_even/>
-            </Grid>
-          );
-        } else {
-          return (
-            <Grid width="auto" key={c.id}>  {/* 홀수일 때*/}
-              <Comment {...c} />
-            </Grid>
-          );
-        }
+        return (
+          // is_even 짝수 홀수 댓글색 다르게
+          <Grid width="auto" key={c.id}>
+            <Comment {...c} is_even={index % 2 === 0 ? true : false} />
+          </Grid>
+        );
       })}
     </Grid>
   );
