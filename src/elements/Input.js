@@ -5,7 +5,7 @@ const Input = (props) => {
 
     const { _onChange, placeholder, multiple, width, height, size,
         color, margin, padding, border, radius, family, type, outline, 
-        outlinecolor } = props;
+        outlinecolor, onSubmit, value, } = props;
     
     const styles = {
         width: width,
@@ -20,19 +20,26 @@ const Input = (props) => {
         type: type,
         outline: outline,
         outlinecolor:outlinecolor,
+        value:value,
     }
 
     if(multiple){
         return(
             <React.Fragment>
-                <InputTextArea {...styles} onChange={_onChange} placeholder={placeholder}/>
+                <InputTextArea {...styles} onKeyPress={(e) => {
+                    onSubmit(e);
+                }} onChange={_onChange} placeholder={placeholder}/>
             </React.Fragment>
         );
     }
 
     return(
         <React.Fragment>
-            <InputText {...styles} type={type} onChange={_onChange} placeholder={placeholder}/>
+            <InputText {...styles} type={type} onKeyPress={(e) => {
+                if(e.key === "Enter"){
+                    onSubmit(e);
+                }
+            }} onChange={_onChange} placeholder={placeholder}/>
         </React.Fragment>
     );
 }
@@ -51,6 +58,8 @@ Input.defaultProps = {
     type: "text",
     outline: false, // 아웃라인 유무
     outlinecolor: null, // 아웃라인 색상
+    onSubmit: () => {},
+    value: null,
 }
 
 const InputText = styled.input`

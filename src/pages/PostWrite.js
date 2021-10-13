@@ -12,6 +12,14 @@ const PostWrite = (props) => {
         console.log(local_name);
         console.log(contents);
     }
+
+    // const dic = {
+    //     title,
+    //     content,        
+    //     imgUrl: "imgUrl",
+    //     storeName: "storeName",
+    //     storeArea: "storeArea",
+    // }
     return (
         <React.Fragment>
             <Grid width="60%" padding="0 0 50px 0" margin="0 auto" flex_direction="column" flex>
