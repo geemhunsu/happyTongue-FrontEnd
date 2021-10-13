@@ -22,7 +22,7 @@ function App() {
         <Header></Header>
         <ConnectedRouter history = {history}>
           <Route path="/" exact component={PostList}/>
-          <Route path="/detail" exact component={PostDetail}/>
+          <Route path="/post/:id" exact component={PostDetail}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/signup" exact component={Signup}/>
           <Route path="/write" exact component={PostWrite}/>
