@@ -13,6 +13,7 @@ import PostWrite from './pages/PostWrite';
 import Mypage from './pages/Mypage';
 
 import Header from './shared/Header';
+import Chat from './components/Chat';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/signup" exact component={Signup}/>
           <Route path="/write" exact component={PostWrite}/>
           <Route path="/mypage" exact component={Mypage}/>
+          <Route path="/chat" exact component={Chat}/>
         </ConnectedRouter>
       </Grid>
     </div>
