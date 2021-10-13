@@ -42,7 +42,7 @@ const Chat = (props) => {
               <Input mulitline width="550px" height="120px" family="GowunDodum-Regular" bold
               _onChange={(e)=>{
                 setContents(e.target.value);
-              }} onSubmit={sendMessage}/>
+              }} onSubmit={sendMessage} border="none"/>
               <Button text="전송" padding="50px 0" border="1px solid black" _onClick={sendMessage}></Button>
             </Grid>
           </Grid>

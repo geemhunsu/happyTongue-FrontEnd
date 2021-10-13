@@ -12,4 +12,6 @@ const instance = axios.create({
 
 export const apis = {
     getPost : () => instance.post('posts'),
+    createPost : (content) => instance.post('/posts', content),
+    editPost : (post_id, content) => instance.post(`/posts/:${post_id}`, content)
 }

@@ -2,12 +2,16 @@ import produce from 'immer';
 import React from 'react';
 import {createAction, handleActions} from "redux-actions";
 import moment from "moment";
+import { apis } from '../../shared/axios';
 
+// 액션
 const GET_POST = "GET_POST";
+const CREATE_POST = "CREATE_POST";
 
 const getPost = createAction(GET_POST, (post_list) => ({            // action 생성
     post_list
 }));
+const createPost = createAction(CREATE_POST, (post) => ({ post }));
 
 
 const initialState = {          //  리듀서 데이터 초기값
@@ -39,11 +43,32 @@ const initialState = {          //  리듀서 데이터 초기값
     ],
 }
 
+// 미들웨어
+const createPostMW = (post) => {
+    return (dispatch, getState, {history}) => {
+        const insert_dt = moment().format("YYYY-MM-DD hh:mm:ss");
+        const _post = {...post, insert_dt, comment:[],}
+        apis.createPost(_post).then(res => {            
+            dispatch(createPost(_post));
+            window.alert('게시글이 작성되었습니다!');
+            history.replace("/");
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+}
+
 export default handleActions(       //리듀서
     {
         [GET_POST]: (state, action) =>
         produce(state, (draft)=> {
             draft.list.push(...action.payload.post_list);
+        }),
+
+        [CREATE_POST]: (state, action) =>
+        produce(state, (draft)=> {
+            draft.list.unshift(action.payload.post);
         }),
     },
     initialState
@@ -51,6 +76,7 @@ export default handleActions(       //리듀서
 
 const actionCreators = {
     getPost,
+    createPostMW,
 }
 
 export {actionCreators};

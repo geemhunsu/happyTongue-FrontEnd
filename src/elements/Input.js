@@ -5,7 +5,7 @@ const Input = (props) => {
 
     const { _onChange, placeholder, multiple, width, height, size,
         color, margin, padding, border, radius, family, type, outline, 
-        outlinecolor, onSubmit, value, } = props;
+        outlinecolor, onSubmit, value, id, name,} = props;
     
     const styles = {
         width: width,
@@ -20,13 +20,13 @@ const Input = (props) => {
         type: type,
         outline: outline,
         outlinecolor:outlinecolor,
-        value:value,
+        value:value,        
     }
 
     if(multiple){
         return(
             <React.Fragment>
-                <InputTextArea {...styles} onKeyPress={(e) => {
+                <InputTextArea {...styles} id={id} name={name} onKeyPress={(e) => {
                     onSubmit(e);
                 }} onChange={_onChange} placeholder={placeholder}/>
             </React.Fragment>
@@ -35,7 +35,7 @@ const Input = (props) => {
 
     return(
         <React.Fragment>
-            <InputText {...styles} type={type} onKeyPress={(e) => {
+            <InputText {...styles} type={type} id={id} name={name} onKeyPress={(e) => {
                 if(e.key === "Enter"){
                     onSubmit(e);
                 }
@@ -60,6 +60,8 @@ Input.defaultProps = {
     outlinecolor: null, // 아웃라인 색상
     onSubmit: () => {},
     value: null,
+    id: null, 
+    name: null,
 }
 
 const InputText = styled.input`
@@ -73,7 +75,7 @@ const InputText = styled.input`
     ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
     ${(props) => (props.family ? `font-family: ${props.family};` : "")}
     ${(props) => (props.outlinecolor ? `outline-color: ${props.outlinecolor};` : "")}
-    ${(props) => (props.outline ? `outline: ${props.outline};` : "")}
+    ${(props) => (props.outline ? `outline: ${props.outline};` : "")}    
     box-sizing: border-box;
 `;
 const InputTextArea = styled.textarea`
