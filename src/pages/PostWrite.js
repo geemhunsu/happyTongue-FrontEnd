@@ -22,7 +22,7 @@ const PostWrite = (props) => {
   const [storeArea, setStoreArea] = React.useState("");
   const [content, setContent] = React.useState("");
 
-  if(!is_login && is_token)
+  
 
   AWS.config.update({
     region: "ap-northeast-2",
@@ -56,7 +56,7 @@ const PostWrite = (props) => {
       dispatch(postActions.createPostMW({
         title,
         content,
-        img_url: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewName}.${previewType}`,
+        imgUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewName}.${previewType}`,
         storeName,
         storeArea,
       }));

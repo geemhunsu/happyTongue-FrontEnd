@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Grid = (props) => {
+const Grid = React.forwardRef((props) => {
   const {
     children,
     margin,
@@ -20,6 +20,7 @@ const Grid = (props) => {
     overflow,
     border_bottom,
     ref,
+    id,
   } = props;
   const styles = {
     // props 중에서 스타일 부분만 따로 묶음
@@ -36,8 +37,8 @@ const Grid = (props) => {
     flex_item,
     flex_wrap,
     overflow,
-    border_bottom,
-    ref,
+    border_bottom,    
+    id,
   };
 
   return (
@@ -47,7 +48,7 @@ const Grid = (props) => {
       </GridBox>
     </React.Fragment>
   );
-};
+});
 
 Grid.defaultProps = {
   children: null,
@@ -66,6 +67,8 @@ Grid.defaultProps = {
   flex_wrap: null,
   overflow: null,
   border_bottom: null,
+  ref: null,
+  id: null,
 };
 
 // flex의 경우 justify-content의 값만 바꾸는 것으로
@@ -100,4 +103,5 @@ const GridBox = styled.div`
     border-radius: 15px;
   }
 `;
+
 export default Grid;

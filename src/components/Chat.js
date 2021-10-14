@@ -1,50 +1,55 @@
 import React from 'react';
 import { Grid, Button, Image, Text, Input } from '../elements';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 import moment from 'moment';
 
 const Chat = (props) => {
 
   const [state, setState] = React.useState({
     message: "",
-    nickname: "dogmania",
+    nickname: "aaaa",
   });
-  const [chatLog, setChatLog] = React.useState([]);
+  const [chatList, setChatList] = React.useState([]);
   const [chat, setChat] = React.useState([]);
   const [userList, setUserList] = React.useState([]);
-
-  const socket = io('http://3.34.138.243');
-  socket.on("chatLog", (chatLog) => {
-    setChatLog([...chatLog, { chatLog }]);
+  const socketRef = React.useRef();
+  
+  const chattingDisplay = React.useRef(null);
+  const chattingUserList = React.useRef(null);
+  const chatBox = document.getElementById('chatBox');
+  const userBox = document.getElementById('userBox');
+  
+  React.useEffect(() => {
+    socketRef.current = io.connect('http://3.34.138.243', { transports: ['websocket'] });
+    socketRef.current.emit("join", state.nickname);
+    socketRef.current.on("chatLog", (chatLog) => {            
+      setChatList([...chatLog]);      
   })
 
-  const chattingDisplay = React.useRef();
-  const chattingUserList = React.useRef();
-
-  React.useEffect(() => {
-
-    socket.on("receiveMsg", (data) => {
+    socketRef.current.on("receiveMsg", (data) => {
       const { nickname, msg, time } = data;
       setChat([...chat, { nickname, msg, time }]);
+    
+    })    
+    socketRef.current.on("currentOn", (data) => {
+      setUserList(data);
     })
-
-    socket.on("currentOn", (data) => {
-      setUserList([...userList, data]);
-    })
-    return () => socket.disconnect();
+    
   }, [chat], [userList]);
 
   const sendMessage = () => {
-    console.log(state)
-    const { message, nickname } = state;
-    socket.emit("sendMsg", { nickname, msg: message, })
-    setState({ ...state, message: "", });
+    console.log(chatBox.scrollHeight)
+    const { message, nickname } = state;    
+    socketRef.current.emit("sendMsg", { nickname, msg: message, })
+    chatBox.scrollTo(0, chatBox.scrollHeight);
+    setState({...state, message: ""})
   }
 
   const showChatting = () => {
     // chattingUserList.current.style.display = "none";
     // chattingDisplay.current.style.display = "flex";
     console.log(chattingDisplay.current);
+    
   }
 
   const showNowUsers = () => {
@@ -73,136 +78,29 @@ const Chat = (props) => {
         <Grid flex="flex-start" height="60%">
 
           <Grid bg="#f1d1b5" height="90%" margin="0 0 30px 0" padding="1em"
-            border_radius="7px" overflow="auto" ref={chattingDisplay} >
-
-            <Grid height="auto" margin="0 0 5px 0">
-              <Grid flex height="auto" margin="0 0 5px 0">
-                <Image shape="circle" size="30" />
-                <Text margin="5px" family="GowunDodum-Regular" bold>이름 : {chatLog.nickname}</Text>
-              </Grid>
-              <Grid flex="space-between">
-                <Grid bg="white" border_radius="20px" height="auto" width="85%" padding="0 5px">
-                  <Text margin="5px" family="GowunDodum-Regular" bold>메세지: {chatLog.msg}</Text>
-                </Grid>
-                <Text margin="0" padding="15px 0 0 0"
-                  family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
-              </Grid>
-            </Grid>
-            <Grid height="auto" margin="0 0 5px 0">
-              <Grid flex height="auto" margin="0 0 5px 0">
-                <Image shape="circle" size="30" />
-                <Text margin="5px" family="GowunDodum-Regular" bold>이름 : {chatLog.nickname}</Text>
-              </Grid>
-              <Grid flex="space-between">
-                <Grid bg="white" border_radius="20px" height="auto" width="85%" padding="0 5px">
-                  <Text margin="5px" family="GowunDodum-Regular" bold>메세지: {chatLog.msg}</Text>
-                </Grid>
-                <Text margin="0" padding="15px 0 0 0"
-                  family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
-              </Grid>
-            </Grid>
-            <Grid height="auto" margin="0 0 5px 0">
-              <Grid flex height="auto" margin="0 0 5px 0">
-                <Image shape="circle" size="30" />
-                <Text margin="5px" family="GowunDodum-Regular" bold>이름 : {chatLog.nickname}</Text>
-              </Grid>
-              <Grid flex="space-between">
-                <Grid bg="white" border_radius="20px" height="auto" width="85%" padding="0 5px">
-                  <Text margin="5px" family="GowunDodum-Regular" bold>메세지: {chatLog.msg}</Text>
-                </Grid>
-                <Text margin="0" padding="15px 0 0 0"
-                  family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
-              </Grid>
-            </Grid>
-            <Grid height="auto" margin="0 0 5px 0">
-              <Grid flex height="auto" margin="0 0 5px 0">
-                <Image shape="circle" size="30" />
-                <Text margin="5px" family="GowunDodum-Regular" bold>이름 : {chatLog.nickname}</Text>
-              </Grid>
-              <Grid flex="space-between">
-                <Grid bg="white" border_radius="20px" height="auto" width="85%" padding="0 5px">
-                  <Text margin="5px" family="GowunDodum-Regular" bold>메세지: {chatLog.msg}</Text>
-                </Grid>
-                <Text margin="0" padding="15px 0 0 0"
-                  family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
-              </Grid>
-            </Grid>
-            <Grid height="auto" margin="0 0 5px 0">
-              <Grid flex height="auto" margin="0 0 5px 0">
-                <Image shape="circle" size="30" />
-                <Text margin="5px" family="GowunDodum-Regular" bold>이름 : {chatLog.nickname}</Text>
-              </Grid>
-              <Grid flex="space-between">
-                <Grid bg="white" border_radius="20px" height="auto" width="85%" padding="0 5px">
-                  <Text margin="5px" family="GowunDodum-Regular" bold>메세지: {chatLog.msg}</Text>
-                </Grid>
-                <Text margin="0" padding="15px 0 0 0"
-                  family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
-              </Grid>
-            </Grid>
-            <Grid height="auto" margin="0 0 5px 0">
-              <Grid flex height="auto" margin="0 0 5px 0">
-                <Image shape="circle" size="30" />
-                <Text margin="5px" family="GowunDodum-Regular" bold>이름 : {chatLog.nickname}</Text>
-              </Grid>
-              <Grid flex="space-between">
-                <Grid bg="white" border_radius="20px" height="auto" width="85%" padding="0 5px">
-                  <Text margin="5px" family="GowunDodum-Regular" bold>메세지: {chatLog.msg}</Text>
-                </Grid>
-                <Text margin="0" padding="15px 0 0 0"
-                  family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
-              </Grid>
-            </Grid>
-            <Grid height="auto" margin="0 0 5px 0">
-              <Grid flex height="auto" margin="0 0 5px 0">
-                <Image shape="circle" size="30" />
-                <Text margin="5px" family="GowunDodum-Regular" bold>이름 : {chatLog.nickname}</Text>
-              </Grid>
-              <Grid flex="space-between">
-                <Grid bg="white" border_radius="20px" height="auto" width="85%" padding="0 5px">
-                  <Text margin="5px" family="GowunDodum-Regular" bold>메세지: {chatLog.msg}</Text>
-                </Grid>
-                <Text margin="0" padding="15px 0 0 0"
-                  family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
-              </Grid>
-            </Grid>
-
-            <Grid height="auto" margin="0 0 5px 0">
-              <Grid flex="flex-end" height="auto" margin="0 0 5px 0">
-                <Image shape="circle" size="30" />
-                <Text margin="5px" family="GowunDodum-Regular" bold>이름 : {chatLog.nickname}</Text>
-              </Grid>
-              <Grid flex="space-between">
-                <Text margin="0" padding="15px 0 0 0"
-                  family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
-                <Grid bg="skyblue" border_radius="20px" height="auto" width="85%" padding="0 5px">
-                  <Text margin="5px" family="GowunDodum-Regular" bold
-                    align="right" color="black" >메세지: {chatLog.msg}</Text>
-                </Grid>
-              </Grid>
-            </Grid>
-
-            {chatLog.map((chatting, index) => {
+            border_radius="7px" overflow="auto" ref={chattingDisplay} id="chatBox">
+            
+            {chatList.map((chatting, index) => {
               if (chatting.nickname === state.nickname) {
                 return (
                   <Grid height="auto" margin="0 0 5px 0">
                     <Grid flex="flex-end" height="auto" margin="0 0 5px 0">
                       <Image shape="circle" size="30" />
                       <Text margin="5px" family="GowunDodum-Regular" bold>
-                        이름 : {chatLog.nickname}
+                        이름 : {chatting.nickname}
                       </Text>
                     </Grid>
                     <Grid flex="space-between">
                       <Text margin="0" padding="15px 0 0 0"
-                        family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
+                        family="GowunDodum-Regular" size=".8em">시간: {chatting.time}</Text>
                       <Grid bg="skyblue" border_radius="20px" height="auto" width="85%" padding="0 5px">
                         <Text margin="5px" family="GowunDodum-Regular" bold
-                          align="right" color="black" >메세지: {chatLog.msg}</Text>
+                          align="right" color="black" >메세지: {chatting.msg}</Text>
                       </Grid>
                     </Grid>
                   </Grid>
                 )
-              };
+              }
               return (
                 <Grid height="auto" margin="0 0 5px 0" key={index}>
                   <Grid flex height="auto" margin="0 0 5px 0">
@@ -227,15 +125,15 @@ const Chat = (props) => {
                     <Grid flex="flex-end" height="auto" margin="0 0 5px 0">
                       <Image shape="circle" size="30" />
                       <Text margin="5px" family="GowunDodum-Regular" bold>
-                        이름 : {chatLog.nickname}
+                        이름 : {chatting.nickname}
                       </Text>
                     </Grid>
                     <Grid flex="space-between">
                       <Text margin="0" padding="15px 0 0 0"
-                        family="GowunDodum-Regular" size=".8em">시간: {chatLog.time}</Text>
+                        family="GowunDodum-Regular" size=".8em">시간: {chatting.time}</Text>
                       <Grid bg="skyblue" border_radius="20px" height="auto" width="85%" padding="0 5px">
                         <Text margin="5px" family="GowunDodum-Regular" bold
-                          align="right" color="black" >메세지: {chatLog.msg}</Text>
+                          align="right" color="black" >메세지: {chatting.msg}</Text>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -260,7 +158,7 @@ const Chat = (props) => {
 
           </Grid>
           <Grid bg="#f1d1b5" height="90%" margin="0 0 30px 0" padding="1em"
-            border_radius="7px" overflow="auto" ref={chattingUserList} >
+            border_radius="7px" overflow="auto" id="userBox" >
 
           </Grid>
         </Grid>
