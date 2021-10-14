@@ -10,9 +10,7 @@ const CommentList = (props) => {
   
   
   // comment_list가 없으면 return
-  React.useEffect(()=> {
-    dispatch(postActions.getCommentMW());
-  },[])
+  
   if (!comment) {
     return <div></div>;
   }

@@ -7,10 +7,9 @@ import { Grid, Button } from "../elements/index";
 
 import { actionCreators as postActions } from "../redux/modules/post";
 
-const PostList = (props) => {
+const PostList = (prowps) => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list.posts);
-  console.log(post_list);
   React.useEffect(() => {
     dispatch(postActions.getPostMW());
   }, []);
@@ -29,9 +28,9 @@ const PostList = (props) => {
         {post_list && post_list.map((p, idx) => {
           return (
             <Grid
-              key={p.id}
+              key={p._id}
               _onClick={() => {
-                history.replace(`/post/${p.id}`);
+                history.replace(`/post/${p._id}`);
               }}
               width="auto"
             >

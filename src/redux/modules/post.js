@@ -4,6 +4,7 @@ import { createAction, handleActions } from "redux-actions";
 import moment from "moment";
 import { history } from "../ConfigureStore";
 import { apis } from "../../shared/axios";
+import axios from "axios";
 
 // 액션
 const GET_POST = "GET_POST";
@@ -17,34 +18,29 @@ const getPost = createAction(GET_POST, (post_list) => ({
 }));
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
 
-const getComment = createAction(GET_COMMENT, (comment_list) => ({
-  comment_list,
-}));
-
 const initialState = {
   //  리듀서 데이터 초기값
   list: [],
-  comment: [],
 };
 
 // 미들웨어
 const createPostMW = (post) => {
-    return (dispatch, getState, {history}) => {
-        const insert_dt = moment().format("YYYY-MM-DD hh:mm:ss");
-        const _post = {...post, insert_dt, comment:[],}
-        apis.createPost(_post).then(res => {            
-            dispatch(createPost(_post));
-            window.alert('게시글이 작성되었습니다!');
-            history.replace("/");
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-}
+  return (dispatch, getState, { history }) => {        
+    apis
+      .createPost(post)
+      .then((res) => {
+        dispatch(createPost(post));
+        window.alert("게시글이 작성되었습니다!");
+        history.replace("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
-
-const getPostMW = () => {   // 전체페이지 조회
+const getPostMW = () => {
+  // 전체페이지 조회
   return function (dispatch) {
     apis
       .getPost()
@@ -58,16 +54,12 @@ const getPostMW = () => {   // 전체페이지 조회
   };
 };
 
-
-
-
-const getOnePostMW = () => {    // 상세페이지 조회
+const getOnePostMW = (post_id) => {    // 상세페이지 조회
   return function (dispatch) {
     apis
-      .getOnePost()
+      .getOnePost(post_id)
       .then((res) => {
         const post = res.data;
-        console.log(post);
         dispatch(getPost(post));
       })
       .catch((err) => {
@@ -76,37 +68,38 @@ const getOnePostMW = () => {    // 상세페이지 조회
   };
 };
 
-const getSearchPostMW = () => { // 검색 페이지 조회
-  return function (dispatch) {
+// const getOnePostMW = (post_id) => {
+//   return function (dispatch) {
+//     axios.get(`http://3.34.138.243/api/posts/${post_id}`).then((res) => {
+//       const post = res.data;
+//       dispatch(getPost(post));
+//     });
+//   };
+// };
+
+const getSearchPostMW = (keyword) => {
+  // 검색 페이지 조회
+  return function (dispatch, getState, { history }) {
     apis
-      .getSearchPost()
+      .getSearchPost(keyword)
       .then((res) => {
         const post_list = res.data;
         dispatch(getPost(post_list));
+        history.push("/");
       })
       .catch((err) => {
-        console.err(err);
+        console.error(err);
       });
   };
 };
 
-const addCommentMW = (comment) => { // 댓글 추가
+const addCommentMW = (comment) => {
+  // 댓글 추가
   // 댓글달기
   return function (dispatch) {
     apis.addComment(comment).then(() => {});
   };
 };
-
-const getCommentMW = () => {
-    return function (dispatch) {
-        apis.getComment().then((res)=>{
-            const comment_list = res.data;
-            dispatch(getComment(comment_list));
-        }).catch((err)=> {
-            console.error(err);
-        });
-    }
-}
 
 export default handleActions(
   //리듀서
@@ -121,9 +114,9 @@ export default handleActions(
         draft.comment = action.payload.comment_list;
       }),
 
-      [CREATE_POST]: (state, action) =>
-      produce(state, (draft)=> {
-          draft.list.unshift(action.payload.post);
+    [CREATE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.unshift(action.payload.post);
       }),
   },
   initialState
@@ -131,12 +124,10 @@ export default handleActions(
 
 const actionCreators = {
   getPost,
-  getComment,
   getPostMW,
   getOnePostMW,
   getSearchPostMW,
   addCommentMW,
-  getCommentMW,
   createPostMW,
 };
 
