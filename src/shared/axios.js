@@ -9,9 +9,11 @@ const instance = axios.create({
 });
 
 export const apis = {
-  getPost: () => instance.post("posts"),
-  creatUser: (user) => instance.post("user", user),
+  getPost: () => instance.get("posts"),
+  createUser: (user) => instance.post("user", user),
+  createLogin: (user) => instance.post("login", user),
+  checkLogin: (user) => instance.post("user", user),
   getOnePost: () => instance.get("posts"),
   getSearchPost: () => instance.get("posts?search={keyword}"),
-  addComment : (comment) => instance.post("comments",comment),
+  addComment: (comment) => instance.post("comments", comment),
 };

@@ -5,34 +5,43 @@ import { ConnectedRouter } from "connected-react-router";
 
 import { history } from "./redux/ConfigureStore";
 import { Grid } from "./elements";
+import { useDispatch } from "react-redux";
+
+import { actionCreators as userActions } from "./redux/modules/user";
 
 import PostList from "./pages/PostList";
 import PostDetail from "./pages/PostDetail";
 import Login from "./pages/Login";
-import Signup from './pages/Signup';
-import PostWrite from './pages/PostWrite';
-import Mypage from './pages/Mypage';
+import Signup from "./pages/Signup";
+import PostWrite from "./pages/PostWrite";
+import Mypage from "./pages/Mypage";
 
-import Header from './shared/Header';
-import Chat from './components/Chat';
+import Header from "./shared/Header";
+import Chat from "./components/Chat";
 
 function App() {
+  const dispatch = useDispatch();
+  const is_local = localStorage.getItem("MY_TOKEN") ? true : false;
+  React.useEffect(() => {
+    if (is_local) {
+      dispatch(userActions.loginCheckAPI());
+    }
+  }, []);
   return (
     <div className="App">
       <Grid margin="auto">
         <Header></Header>
-        <ConnectedRouter history = {history}>
-          <Route path="/" exact component={PostList}/>
-          <Route path="/post/:id" exact component={PostDetail}/>
-          <Route path="/login" exact component={Login}/>
-          <Route path="/signup" exact component={Signup}/>
-          <Route path="/write" exact component={PostWrite}/>
-          <Route path="/mypage" exact component={Mypage}/>
-          <Route path="/chat" exact component={Chat}/>
+        <ConnectedRouter history={history}>
+          <Route path="/" exact component={PostList} />
+          <Route path="/post/:id" exact component={PostDetail} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/write" exact component={PostWrite} />
+          <Route path="/mypage" exact component={Mypage} />
+          <Route path="/chat" exact component={Chat} />
         </ConnectedRouter>
       </Grid>
     </div>
-    
   );
 }
 
