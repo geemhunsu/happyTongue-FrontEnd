@@ -4,6 +4,7 @@ import { createAction, handleActions } from "redux-actions";
 import moment from "moment";
 import { history } from "../ConfigureStore";
 import { apis } from "../../shared/axios";
+import axios from "axios";
 
 // 액션
 const GET_POST = "GET_POST";
@@ -17,15 +18,11 @@ const getPost = createAction(GET_POST, (post_list) => ({
 }));
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
 
-const getComment = createAction(GET_COMMENT, (comment_list) => ({
-  comment_list,
-}));
-
 const initialState = {
   //  리듀서 데이터 초기값
   list: [],
-  comment: [],
 };
+
 
 // 미들웨어
 const createPostMW = (post) => {
@@ -58,25 +55,31 @@ const getPostMW = () => {   // 전체페이지 조회
   };
 };
 
+// const getOnePostMW = (post_id) => {    // 상세페이지 조회
+//   return function (dispatch) {
+//     apis
+//       .getOnePost()
+//       .then((res) => {
+//         const post = res.data;
+//         dispatch(getPost(post));
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//       });
+//   };
+// };
 
-
-
-const getOnePostMW = () => {    // 상세페이지 조회
+const getOnePostMW = (post_id) => {
   return function (dispatch) {
-    apis
-      .getOnePost()
-      .then((res) => {
-        const post = res.data;
-        console.log(post);
-        dispatch(getPost(post));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    axios.get(`http://3.34.138.243/api/posts/${post_id}`).then((res) => {
+      const post = res.data;
+      dispatch(getPost(post));
+    });
   };
 };
 
-const getSearchPostMW = () => { // 검색 페이지 조회
+const getSearchPostMW = () => {
+  // 검색 페이지 조회
   return function (dispatch) {
     apis
       .getSearchPost()
@@ -90,23 +93,13 @@ const getSearchPostMW = () => { // 검색 페이지 조회
   };
 };
 
-const addCommentMW = (comment) => { // 댓글 추가
+const addCommentMW = (comment) => {
+  // 댓글 추가
   // 댓글달기
   return function (dispatch) {
     apis.addComment(comment).then(() => {});
   };
 };
-
-const getCommentMW = () => {
-    return function (dispatch) {
-        apis.getComment().then((res)=>{
-            const comment_list = res.data;
-            dispatch(getComment(comment_list));
-        }).catch((err)=> {
-            console.error(err);
-        });
-    }
-}
 
 export default handleActions(
   //리듀서
@@ -131,12 +124,10 @@ export default handleActions(
 
 const actionCreators = {
   getPost,
-  getComment,
   getPostMW,
   getOnePostMW,
   getSearchPostMW,
   addCommentMW,
-  getCommentMW,
   createPostMW,
 };
 
