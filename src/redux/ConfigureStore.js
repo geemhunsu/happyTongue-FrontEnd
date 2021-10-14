@@ -1,4 +1,4 @@
-import {createStore,combineReducers, applyMiddleware, compose } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     router : connectRouter(history),   // 이거 없으면 Error: Could not find router reducer in state tree, it must be mounted under "router" 에러뜸
 });
 
-const middlewares = [thunk.withExtraArgument({ history: history })];    // history를 마들웨어에서 사용하려면 필요.
+const middlewares = [thunk.withExtraArgument({ history: history })]; // history를 마들웨어에서 사용하려면 필요.
 
 // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
 const env = process.env.NODE_ENV;

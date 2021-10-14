@@ -9,6 +9,9 @@ import AWS from "aws-sdk";
 const PostWrite = (props) => {
 
   const dispatch = useDispatch();
+  
+  const is_token = localStorage.getItem("MY_TOKEN") ? true : false;
+  const is_login = useSelector((state) => state.user.is_login);
   const preview = useSelector(state => state.image.preview);
   const previewName = useSelector(state => state.image.previewName);
   const previewType = useSelector(state => state.image.previewType);  
@@ -18,6 +21,8 @@ const PostWrite = (props) => {
   const [storeName, setStoreName] = React.useState("");
   const [storeArea, setStoreArea] = React.useState("");
   const [content, setContent] = React.useState("");
+
+  if(!is_login && is_token)
 
   AWS.config.update({
     region: "ap-northeast-2",

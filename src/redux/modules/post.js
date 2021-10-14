@@ -30,7 +30,7 @@ const createPostMW = (post) => {
       .createPost(post)
       .then((res) => {
         dispatch(createPost(post));
-        window.alert("게시글이 작성되었습니다!");
+        window.alert(res.result);
         history.replace("/");
       })
       .catch((err) => {
@@ -39,8 +39,8 @@ const createPostMW = (post) => {
   };
 };
 
+// 전체페이지 조회
 const getPostMW = () => {
-  // 전체페이지 조회
   return function (dispatch) {
     apis
       .getPost()
@@ -54,7 +54,8 @@ const getPostMW = () => {
   };
 };
 
-const getOnePostMW = (post_id) => {    // 상세페이지 조회
+// 상세페이지 조회
+const getOnePostMW = (post_id) => {
   return function (dispatch) {
     apis
       .getOnePost(post_id)
@@ -68,17 +69,8 @@ const getOnePostMW = (post_id) => {    // 상세페이지 조회
   };
 };
 
-// const getOnePostMW = (post_id) => {
-//   return function (dispatch) {
-//     axios.get(`http://3.34.138.243/api/posts/${post_id}`).then((res) => {
-//       const post = res.data;
-//       dispatch(getPost(post));
-//     });
-//   };
-// };
-
+// 검색 페이지 조회
 const getSearchPostMW = (keyword) => {
-  // 검색 페이지 조회
   return function (dispatch, getState, { history }) {
     apis
       .getSearchPost(keyword)
@@ -86,6 +78,26 @@ const getSearchPostMW = (keyword) => {
         const post_list = res.data;
         dispatch(getPost(post_list));
         history.push("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
+
+const deletePostMW = (post_id) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .deletePost(post_id)
+      .then((res) => {
+        apis
+          .getPost()
+          .then((res) => {
+            dispatch(getPost(res.data));
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((err) => {
         console.error(err);
@@ -127,6 +139,7 @@ const actionCreators = {
   getPostMW,
   getOnePostMW,
   getSearchPostMW,
+  deletePostMW,
   addCommentMW,
   createPostMW,
 };
