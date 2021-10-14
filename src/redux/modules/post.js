@@ -33,14 +33,12 @@ const initialState = {
 
 // 미들웨어
 const createPostMW = (post) => {
-  return (dispatch, getState, { history }) => {
-    const insert_dt = moment().format("YYYY-MM-DD hh:mm:ss");
-    const _post = { ...post, insert_dt, comment: [] };
+  return (dispatch, getState, { history }) => {        
     apis
-      .createPost(_post)
+      .createPost(post)
       .then((res) => {
-        dispatch(createPost(_post));
-        window.alert("게시글이 작성되었습니다!");
+        dispatch(createPost(post));
+        window.alert(res.result);
         history.replace("/");
       })
       .catch((err) => {

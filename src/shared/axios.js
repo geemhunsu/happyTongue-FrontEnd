@@ -10,8 +10,11 @@ const instance = axios.create({
   },
 });
 
+instance.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("MY_TOKEN")}`;
+
 export const apis = {
   getPost: () => instance.get("api/posts"), //전체 post 조회
+  createPost: (post) => instance.post("api/posts", post),
   createUser: (user) => instance.post("api/users/signup", user),
   createLogin: (user) => instance.post("api/users/auth", user),
   checkLogin: (user) => instance.post("user", user),
