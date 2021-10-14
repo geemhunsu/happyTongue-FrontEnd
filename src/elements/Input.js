@@ -66,7 +66,7 @@ Input.defaultProps = {
   outline: false, // 아웃라인 유무
   outlinecolor: null, // 아웃라인 색상
   onSubmit: () => { },
-  value: null,
+  value: "",
   id: null,
   name: null,
 }
