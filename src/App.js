@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 
@@ -16,22 +16,7 @@ import Mypage from './pages/Mypage';
 import Header from './shared/Header';
 import Chat from './components/Chat';
 
-import { apis } from "./shared/axios";
-
 function App() {
-  const [list, setList] = React.useState([]);
-
-  useEffect(() => {
-    apis
-      .getPost()
-      .then((res) => {
-        const post = res.data;
-        setList(post);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  },[]);
   return (
     <div className="App">
       <Grid margin="auto">
