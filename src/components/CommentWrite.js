@@ -6,17 +6,17 @@ const CommentWrite = (props) => {
     const dispatch = useDispatch();
     const [comment_text, setCommentText] = React.useState('');
     const onChange = (e) => {
-        console.log(e.target.value);
         setCommentText(e.target.value);
     }
     const write = () => {
-        dispatch(postActions.addCommentMW({comment : comment_text, user_id : "만준", insert_dt : "2020-01-01 10:00:00"}));
+        dispatch(postActions.addCommentMW({comment : comment_text, nickname : "만준"}));
+        console.log(comment_text);
         setCommentText("");
     }
     return (
       <React.Fragment>
           <Grid width ="60%" flex margin="auto" padding="16px">
-              <Input onSubmit={write} _onChange={onChange} height="20px"></Input>
+              <Input onSubmit={write} _onChange={onChange} height="20px" value = {comment_text}></Input>
               <Button _onClick={write} text="입력" width="10%"/>
           </Grid>
       </React.Fragment>  

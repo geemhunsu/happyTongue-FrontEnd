@@ -3,10 +3,9 @@ import { Grid, Text, Image } from "../elements";
 import Time from "../shared/Time";
 const Comment = (props) => {
   const { user_profile, user_id, comment, insert_dt, is_even } = props;
-  if (!insert_dt) {
+  if (!user_id) {
     return;
   }
-
   return (
     <React.Fragment>
       {/* 댓글 구분을 위해 줄 바뀔때 색 변경*/}

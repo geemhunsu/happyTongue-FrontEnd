@@ -1,10 +1,6 @@
 import produce from "immer";
-import React from "react";
 import { createAction, handleActions } from "redux-actions";
-import moment from "moment";
-import { history } from "../ConfigureStore";
 import { apis } from "../../shared/axios";
-import axios from "axios";
 
 // 액션
 const GET_POST = "GET_POST";
@@ -20,7 +16,7 @@ const addComment = createAction(ADD_COMMENT, (comment) => ({
   comment,
 }));
 
-const getComment = createAction(ADD_COMMENT, (comments) => ({
+const getComment = createAction(GET_COMMENT, (comments) => ({
   comments,
 }))
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
@@ -69,9 +65,7 @@ const getOnePostMW = (post_id) => {
       .getOnePost(post_id)
       .then((res) => {
         const post = res.data;
-        console.log(res.data);
         dispatch(getPost(post));
-        dispatch(getComment(post_id));
       })
       .catch((err) => {
         console.error(err);
@@ -97,6 +91,7 @@ const getSearchPostMW = (keyword) => {
 
 // post 삭제
 const deletePostMW = (post_id) => {
+  console.log(post_id);
   return function (dispatch, getState, { history }) {
     apis
       .deletePost(post_id)
@@ -119,7 +114,6 @@ const deletePostMW = (post_id) => {
 
 // 댓글달기
 const addCommentMW = (comment) => {
-  console.log(comment);
   return function (dispatch) {
     apis.addComment(comment).then(() => {
       dispatch(addComment(comment));
@@ -127,6 +121,14 @@ const addCommentMW = (comment) => {
   };
 };
 
+const getCommentMW = (post_id) => {
+  return function(dispatch) {
+    apis.getComment(post_id).then((res)=> {
+      console.log(res.data);
+      getComment(res.data);
+    })
+  }
+}
 export default handleActions(
   //리듀서
   {
@@ -140,7 +142,7 @@ export default handleActions(
       }),
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.comment = action.payload.comment;
+        draft.comment = action.payload.comments;
       }),
     [CREATE_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -158,6 +160,7 @@ const actionCreators = {
   deletePostMW,
   addCommentMW,
   createPostMW,
+  getCommentMW,
 };
 
 export { actionCreators };

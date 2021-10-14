@@ -17,8 +17,8 @@ const PostDetail = (props) => {
   const [is_like, setIsLike] = React.useState(false);
   const [is_favorite, setIsFavorite] = React.useState(false);
   const post = useSelector((state) => state.post.list.detail);
-  const comment = useSelector((state)=> state.post);
-  post && console.log(post);
+  const comment = useSelector((state)=> state.post.comment);
+  
   const _id = props.match.params.id;
   // const post_idx =post_list &&  post_list.findIndex((p) => p.id === _id);
   // const post = post_list[post_idx];
@@ -41,7 +41,6 @@ const PostDetail = (props) => {
     dispatch(postActions.deletePostMW(_id));
   }
   React.useEffect(() => {
-    // console.log("aaaa");
     dispatch(postActions.getOnePostMW(_id));
   }, []);
 
@@ -76,7 +75,7 @@ const PostDetail = (props) => {
             </Grid>
             <Grid flex>
               <Button text="수정하기" /> {/*수정 버튼*/}
-              <Button text="삭제하기" onClick={deletePost} /> {/*삭제 버튼*/}
+              <Button text="삭제하기" _onClick={deletePost} /> {/*삭제 버튼*/}
             </Grid>
           </Grid>
           <Grid flex="space-between" margin="auto" width="60%">

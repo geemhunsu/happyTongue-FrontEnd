@@ -7,6 +7,8 @@ const instance = axios.create({
     "content-type": "application/json;charset=UTF-8",
     Accept: "application/json",
     "Access-Control-Allow-Origin": "*",
+    timeout : 1000
+    
   },
 });
 
@@ -22,5 +24,6 @@ export const apis = {
   deletePost : (post_id) => instance.delete(`api/posts/${post_id}`), // post 삭제
   editPost: (post_id, content) => instance.post(`/posts/:${post_id}`, content),
   getSearchPost: (keyword) => instance.get(`api/posts/search/${keyword}`), //검색 조회
-  addComment: (post_id,comment) => instance.post(`api/posts/${post_id}/comments`, comment) //댓글달기
+  addComment: (post_id,comment) => instance.post(`api/posts/${post_id}/comments`, comment), //댓글달기
+  getComment : (post_id) => instance.get(`api/posts/${post_id}/comments`), //댓글 조회
 };
