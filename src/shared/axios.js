@@ -7,6 +7,7 @@ const instance = axios.create({
     "content-type": "application/json;charset=UTF-8",
     Accept: "application/json",
     "Access-Control-Allow-Origin": "*",
+    timeout: 1000,
   },
 });
 
@@ -27,4 +28,5 @@ export const apis = {
   getSearchPost: (keyword) => instance.get(`api/posts/search/${keyword}`), //검색 조회
   addComment: (post_id, comment) =>
     instance.post(`api/posts/${post_id}/comments`, comment), //댓글달기
+  getComment: (post_id) => instance.get(`api/posts/${post_id}/comments`), //댓글 조회
 };
