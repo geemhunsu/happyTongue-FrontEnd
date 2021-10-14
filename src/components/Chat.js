@@ -12,8 +12,9 @@ const Chat = (props) => {
   
   const [chatLog, setChatLog] = React.useState([]);
   const [chat, setChat] = React.useState([]);
+  const [userList, setUserList] = React.useState([]);
   
-  const socket = io.connect('http://localhost:3000');
+  const socket = io('http://localhost:3000');
   socket.on("chatLog", (chatLog) => {
     setChatLog([...chatLog, {chatLog}]);
   })
@@ -24,8 +25,11 @@ const Chat = (props) => {
       setChat([...chat, {nickname, message, date}]);
     })
 
+    socket.on("currentOn", (data) => {
+      setUserList([...userList, data]);
+    })
     return () => socket.disconnect();
-  }, [chat]);
+  }, [chat], [userList]);
 
   const sendMessage = () => {
     console.log(state)
@@ -61,7 +65,8 @@ const Chat = (props) => {
               <Grid bg="white" border_radius="20px" height="auto" width="85%">
                 <Text margin="5px" family="GowunDodum-Regular" bold>메세지</Text>
               </Grid>
-                <Text margin="0" padding="15px 0 0 0" family="GowunDodum-Regular" size=".8em">시 분 전</Text>
+                <Text margin="0" padding="15px 0 0 0" 
+                family="GowunDodum-Regular" size=".8em">시 분 전</Text>
             </Grid>
           </Grid>
         </Grid>
@@ -76,7 +81,8 @@ const Chat = (props) => {
               _onChange={(e)=>{
                 setState({...state, message: e.target.value});
               }} onSubmit={sendMessage} border="none" value={state.message} />
-              <Button text="전송" padding="50px 0" border="1px solid black" _onClick={sendMessage}></Button>
+              <Button text="전송" padding="50px 0" border="1px solid black" 
+              _onClick={sendMessage}></Button>
             </Grid>
           </Grid>
         </Grid>
