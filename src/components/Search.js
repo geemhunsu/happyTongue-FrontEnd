@@ -9,13 +9,19 @@ const Search = (props) => {
   const [search_text, setSearchText] = React.useState("");
   const onChange = (e) => {
     setSearchText(e.target.value);
-  }
+  };
   const write = () => {
     dispatch(postActions.getSearchPostMW(search_text));
-  }
+  };
   return (
     <Grid flex width="80%" margin="auto" padding="16px">
-      <Input padding="15px" placeholder="검색어를 입력해주세요." _onChange={onChange} value={search_text} onSubmit={write}/>
+      <Input
+        padding="15px"
+        placeholder="검색어를 입력해주세요."
+        _onChange={onChange}
+        value={search_text}
+        onSubmit={write}
+      />
       <Button
         padding="15px"
         width="20%"

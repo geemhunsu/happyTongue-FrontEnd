@@ -25,19 +25,20 @@ const PostList = (prowps) => {
         flex="flex-evenly"
         flex_wrap="wrap"
       >
-        {post_list && post_list.map((p, idx) => {
-          return (
-            <Grid
-              key={p._id}
-              _onClick={() => {
-                history.replace(`/post/${p._id}`);
-              }}
-              width="auto"
-            >
-              <Post {...p} />
-            </Grid>
-          );
-        })}
+        {post_list &&
+          post_list.map((p, idx) => {
+            return (
+              <Grid
+                key={p._id}
+                _onClick={() => {
+                  history.replace(`/post/${p._id}`);
+                }}
+                width="auto"
+              >
+                <Post {...p} />
+              </Grid>
+            );
+          })}
       </Grid>
     </React.Fragment>
   );
