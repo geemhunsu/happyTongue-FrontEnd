@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/axios";
-import axios from "axios";
 
 // 액션
 const SET_USER = "SET_USER"; //로그인
@@ -52,25 +51,22 @@ const loginAPI = (id, pwd) => {
         password: pwd,
       })
       .then((res) => {
-        const nickname = res.nickname;
         const token = res.data.token;
         console.log("로그인 res ", res);
         //토큰을 로컬 스토리지에 저장
         localStorage.setItem("MY_TOKEN", token);
-        dispatch(
-          setUser({
-            id: id,
-            nickname: "임시닉네임",
-          })
-        );
-
-        //토큰을 헤더 기본값으로 설정
-        axios.defaults.headers.common[
-          "authorization"
-        ] = `bearer ${res.data.token}`;
+        apis.getUserInfo().then((res) => {
+          console.log("getusersinfo: ", res);
+          dispatch(
+            setUser({
+              id: id,
+              nickname: res.data.user.nickname,
+            })
+          );
+        });
 
         //메인 화면으로 이동
-        history.push("/");
+        history.replace("/");
         console.log("로그인 성공");
         console.log(localStorage.getItem("My_INFO"));
         window.alert("로그인 성공");
@@ -86,7 +82,15 @@ const loginAPI = (id, pwd) => {
 const loginCheckAPI = () => {
   return function (dispatch, getState, { history }) {
     const _token = localStorage.getItem("MY_TOKEN");
-    axios.defaults.headers.common["authorization"] = `bearer ${_token}`;
+    apis.getUserInfo().then((res) => {
+      console.log("헤더에 토큰있으면 불러오는 데이터: ", res);
+      dispatch(
+        setUser({
+          id: res.data.user.email,
+          nickname: res.data.user.nickname,
+        })
+      );
+    });
   };
 };
 
