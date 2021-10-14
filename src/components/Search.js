@@ -1,12 +1,17 @@
 import React from "react";
+import { actionCreators as postActions } from "../redux/modules/post";
+
 import { Grid, Button, Input } from "../elements/index";
+import { useDispatch } from "react-redux";
+
 const Search = (props) => {
-  const [search_text, setSearchText] = React.useState();
+  const dispatch = useDispatch();
+  const [search_text, setSearchText] = React.useState("");
   const onChange = (e) => {
     setSearchText(e.target.value);
   }
   const write = () => {
-    
+    dispatch(postActions.getSearchPostMW(search_text));
   }
   return (
     <Grid flex width="80%" margin="auto" padding="16px">
@@ -18,6 +23,7 @@ const Search = (props) => {
         btn_color="#FF9696"
         color="#FEFFBD"
         border="none"
+        _onClick={write}
       />
     </Grid>
   );

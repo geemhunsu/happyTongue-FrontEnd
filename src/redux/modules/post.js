@@ -23,25 +23,26 @@ const initialState = {
   list: [],
 };
 
-
 // 미들웨어
 const createPostMW = (post) => {
-    return (dispatch, getState, {history}) => {
-        const insert_dt = moment().format("YYYY-MM-DD hh:mm:ss");
-        const _post = {...post, insert_dt, comment:[],}
-        apis.createPost(_post).then(res => {            
-            dispatch(createPost(_post));
-            window.alert('게시글이 작성되었습니다!');
-            history.replace("/");
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-}
+  return (dispatch, getState, { history }) => {
+    const insert_dt = moment().format("YYYY-MM-DD hh:mm:ss");
+    const _post = { ...post, insert_dt, comment: [] };
+    apis
+      .createPost(_post)
+      .then((res) => {
+        dispatch(createPost(_post));
+        window.alert("게시글이 작성되었습니다!");
+        history.replace("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
-
-const getPostMW = () => {   // 전체페이지 조회
+const getPostMW = () => {
+  // 전체페이지 조회
   return function (dispatch) {
     apis
       .getPost()
@@ -55,40 +56,41 @@ const getPostMW = () => {   // 전체페이지 조회
   };
 };
 
-// const getOnePostMW = (post_id) => {    // 상세페이지 조회
-//   return function (dispatch) {
-//     apis
-//       .getOnePost()
-//       .then((res) => {
-//         const post = res.data;
-//         dispatch(getPost(post));
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//       });
-//   };
-// };
-
-const getOnePostMW = (post_id) => {
+const getOnePostMW = (post_id) => {    // 상세페이지 조회
   return function (dispatch) {
-    axios.get(`http://3.34.138.243/api/posts/${post_id}`).then((res) => {
-      const post = res.data;
-      dispatch(getPost(post));
-    });
+    apis
+      .getOnePost(post_id)
+      .then((res) => {
+        const post = res.data;
+        dispatch(getPost(post));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 };
 
-const getSearchPostMW = () => {
+// const getOnePostMW = (post_id) => {
+//   return function (dispatch) {
+//     axios.get(`http://3.34.138.243/api/posts/${post_id}`).then((res) => {
+//       const post = res.data;
+//       dispatch(getPost(post));
+//     });
+//   };
+// };
+
+const getSearchPostMW = (keyword) => {
   // 검색 페이지 조회
-  return function (dispatch) {
+  return function (dispatch, getState, { history }) {
     apis
-      .getSearchPost()
+      .getSearchPost(keyword)
       .then((res) => {
         const post_list = res.data;
         dispatch(getPost(post_list));
+        history.push("/");
       })
       .catch((err) => {
-        console.err(err);
+        console.error(err);
       });
   };
 };
@@ -114,9 +116,9 @@ export default handleActions(
         draft.comment = action.payload.comment_list;
       }),
 
-      [CREATE_POST]: (state, action) =>
-      produce(state, (draft)=> {
-          draft.list.unshift(action.payload.post);
+    [CREATE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.unshift(action.payload.post);
       }),
   },
   initialState
