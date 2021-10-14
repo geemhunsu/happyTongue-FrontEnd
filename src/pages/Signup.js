@@ -51,6 +51,7 @@ const Signup = (props) => {
         >
           <Input
             _onChange={changeId}
+            value={id}
             family="GowunDodum-Regular"
             outlinecolor="#EB5463"
             padding="0px 10px"
@@ -63,6 +64,7 @@ const Signup = (props) => {
           ></Input>
           <Input
             _onChange={changeName}
+            value={name}
             family="GowunDodum-Regular"
             outlinecolor="#EB5463"
             padding="0px 10px"
@@ -75,6 +77,7 @@ const Signup = (props) => {
           ></Input>
           <Input
             _onChange={changePwd}
+            value={pwd}
             family="GowunDodum-Regular"
             outlinecolor="#EB5463"
             padding="0px 10px"
@@ -88,6 +91,7 @@ const Signup = (props) => {
           ></Input>
           <Input
             _onChange={changePwdConfirm}
+            value={pwd_confirm}
             family="GowunDodum-Regular"
             outlinecolor="#EB5463"
             padding="0px 10px"
