@@ -1,14 +1,22 @@
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { Grid } from "../elements/index";
 import Comment from "../components/Comment";
+import { actionCreators as postActions } from "../redux/modules/post";
 const CommentList = (props) => {
-  let comment = props.comment;
-  console.log(comment);
+  const dispatch = useDispatch();
+  const comment= useSelector(state=>state.post.comment);
+  // let comment = props.comment;
+  
+  
   // comment_list가 없으면 return
-  if (!comment_list) {
-    return;
+  React.useEffect(()=> {
+    dispatch(postActions.getCommentMW());
+  },[])
+  if (!comment) {
+    return <div></div>;
   }
-
+  
   // comment_list 길이만큼 반복
   return (
     <Grid width="60%" margin="auto" padding="16px">
@@ -23,5 +31,4 @@ const CommentList = (props) => {
     </Grid>
   );
 };
-const comment_list = [1, 2, 3];
 export default CommentList;
