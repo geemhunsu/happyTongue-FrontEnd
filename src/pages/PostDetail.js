@@ -17,13 +17,12 @@ const PostDetail = (props) => {
   const [is_like, setIsLike] = React.useState(false);
   const [is_favorite, setIsFavorite] = React.useState(false);
 
-  const post_list = useSelector((state) => state.post.list);
-  const comment = useSelector((state) => state.post.comment);
+  const post = useSelector((state) => state.post.list.detail);
+  const comment =post && post.comment_id;
   const _id = props.match.params.id;
-  const post_idx = post_list.findIndex((p) => p.id === _id);
-  const post = post_list[post_idx];
+  // const post_idx =post_list &&  post_list.findIndex((p) => p.id === _id);
+  // const post = post_list[post_idx];
   
-  console.log(post_list);
   const like = () => {
     if (is_like) {
       setIsLike(false);
@@ -40,10 +39,12 @@ const PostDetail = (props) => {
   };
   React.useEffect(() => {
     // console.log("aaaa");
-    dispatch(postActions.getOnePostMW());
+    dispatch(postActions.getOnePostMW(_id));
   }, []);
 
-  if (post) {
+  if(!post) {
+    return <div></div>
+  }
     return (
       <React.Fragment>
         <Grid>
@@ -100,9 +101,7 @@ const PostDetail = (props) => {
         </Grid>
       </React.Fragment>
     );
-  } else {
-    return <div></div>;
-  }
+
 };
 // PostDetail.defaultProps = {
 //   title: "타이틀",
