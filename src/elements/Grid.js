@@ -19,6 +19,7 @@ const Grid = (props) => {
     flex_wrap,
     overflow,
     border_bottom,
+    ref,
   } = props;
   const styles = {
     // props 중에서 스타일 부분만 따로 묶음
@@ -36,11 +37,12 @@ const Grid = (props) => {
     flex_wrap,
     overflow,
     border_bottom,
+    ref,
   };
 
   return (
     <React.Fragment>
-      <GridBox {...styles} onClick={_onClick}>
+      <GridBox {...styles} ref={ref} onClick={_onClick}>
         {children}
       </GridBox>
     </React.Fragment>
