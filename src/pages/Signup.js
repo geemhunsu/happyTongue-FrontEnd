@@ -16,20 +16,20 @@ const Signup = (props) => {
     console.log(id);
   };
   const changeName = (e) => {
-    setId(e.target.value);
+    setName(e.target.value);
     console.log(name);
   };
   const changePwd = (e) => {
-    setId(e.target.value);
+    setPwd(e.target.value);
     console.log(pwd);
   };
   const changePwdConfirm = (e) => {
-    setId(e.target.value);
+    setPwdConfirm(e.target.value);
     console.log(pwd_confirm);
   };
   const signUp = () => {
     console.log("값넘어감.");
-    dispatch(userActions.signupFB(id, name, pwd, pwd_confirm));
+    dispatch(userActions.signupAPI(id, name, pwd, pwd_confirm));
   };
   return (
     <React.Fragment>
