@@ -10,6 +10,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { yellow, red } from "@mui/material/colors";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();
@@ -17,9 +18,10 @@ const PostDetail = (props) => {
   const [is_like, setIsLike] = React.useState(false);
   const [is_favorite, setIsFavorite] = React.useState(false);
   const post = useSelector((state) => state.post.list.detail);
-  const comment = useSelector((state)=> state.post.comment);
-  
+  const comment = useSelector((state)=> state.comment.list);
   const _id = props.match.params.id;
+  console.log(comment);
+
   // const post_idx =post_list &&  post_list.findIndex((p) => p.id === _id);
   // const post = post_list[post_idx];
   
@@ -42,6 +44,7 @@ const PostDetail = (props) => {
   }
   React.useEffect(() => {
     dispatch(postActions.getOnePostMW(_id));
+    dispatch(commentActions.getCommentMW(_id));
   }, []);
 
   if(!post) {
@@ -60,7 +63,7 @@ const PostDetail = (props) => {
               margin="auto"
               width="60%"
               height="400px"
-              src={post.imgUrl}
+              src={post.imgUrl? post.imgUrl : ""}
             />
           </Grid>
           <Grid margin="auto" width="60%" padding="16px">
