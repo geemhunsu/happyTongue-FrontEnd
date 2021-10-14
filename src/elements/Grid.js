@@ -19,6 +19,7 @@ const Grid = (props) => {
         flex_item,
         flex_wrap,
         overflow,
+        ref,
     } = props;
     const styles = { // props 중에서 스타일 부분만 따로 묶음
         margin, 
@@ -38,7 +39,9 @@ const Grid = (props) => {
     
     return (
         <React.Fragment>
-            <GridBox {...styles} onClick={_onClick}>{children}</GridBox>
+            <GridBox {...styles} onClick={_onClick} ref={ref} >
+                {children}
+            </GridBox>
         </React.Fragment>
     );
 };
@@ -59,6 +62,7 @@ Grid.defaultProps = {
     flex_item : null,
     flex_wrap: null,
     overflow: null,
+    ref: null,    
 }
 
 // flex의 경우 justify-content의 값만 바꾸는 것으로

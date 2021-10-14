@@ -9,7 +9,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-  const post_list = useSelector((state) => state.post.list);
+  const post_list = useSelector((state) => state.post.list.posts);
   console.log(post_list);
   React.useEffect(() => {
     dispatch(postActions.getPostMW());
@@ -26,7 +26,7 @@ const PostList = (props) => {
         flex="flex-evenly"
         flex_wrap="wrap"
       >
-        {post_list.map((p, idx) => {
+        {post_list && post_list.map((p, idx) => {
           return (
             <Grid
               key={p.id}
