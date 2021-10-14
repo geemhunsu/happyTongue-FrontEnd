@@ -16,12 +16,6 @@ const Header = (props) => {
   if (is_login && is_token) {
     return (
       <React.Fragment>
-        {/* <Grid
-        padding="1em"
-        flex="space-between"
-        width="100%"
-        bg="rgba(254, 255, 189, 0.34)"
-      > */}
         <Grid
           margin="0px 0px 40px 0px"
           height="130px"
@@ -29,7 +23,13 @@ const Header = (props) => {
           border_bottom="1px solid lightgray"
         >
           <Grid width="80%" margin="auto" padding="20px" flex="space-between">
-            <Grid width="auto" flex="center" _onClick={history.push("/")}>
+            <Grid
+              width="auto"
+              flex="center"
+              _onClick={() => {
+                history.push("/");
+              }}
+            >
               <img
                 src={Logo}
                 style={{
@@ -47,13 +47,11 @@ const Header = (props) => {
                   text="내 정보"
                   height="40px"
                   padding="0px"
-                  // font_color="#FEFFBD"
                   font_color="#fff"
                   btn_color="#FF9696"
                   border="none"
                   margin="0 10px 0 0"
                   border_radius="4px"
-                  // family="GowunDodum-Regular"
                   bold="bold"
                 ></Button>
                 <Button
@@ -67,7 +65,6 @@ const Header = (props) => {
                   btn_color="#FF9696"
                   border="none"
                   border_radius="4px"
-                  // family="GowunDodum-Regular"
                   bold="bold"
                 ></Button>
               </Grid>
@@ -87,14 +84,20 @@ const Header = (props) => {
           border_bottom="1px solid lightgray"
         >
           <Grid width="80%" margin="auto" padding="20px" flex="space-between">
-            <ElA>
+            <Grid
+              width="auto"
+              flex="center"
+              _onClick={() => {
+                history.push("/");
+              }}
+            >
               <img
                 src={Logo}
                 style={{
                   width: "60px",
                 }}
               />
-            </ElA>
+            </Grid>
             <Grid width="25%">
               {/* 로그인 전 헤더 시작*/}
               <Grid flex>
@@ -105,13 +108,11 @@ const Header = (props) => {
                   text="로그인"
                   height="40px"
                   padding="0px"
-                  // font_color="#FEFFBD"
                   font_color="#fff"
                   btn_color="#FF9696"
                   border="none"
                   margin="0 10px 0 0"
                   border_radius="4px"
-                  // family="GowunDodum-Regular"
                   bold
                 ></Button>
                 <Button
@@ -121,12 +122,10 @@ const Header = (props) => {
                   text="회원가입"
                   height="40px"
                   padding="0px"
-                  // font_color="#FEFFBD"
                   font_color="#fff"
                   btn_color="#FF9696"
                   border="none"
                   border_radius="4px"
-                  // family="GowunDodum-Regular"
                   bold
                 ></Button>
               </Grid>
