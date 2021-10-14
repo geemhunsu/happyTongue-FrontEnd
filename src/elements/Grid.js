@@ -17,7 +17,8 @@ const Grid = (props) => {
         flex_direction,
         border_radius,
         flex_item,
-        flex_wrap
+        flex_wrap,
+        overflow,
     } = props;
     const styles = { // props 중에서 스타일 부분만 따로 묶음
         margin, 
@@ -31,7 +32,8 @@ const Grid = (props) => {
         flex_direction,
         border_radius,
         flex_item,
-        flex_wrap
+        flex_wrap,
+        overflow,
     }
     
     return (
@@ -56,6 +58,7 @@ Grid.defaultProps = {
     _onClick: () => {},
     flex_item : null,
     flex_wrap: null,
+    overflow: null,
 }
 
 // flex의 경우 justify-content의 값만 바꾸는 것으로
@@ -73,6 +76,19 @@ const GridBox = styled.div`
     box-sizing: border-box;
     border: ${props => props.border};
     border-radius: ${props => props.border_radius};
-    flex-wrap : ${props=>props.flex_wrap};
+    flex-wrap : ${props => props.flex_wrap};
+    overflow: ${props => props.overflow};
+
+    ::-webkit-scrollbar {
+        width:5px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #2f3542;
+        border-radius: 15px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: grey;
+        border-radius: 15px;        
+    }
 `;
 export default Grid;

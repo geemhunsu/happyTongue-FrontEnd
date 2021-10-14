@@ -1,25 +1,29 @@
 import React from 'react';
 import Upload from '../components/Upload';
 import { Grid, Image, Text, Button, Input, SelectBox } from '../elements';
+import { useDispatch } from 'react-redux';
 
-const PostWrite = (props) => {
-    const [res_name, setResName] = React.useState("");
-    const [local_name, setLocalName] = React.useState("");
-    const [contents, setContents] = React.useState("");
+import { actionCreators as postActions } from '../redux/modules/post';
 
-    const add = () => {
-        console.log(res_name);
-        console.log(local_name);
-        console.log(contents);
+const PostWrite = (props) => {    
+
+    const dispatch = useDispatch();
+
+    const [title, setTitle] = React.useState("");
+    const [storeName, setStoreName] = React.useState("");
+    const [storeArea, setStoreArea] = React.useState("");
+    const [content, setContent] = React.useState("");
+
+    const addPost = () => {        
+        dispatch(postActions.createPostMW({
+            src:"https://mp-seoul-image-production-s3.mangoplate.com/2022803_1628401967909724.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80",
+            title,
+            storeName,
+            storeArea,
+            content,                        
+    }))     
     }
 
-    // const dic = {
-    //     title,
-    //     content,        
-    //     imgUrl: "imgUrl",
-    //     storeName: "storeName",
-    //     storeArea: "storeArea",
-    // }
     return (
         <React.Fragment>
             <Grid width="60%" padding="0 0 50px 0" margin="0 auto" flex_direction="column" flex>
@@ -28,18 +32,26 @@ const PostWrite = (props) => {
                 width="50%" height="500px" is_center margin="0 0 20px 0" />
                 <Upload/>
                 <Grid width="60%" margin="50px 0 0 0">
+
+                    <Grid flex="space-between">
+                        <Text family="GowunDodum-Regular" bold>제목 :</Text>
+                        <Input width="50%" padding="5px 1em" 
+                        border="2px solid #F18C8E" radius="7px" _onChange={(e)=>{
+                            setTitle(e.target.value);
+                        }} value={title}/>
+                    </Grid>
                     <Grid flex="space-between">
                         <Text family="GowunDodum-Regular" bold>가게 이름 :</Text>
                         <Input width="50%" padding="5px 1em" 
                         border="2px solid #F18C8E" radius="7px" _onChange={(e)=>{
-                            setResName(e.target.value);
-                        }}/>
+                            setStoreName(e.target.value);
+                        }} value={storeName}/>
                     </Grid>
                     <Grid flex="space-between" width="100%"  margin="0 0 40px ">
                         <Text family="GowunDodum-Regular" bold>지역 :</Text>
                         <SelectBox padding="10px 1em" width="150px" _onChange={(e)=>{
-                            setLocalName(e.target.value);                            
-                        }}>
+                            setStoreArea(e.target.value);                            
+                        }} value={storeArea} >
                             <option selected>지역 선택</option>
                             <option value="서울">서울</option>
                             <option value="경기">경기</option>
@@ -54,10 +66,10 @@ const PostWrite = (props) => {
                     <Text family="GowunDodum-Regular" bold margin="0 0 10px 0">후기 작성</Text>
                     <Input multline height="200px" margin="0 0 50px 0"
                     border="2px solid #F18C8E" radius="7px" _onChange={(e) => {
-                        setContents(e.target.value);
-                    }}/>
+                        setContent(e.target.value);
+                    }} onSubmit={addPost} value={content}/>
                     <Button text="작성하기" width="100%" padding="10px"
-                    border="none" border_radius="7px" _onClick={add}></Button>
+                    border="none" border_radius="7px" _onClick={addPost}></Button>
                 </Grid>
             </Grid>
         </React.Fragment>

@@ -4,7 +4,10 @@ import { createAction, handleActions } from "redux-actions";
 import moment from "moment";
 import { history } from "../ConfigureStore";
 import { apis } from "../../shared/axios";
+
+// 액션
 const GET_POST = "GET_POST";
+const CREATE_POST = "CREATE_POST";
 const ADD_COMMENT = "ADD_COMMENT";
 const GET_COMMENT = "GET_COMMENT";
 
@@ -12,6 +15,7 @@ const GET_COMMENT = "GET_COMMENT";
 const getPost = createAction(GET_POST, (post_list) => ({
   post_list,
 }));
+const createPost = createAction(CREATE_POST, (post) => ({ post }));
 
 const getComment = createAction(GET_COMMENT, (comment_list) => ({
   comment_list,
@@ -22,6 +26,23 @@ const initialState = {
   list: [],
   comment: [],
 };
+
+// 미들웨어
+const createPostMW = (post) => {
+    return (dispatch, getState, {history}) => {
+        const insert_dt = moment().format("YYYY-MM-DD hh:mm:ss");
+        const _post = {...post, insert_dt, comment:[],}
+        apis.createPost(_post).then(res => {            
+            dispatch(createPost(_post));
+            window.alert('게시글이 작성되었습니다!');
+            history.replace("/");
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+}
+
 
 const getPostMW = () => {   // 전체페이지 조회
   return function (dispatch) {
@@ -86,6 +107,7 @@ const getCommentMW = () => {
         });
     }
 }
+
 export default handleActions(
   //리듀서
   {
@@ -93,9 +115,15 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list = action.payload.post_list;
       }),
+
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.comment = action.payload.comment_list;
+      }),
+
+      [CREATE_POST]: (state, action) =>
+      produce(state, (draft)=> {
+          draft.list.unshift(action.payload.post);
       }),
   },
   initialState
@@ -109,6 +137,7 @@ const actionCreators = {
   getSearchPostMW,
   addCommentMW,
   getCommentMW,
+  createPostMW,
 };
 
 export { actionCreators };
