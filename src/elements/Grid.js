@@ -17,6 +17,7 @@ const Grid = (props) => {
     border_radius,
     flex_item,
     flex_wrap,
+    overflow,
     border_bottom,
   } = props;
   const styles = {
@@ -33,6 +34,7 @@ const Grid = (props) => {
     border_radius,
     flex_item,
     flex_wrap,
+    overflow,
     border_bottom,
   };
 
@@ -60,6 +62,7 @@ Grid.defaultProps = {
   _onClick: () => {},
   flex_item: null,
   flex_wrap: null,
+  overflow: null,
   border_bottom: null,
 };
 
@@ -81,5 +84,18 @@ const GridBox = styled.div`
   border-radius: ${(props) => props.border_radius};
   flex-wrap: ${(props) => props.flex_wrap};
   border-bottom: ${(props) => props.border_bottom};
+  overflow: ${(props) => props.overflow};
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 15px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 15px;
+  }
 `;
 export default Grid;

@@ -17,11 +17,12 @@ const PostDetail = (props) => {
   const [is_like, setIsLike] = React.useState(false);
   const [is_favorite, setIsFavorite] = React.useState(false);
 
-  const post_list = useSelector((state) => state.post.list);
+  const post = useSelector((state) => state.post.list.detail);
+  const comment =post && post.comment_id;
   const _id = props.match.params.id;
-  const post_idx = post_list.findIndex((p) => p.id === _id);
-  const post = post_list[post_idx];
-  console.log(post_list);
+  // const post_idx =post_list &&  post_list.findIndex((p) => p.id === _id);
+  // const post = post_list[post_idx];
+  
   const like = () => {
     if (is_like) {
       setIsLike(false);
@@ -38,10 +39,12 @@ const PostDetail = (props) => {
   };
   React.useEffect(() => {
     // console.log("aaaa");
-    dispatch(postActions.getOnePostMW());
+    dispatch(postActions.getOnePostMW(_id));
   }, []);
 
-  if (post) {
+  if(!post) {
+    return <div></div>
+  }
     return (
       <React.Fragment>
         <Grid>
@@ -75,10 +78,10 @@ const PostDetail = (props) => {
           </Grid>
           <Grid flex="space-between" margin="auto" width="60%">
             <Grid>
-              <Text>댓글: {post.comment.length}개</Text> {/*댓글갯수*/}
+              <Text>댓글: {comment.length}개</Text> {/*댓글갯수*/}
             </Grid>
             <Grid width="10%">
-              {is_like === true ? ( // 하트
+              {is_like === true ? ( // 하트 
                 <FavoriteIcon sx={{ color: red[500] }} onClick={like} />
               ) : (
                 <FavoriteBorderIcon sx={{ color: red[500] }} onClick={like} />
@@ -93,14 +96,12 @@ const PostDetail = (props) => {
               )}
             </Grid>
           </Grid>
-          <CommentWrite /> {/*댓글 입력 component*/}
-          <CommentList comment={post.comment} /> {/*댓글 리스트 component*/}
+          <CommentWrite post_id={_id}/> {/*댓글 입력 component*/}
+          <CommentList post_id={_id}/> {/*댓글 리스트 component*/}
         </Grid>
       </React.Fragment>
     );
-  } else {
-    return <div></div>;
-  }
+
 };
 // PostDetail.defaultProps = {
 //   title: "타이틀",
