@@ -5,31 +5,24 @@ import { apis } from "../../shared/axios";
 // 액션
 const GET_POST = "GET_POST";
 const CREATE_POST = "CREATE_POST";
-const ADD_COMMENT = "ADD_COMMENT";
-const GET_COMMENT = "GET_COMMENT";
+
 
 // 액션 생성
 const getPost = createAction(GET_POST, (post_list) => ({
   post_list,
 }));
-const addComment = createAction(ADD_COMMENT, (comment) => ({
-  comment,
-}));
 
-const getComment = createAction(GET_COMMENT, (comments) => ({
-  comments,
-}))
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
 
 const initialState = {
   //  리듀서 데이터 초기값
   list: [],
-  comment:[],
 };
 
 // 미들웨어
 const createPostMW = (post) => {
-  return (dispatch, getState, { history }) => {        
+  console.log(post);
+  return (dispatch, getState, { history }) => {
     apis
       .createPost(post)
       .then((res) => {
@@ -112,37 +105,14 @@ const deletePostMW = (post_id) => {
   };
 };
 
-// 댓글달기
-const addCommentMW = (comment) => {
-  return function (dispatch) {
-    apis.addComment(comment).then(() => {
-      dispatch(addComment(comment));
-    });
-  };
-};
 
-const getCommentMW = (post_id) => {
-  return function(dispatch) {
-    apis.getComment(post_id).then((res)=> {
-      console.log(res.data);
-      getComment(res.data);
-    })
-  }
-}
+
 export default handleActions(
   //리듀서
   {
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.post_list;
-      }),
-    [ADD_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.comment.unshift(action.payload.comment);
-      }),
-    [GET_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.comment = action.payload.comments;
       }),
     [CREATE_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -158,9 +128,8 @@ const actionCreators = {
   getOnePostMW,
   getSearchPostMW,
   deletePostMW,
-  addCommentMW,
+  
   createPostMW,
-  getCommentMW,
 };
 
 export { actionCreators };
