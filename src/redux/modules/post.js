@@ -1,21 +1,17 @@
 import produce from "immer";
-import React from "react";
 import { createAction, handleActions } from "redux-actions";
-import moment from "moment";
-import { history } from "../ConfigureStore";
 import { apis } from "../../shared/axios";
-import axios from "axios";
 
 // 액션
 const GET_POST = "GET_POST";
 const CREATE_POST = "CREATE_POST";
-const ADD_COMMENT = "ADD_COMMENT";
-const GET_COMMENT = "GET_COMMENT";
+
 
 // 액션 생성
 const getPost = createAction(GET_POST, (post_list) => ({
   post_list,
 }));
+
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
 
 const initialState = {
@@ -25,7 +21,8 @@ const initialState = {
 
 // 미들웨어
 const createPostMW = (post) => {
-  return (dispatch, getState, { history }) => {        
+  console.log(post);
+  return (dispatch, getState, { history }) => {
     apis
       .createPost(post)
       .then((res) => {
@@ -85,7 +82,9 @@ const getSearchPostMW = (keyword) => {
   };
 };
 
+// post 삭제
 const deletePostMW = (post_id) => {
+  console.log(post_id);
   return function (dispatch, getState, { history }) {
     apis
       .deletePost(post_id)
@@ -94,6 +93,7 @@ const deletePostMW = (post_id) => {
           .getPost()
           .then((res) => {
             dispatch(getPost(res.data));
+            history.push("/");
           })
           .catch((err) => {
             console.error(err);
@@ -105,13 +105,7 @@ const deletePostMW = (post_id) => {
   };
 };
 
-const addCommentMW = (comment) => {
-  // 댓글 추가
-  // 댓글달기
-  return function (dispatch) {
-    apis.addComment(comment).then(() => {});
-  };
-};
+
 
 export default handleActions(
   //리듀서
@@ -120,12 +114,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list = action.payload.post_list;
       }),
-
-    [GET_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.comment = action.payload.comment_list;
-      }),
-
     [CREATE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post);
@@ -140,7 +128,7 @@ const actionCreators = {
   getOnePostMW,
   getSearchPostMW,
   deletePostMW,
-  addCommentMW,
+  
   createPostMW,
 };
 
