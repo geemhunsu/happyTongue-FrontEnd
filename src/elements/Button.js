@@ -110,6 +110,11 @@ const ElButton = styled.button`
   transition: ${(props) => props.transition};
 
   :hover {
+<<<<<<< HEAD
+    background-color: ${props => props.hover};
+    cursor: pointer;
+=======
+>>>>>>> 5b83505a17490ad8aa247ea7815ea7deb59e9dcf
   }
 `;
 
