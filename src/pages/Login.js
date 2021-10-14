@@ -20,7 +20,6 @@ const Login = (props) => {
   };
   const login = () => {
     dispatch(userActions.loginAPI(id, pwd));
-    // dispatch(userActions.loginCheckAPI());
   };
 
   return (
@@ -43,6 +42,7 @@ const Login = (props) => {
         >
           <Input
             _onChange={changeId}
+            value={id}
             family="GowunDodum-Regular"
             outlinecolor="#EB5463"
             padding="0px 10px"
@@ -55,6 +55,7 @@ const Login = (props) => {
           ></Input>
           <Input
             _onChange={changePwd}
+            value={pwd}
             family="GowunDodum-Regular"
             outlinecolor="#EB5463"
             padding="0px 10px"

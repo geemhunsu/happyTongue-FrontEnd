@@ -52,11 +52,11 @@ const loginAPI = (id, pwd) => {
         password: pwd,
       })
       .then((res) => {
-        const nickname = res.data.nickname;
+        const nickname = res.nickname;
         const token = res.data.token;
+        console.log("로그인 res ", res);
         //토큰을 로컬 스토리지에 저장
-        localStorage.setItem("MY_TOKEN", "임시토큰!");
-        localStorage.setItem("My_INFO", "임시닉네임");
+        localStorage.setItem("MY_TOKEN", token);
         dispatch(
           setUser({
             id: id,
@@ -65,9 +65,9 @@ const loginAPI = (id, pwd) => {
         );
 
         //토큰을 헤더 기본값으로 설정
-        // axios.defaults.headers.common[
-        //   "authorization"
-        // ] = `bearer ${res.data.token}`;
+        axios.defaults.headers.common[
+          "authorization"
+        ] = `bearer ${res.data.token}`;
 
         //메인 화면으로 이동
         history.push("/");
@@ -86,22 +86,7 @@ const loginAPI = (id, pwd) => {
 const loginCheckAPI = () => {
   return function (dispatch, getState, { history }) {
     const _token = localStorage.getItem("MY_TOKEN");
-    const _user_info = localStorage.getItem("My_INFO");
-    // axios.defaults.headers.common["authorization"] = `bearer ${_token}`;
-    //토큰이나 유저정보가 없으면 메인화면으로 이동.
-    if (!_token || !_user_info) {
-      history.replace("/");
-      return;
-    } else {
-      //토큰과 유저정보가 있다면 setUser로 리덕스에 유저정보 저장.
-      const userInfo = localStorage.getItem("My_INFO");
-      dispatch(
-        setUser({
-          id: "임시아이디",
-          nickname: userInfo,
-        })
-      );
-    }
+    axios.defaults.headers.common["authorization"] = `bearer ${_token}`;
   };
 };
 
@@ -109,7 +94,6 @@ const loginCheckAPI = () => {
 const logoutAPI = () => {
   return function (dispatch, getState, { history }) {
     localStorage.removeItem("MY_TOKEN");
-    localStorage.removeItem("My_INFO");
     dispatch(logOut());
     history.replace("/");
   };
