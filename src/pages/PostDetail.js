@@ -37,6 +37,9 @@ const PostDetail = (props) => {
       setIsFavorite(true);
     }
   };
+  const deletePost = () => {
+    dispatch(postActions.deletePostMW(_id));
+  }
   React.useEffect(() => {
     // console.log("aaaa");
     dispatch(postActions.getOnePostMW(_id));
@@ -73,7 +76,7 @@ const PostDetail = (props) => {
             </Grid>
             <Grid flex>
               <Button text="수정하기" /> {/*수정 버튼*/}
-              <Button text="삭제하기" /> {/*삭제 버튼*/}
+              <Button text="삭제하기" onClick={deletePost} /> {/*삭제 버튼*/}
             </Grid>
           </Grid>
           <Grid flex="space-between" margin="auto" width="60%">
