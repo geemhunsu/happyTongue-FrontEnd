@@ -16,9 +16,9 @@ const PostDetail = (props) => {
 
   const [is_like, setIsLike] = React.useState(false);
   const [is_favorite, setIsFavorite] = React.useState(false);
-
   const post = useSelector((state) => state.post.list.detail);
-  const comment =post && post.comment_id;
+  const comment = useSelector((state)=> state.post);
+  post && console.log(post);
   const _id = props.match.params.id;
   // const post_idx =post_list &&  post_list.findIndex((p) => p.id === _id);
   // const post = post_list[post_idx];

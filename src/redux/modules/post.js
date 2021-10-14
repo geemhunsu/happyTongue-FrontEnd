@@ -16,11 +16,19 @@ const GET_COMMENT = "GET_COMMENT";
 const getPost = createAction(GET_POST, (post_list) => ({
   post_list,
 }));
+const addComment = createAction(ADD_COMMENT, (comment) => ({
+  comment,
+}));
+
+const getComment = createAction(ADD_COMMENT, (comments) => ({
+  comments,
+}))
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
 
 const initialState = {
   //  리듀서 데이터 초기값
   list: [],
+  comment:[],
 };
 
 // 미들웨어
@@ -63,7 +71,9 @@ const getOnePostMW = (post_id) => {
       .getOnePost(post_id)
       .then((res) => {
         const post = res.data;
+        console.log(res.data);
         dispatch(getPost(post));
+        dispatch(getComment(post_id));
       })
       .catch((err) => {
         console.error(err);
@@ -87,6 +97,7 @@ const getSearchPostMW = (keyword) => {
   };
 };
 
+// post 삭제
 const deletePostMW = (post_id) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -96,6 +107,7 @@ const deletePostMW = (post_id) => {
           .getPost()
           .then((res) => {
             dispatch(getPost(res.data));
+            history.push("/");
           })
           .catch((err) => {
             console.error(err);
@@ -107,11 +119,13 @@ const deletePostMW = (post_id) => {
   };
 };
 
+// 댓글달기
 const addCommentMW = (comment) => {
-  // 댓글 추가
-  // 댓글달기
+  console.log(comment);
   return function (dispatch) {
-    apis.addComment(comment).then(() => {});
+    apis.addComment(comment).then(() => {
+      dispatch(addComment(comment));
+    });
   };
 };
 
@@ -122,12 +136,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list = action.payload.post_list;
       }),
-
+    [ADD_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.comment.unshift(action.payload.comment);
+      }),
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.comment = action.payload.comment_list;
+        draft.comment = action.payload.comment;
       }),
-
     [CREATE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post);
