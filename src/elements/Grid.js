@@ -21,6 +21,7 @@ const Grid = React.forwardRef((props) => {
     border_bottom,
     ref,
     id,
+    dispay,
   } = props;
   const styles = {
     // props 중에서 스타일 부분만 따로 묶음
@@ -39,6 +40,7 @@ const Grid = React.forwardRef((props) => {
     overflow,
     border_bottom,    
     id,
+    dispay,
   };
 
   return (
@@ -69,6 +71,7 @@ Grid.defaultProps = {
   border_bottom: null,
   ref: null,
   id: null,
+  dispay: null,
 };
 
 // flex의 경우 justify-content의 값만 바꾸는 것으로
@@ -90,6 +93,7 @@ const GridBox = styled.div`
   flex-wrap: ${(props) => props.flex_wrap};
   border-bottom: ${(props) => props.border_bottom};
   overflow: ${(props) => props.overflow};
+  display: ${props => props.dispay};  
 
   ::-webkit-scrollbar {
     width: 5px;

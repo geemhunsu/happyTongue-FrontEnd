@@ -1,10 +1,17 @@
 import React from 'react';
 import { Grid, Button, Image, Text, Input } from '../elements';
 import io from 'socket.io-client';
-import moment from 'moment';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { actionCreators as userActions } from "../redux/modules/user"
 
 const Chat = (props) => {
+  const dispatch = useDispatch();
 
+  const is_login = useSelector((state) => state.user.is_login);
+  const is_token = localStorage.getItem("MY_TOKEN") ? true : false;
+
+  // const _nickname = useSelector(stats => stats.user.user.nickname)
   const [state, setState] = React.useState({
     message: "",
     nickname: "aaaa",
@@ -13,49 +20,58 @@ const Chat = (props) => {
   const [chat, setChat] = React.useState([]);
   const [userList, setUserList] = React.useState([]);
   const socketRef = React.useRef();
-  
-  const chattingDisplay = React.useRef(null);
-  const chattingUserList = React.useRef(null);
+
   const chatBox = document.getElementById('chatBox');
   const userBox = document.getElementById('userBox');
+
   
+
   React.useEffect(() => {
+
     socketRef.current = io.connect('http://3.34.138.243', { transports: ['websocket'] });
     socketRef.current.emit("join", state.nickname);
-    socketRef.current.on("chatLog", (chatLog) => {            
-      setChatList([...chatLog]);      
-  })
 
+    // if(chatBox.childNodes.length < 1){
+    // }
+    socketRef.current.on("chatLog", (chatLog) => {
+      setChatList(chatLog);
+    })
     socketRef.current.on("receiveMsg", (data) => {
       const { nickname, msg, time } = data;
       setChat([...chat, { nickname, msg, time }]);
-    
-    })    
+    })
+
     socketRef.current.on("currentOn", (data) => {
       setUserList(data);
     })
-    
-  }, [chat], [userList]);
 
+
+  }, [chat]);
+
+  
   const sendMessage = () => {
-    console.log(chatBox.scrollHeight)
-    const { message, nickname } = state;    
-    socketRef.current.emit("sendMsg", { nickname, msg: message, })
-    chatBox.scrollTo(0, chatBox.scrollHeight);
-    setState({...state, message: ""})
+    if (state.message === "") {
+      window.alert("메세지를 입력해주세요")
+      return
+    }
+    console.log(userList);
+    const moveScroll = () => {
+      chatBox.scrollTo({ top: chatBox.scrollHeight + 460, behavior: 'smooth' });
+    }
+    const { message, nickname } = state;
+    socketRef.current.emit("sendMsg", { nickname, msg: message, });
+    setState({ ...state, message: "" });
+    setTimeout(moveScroll, 200)
   }
 
   const showChatting = () => {
-    // chattingUserList.current.style.display = "none";
-    // chattingDisplay.current.style.display = "flex";
-    console.log(chattingDisplay.current);
-    
+    userBox.style.display = "none";
+    chatBox.style.display = "block";
   }
 
   const showNowUsers = () => {
-    // chattingDisplay.current.style.display = "none";
-    // chattingUserList.current.style.display = "flex";
-    console.log(chattingUserList.current);
+    chatBox.style.display = "none";
+    userBox.style.display = "block";
   }
 
   return (
@@ -78,8 +94,8 @@ const Chat = (props) => {
         <Grid flex="flex-start" height="60%">
 
           <Grid bg="#f1d1b5" height="90%" margin="0 0 30px 0" padding="1em"
-            border_radius="7px" overflow="auto" ref={chattingDisplay} id="chatBox">
-            
+            border_radius="7px" overflow="auto" id="chatBox">
+
             {chatList.map((chatting, index) => {
               if (chatting.nickname === state.nickname) {
                 return (
@@ -87,15 +103,15 @@ const Chat = (props) => {
                     <Grid flex="flex-end" height="auto" margin="0 0 5px 0">
                       <Image shape="circle" size="30" />
                       <Text margin="5px" family="GowunDodum-Regular" bold>
-                        이름 : {chatting.nickname}
+                        {chatting.nickname}
                       </Text>
                     </Grid>
                     <Grid flex="space-between">
                       <Text margin="0" padding="15px 0 0 0"
-                        family="GowunDodum-Regular" size=".8em">시간: {chatting.time}</Text>
+                        family="GowunDodum-Regular" size=".8em">{chatting.time}</Text>
                       <Grid bg="skyblue" border_radius="20px" height="auto" width="85%" padding="0 5px">
                         <Text margin="5px" family="GowunDodum-Regular" bold
-                          align="right" color="black" >메세지: {chatting.msg}</Text>
+                          align="right" color="black" >{chatting.msg}</Text>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -125,15 +141,15 @@ const Chat = (props) => {
                     <Grid flex="flex-end" height="auto" margin="0 0 5px 0">
                       <Image shape="circle" size="30" />
                       <Text margin="5px" family="GowunDodum-Regular" bold>
-                        이름 : {chatting.nickname}
+                        {chatting.nickname}
                       </Text>
                     </Grid>
                     <Grid flex="space-between">
                       <Text margin="0" padding="15px 0 0 0"
-                        family="GowunDodum-Regular" size=".8em">시간: {chatting.time}</Text>
+                        family="GowunDodum-Regular" size=".8em">{chatting.time}</Text>
                       <Grid bg="skyblue" border_radius="20px" height="auto" width="85%" padding="0 5px">
                         <Text margin="5px" family="GowunDodum-Regular" bold
-                          align="right" color="black" >메세지: {chatting.msg}</Text>
+                          align="right" color="black" >{chatting.msg}</Text>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -158,7 +174,19 @@ const Chat = (props) => {
 
           </Grid>
           <Grid bg="#f1d1b5" height="90%" margin="0 0 30px 0" padding="1em"
-            border_radius="7px" overflow="auto" id="userBox" >
+            border_radius="7px" overflow="auto" id="userBox" dispay="none">
+            
+            {userList.map((user, index) => {
+              return (
+                <Grid flex margin="0 0 20px 0" height="auto" key={index}
+                bg="aliceblue" padding="0.5em" border_radius="10px" width="auto" >
+                  <Image shape="circle" size="30" margin="0 10px 0 0" />
+                    <Text margin="0" family="GowunDodum-Regular" color="#0e77d3" bold >
+                      {user}
+                    </Text>                  
+                </Grid>
+              )
+            })}
 
           </Grid>
         </Grid>
@@ -166,8 +194,8 @@ const Chat = (props) => {
 
           <Grid flex flex_direction="column" height="auto" >
             <Grid flex margin="0 0 20px 0">
-              <Image shape="circle" size="30" margin="0 0 5px 0" />
-              <Text margin="0" family="GowunDodum-Regular" bold>이름 : </Text>
+              <Image shape="circle" size="30" margin="0 5px 0 0" />
+              <Text margin="0" family="GowunDodum-Regular" bold>{state.nickname}</Text>
             </Grid>
             <Grid flex="flex-start">
               <Input mulitline width="550px" height="120px" family="GowunDodum-Regular" bold

@@ -7,11 +7,13 @@ import { actionCreators as postActions } from '../redux/modules/post';
 import AWS from "aws-sdk";
 
 const PostWrite = (props) => {
+  const {history} = props;
 
   const dispatch = useDispatch();
   
   const is_token = localStorage.getItem("MY_TOKEN") ? true : false;
   const is_login = useSelector((state) => state.user.is_login);
+  const post_id = props.match.params.id;
   const preview = useSelector(state => state.image.preview);
   const previewName = useSelector(state => state.image.previewName);
   const previewType = useSelector(state => state.image.previewType);  
@@ -23,6 +25,10 @@ const PostWrite = (props) => {
   const [content, setContent] = React.useState("");
 
   
+    if(!is_token || !is_login){
+      console.log('로그인을 해주세요')
+      history.replace("/");
+    }  
 
   AWS.config.update({
     region: "ap-northeast-2",
