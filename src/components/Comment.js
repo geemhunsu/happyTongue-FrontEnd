@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Text, Image } from "../elements";
 import Time from "../shared/Time";
 const Comment = (props) => {
-  const { nickname, content, insert_dt, is_even } = props;
+  const { nickname, content, date, is_even } = props;
   if (!content) {
     return;
   }
@@ -23,7 +23,7 @@ const Comment = (props) => {
             <Text>{content}</Text>
           </Grid>
           <Grid width="10%">
-            <Text>{Time(insert_dt)}</Text>
+            <Text>{Time(date)}</Text>
           </Grid>
         </Grid>
     </React.Fragment>
