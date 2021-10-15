@@ -24,6 +24,7 @@ const Post = (props) => {
             width="100%"
             height="100%"
             shape="rectangle"
+            is_center
           ></Image>
         </Grid>
         {/* 제목 */}

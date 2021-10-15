@@ -128,6 +128,16 @@ const FloatButton = styled.button`
   font-weight: bold;
   border: none;
   background-color: orange;
+  position: fixed;
+  bottom: 50px;
+  right: 16px;
+  cursor: pointer;
+  transition: .3s all ease;
+
+  :hover {
+    background-color: blue;
+    color: aliceblue;
+  }
 `;
 
 export default Button;

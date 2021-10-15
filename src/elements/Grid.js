@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Grid = (props) => {
+const Grid = React.forwardRef((props) => {
   const {
     id,
     children,
@@ -21,7 +21,8 @@ const Grid = (props) => {
     flex_wrap,
     overflow,
     border_bottom,
-    ref,
+    ref,    
+    dispay,
     min_width,
     max_width,
     max_height,
@@ -44,7 +45,9 @@ const Grid = (props) => {
     flex_item,
     flex_wrap,
     overflow,
-    border_bottom,
+    border_bottom,    
+    id,
+    dispay,    
     ref,
     min_width,
     max_width,
@@ -60,7 +63,7 @@ const Grid = (props) => {
       </GridBox>
     </React.Fragment>
   );
-};
+});
 
 Grid.defaultProps = {
   id: null,
@@ -81,6 +84,9 @@ Grid.defaultProps = {
   flex_wrap: null,
   overflow: null,
   border_bottom: null,
+  ref: null,
+  id: null,
+  dispay: null,
   min_width: false,
   max_width: false,
   max_height: false,
@@ -111,6 +117,7 @@ const GridBox = styled.div`
   flex-wrap: ${(props) => props.flex_wrap};
   border-bottom: ${(props) => props.border_bottom};
   overflow: ${(props) => props.overflow};
+  display: ${props => props.dispay};  
   ${(props) => (props.shadow ? `box-shadow: ${props.shadow};` : "")}
   ${(props) => (props.hover ? `cursor:pointer;` : "")}
 
@@ -126,4 +133,5 @@ const GridBox = styled.div`
     border-radius: 15px;
   }
 `;
+
 export default Grid;
