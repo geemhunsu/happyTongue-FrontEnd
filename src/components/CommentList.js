@@ -16,8 +16,8 @@ const CommentList = (props) => {
       {comment.map((c, index) => {
         return (
           // is_even 짝수 홀수 댓글색 다르게
-          <Grid width="auto" key={c.content+index} >
-            <Comment {...c} is_even={index % 2 === 0 ? true : false} />
+          <Grid width="auto" key={c._id} >
+            <Comment {...c} post_id = {props.post_id} is_even={index % 2 === 0 ? true : false} />
           </Grid>
         );
       })}

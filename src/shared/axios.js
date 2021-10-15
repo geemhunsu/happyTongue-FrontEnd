@@ -27,6 +27,6 @@ export const apis = {
   getSearchPost: (keyword) => instance.get(`api/posts/search/${keyword}`), //검색 조회
 
   addComment: (post_id, content) =>instance.post(`api/posts/${post_id}/comments`, content), //댓글달기
-
-  getComment: (post_id) => instance.get(`api/posts/${post_id}/comments`) //댓글 조회
+  getComment: (post_id) => instance.get(`api/posts/${post_id}/comments`), //댓글 조회
+  deleteComment : (post_id, comment_id) => instance.delete(`api/posts/${post_id}/comments/${comment_id}`) //댓글 삭제
 };

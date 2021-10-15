@@ -1,6 +1,5 @@
 import React from "react";
 import { actionCreators as postActions } from "../redux/modules/post";
-
 import { Grid, Button, Input } from "../elements/index";
 import { useDispatch } from "react-redux";
 
