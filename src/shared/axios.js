@@ -26,6 +26,8 @@ export const apis = {
   addComment: (post_id, content) =>
     instance.post(`api/posts/${post_id}/comments`, content), //댓글달기
   getComment: (post_id) => instance.get(`api/posts/${post_id}/comments`), //댓글 조회
+  deleteComment: (post_id, comment_id) =>
+    instance.delete(`api/posts/${post_id}/comments/${comment_id}`), //댓글 삭제
   getMyPost: () => instance.get("api/posts/myinfo"), // 내 게시물 조회
   getBookMark: () => instance.get("api/posts/dibson"), // 즐겨찾기 조회
 };
