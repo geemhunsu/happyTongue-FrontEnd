@@ -15,6 +15,7 @@ const Chat = (props) => {
   const [state, setState] = React.useState({
     message: "",
     nickname: "aaaa",
+    
   });
   const [chatList, setChatList] = React.useState([]);
   const [chat, setChat] = React.useState([]);
@@ -25,36 +26,35 @@ const Chat = (props) => {
   const userBox = document.getElementById('userBox');
 
   
-
   React.useEffect(() => {
-
+    
     socketRef.current = io.connect('http://3.34.138.243', { transports: ['websocket'] });
-    socketRef.current.emit("join", state.nickname);
+    socketRef.current.emit("join", "aaaa" );
 
-    // if(chatBox.childNodes.length < 1){
-    // }
     socketRef.current.on("chatLog", (chatLog) => {
       setChatList(chatLog);
-    })
+    })    
     socketRef.current.on("receiveMsg", (data) => {
-      const { nickname, msg, time } = data;
-      setChat([...chat, { nickname, msg, time }]);
+      const { nickname, msg, time} = data;
+      setChat([...chat, {nickname, msg, time}]);
     })
 
     socketRef.current.on("currentOn", (data) => {
       setUserList(data);
     })
 
-
+    return () => socketRef.current.disconnect();
   }, [chat]);
 
-  
+
+
+
   const sendMessage = () => {
     if (state.message === "") {
       window.alert("메세지를 입력해주세요")
       return
     }
-    console.log(userList);
+    console.log(chatList.length)
     const moveScroll = () => {
       chatBox.scrollTo({ top: chatBox.scrollHeight + 460, behavior: 'smooth' });
     }
@@ -134,7 +134,7 @@ const Chat = (props) => {
               )
             })}
 
-            {chat.map((chatting, index) => {
+            {/* {chat.map((chatting, index) => {
               if (chatting.nickname === state.nickname) {
                 return (
                   <Grid height="auto" margin="0 0 5px 0">
@@ -170,20 +170,20 @@ const Chat = (props) => {
                   </Grid>
                 </Grid>
               )
-            })}
+            })} */}
 
           </Grid>
           <Grid bg="#f1d1b5" height="90%" margin="0 0 30px 0" padding="1em"
             border_radius="7px" overflow="auto" id="userBox" dispay="none">
-            
+
             {userList.map((user, index) => {
               return (
                 <Grid flex margin="0 0 20px 0" height="auto" key={index}
-                bg="aliceblue" padding="0.5em" border_radius="10px" width="auto" >
+                  bg="aliceblue" padding="0.5em" border_radius="10px" width="auto" >
                   <Image shape="circle" size="30" margin="0 10px 0 0" />
-                    <Text margin="0" family="GowunDodum-Regular" color="#0e77d3" bold >
-                      {user}
-                    </Text>                  
+                  <Text margin="0" family="GowunDodum-Regular" color="#0e77d3" bold >
+                    {user}
+                  </Text>
                 </Grid>
               )
             })}

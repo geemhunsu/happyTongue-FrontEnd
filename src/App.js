@@ -2,10 +2,11 @@ import "./App.css";
 import React from "react";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
+import { io } from "socket.io-client";
 
 import { history } from "./redux/ConfigureStore";
 import { Button, Grid } from "./elements";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { actionCreators as userActions } from "./redux/modules/user";
 
@@ -21,12 +22,14 @@ import Chat from "./components/Chat";
 import Permit from "./shared/Permit";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
   const is_local = localStorage.getItem("MY_TOKEN") ? true : false;
+  const socketRef = React.useRef();
   React.useEffect(() => {
     if (is_local) {
       dispatch(userActions.loginCheckAPI());
     }
+  
   }, []);
   return (
     <div className="App">
