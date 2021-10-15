@@ -31,7 +31,7 @@ const PostList = (prowps) => {
               <Grid
                 key={p._id}
                 _onClick={() => {
-                  history.replace(`/post/${p._id}`);
+                  history.push(`/post/${p._id}`);
                 }}
                 width="auto"
               >
