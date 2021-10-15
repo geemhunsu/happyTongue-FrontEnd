@@ -16,25 +16,28 @@ const Search = (props) => {
     <Grid
       flex
       width="80%"
+      height="50px"
       border="1px solid lightgray"
       margin="auto"
-      padding="3px"
+      padding="0px"
     >
       <Input
-        padding="5px"
+        size="20px"
+        padding="0px 15px"
         placeholder="검색어를 입력해주세요."
         _onChange={onChange}
         value={search_text}
         onSubmit={write}
         border="none"
         outline="none"
-        size="18px"
+        height="100%"
       />
       <Button
         text="검색"
         text_size="20px"
-        padding="8px 0px"
+        height="50px"
         width="23%"
+        margin="0px"
         border_radius="3px"
         btn_color="#FDCD56"
         border="none"
