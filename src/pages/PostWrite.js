@@ -37,10 +37,7 @@ const PostWrite = (props) => {
       setContent(post.content);
       const pvName = post.imgUrl.split('com/')[1].split('.')[0];
       const pvType = post.imgUrl.split('com/')[1].split('.')[1];
-      const pvFull = post.imgUrl.split('com/')[1];
-      console.log(pvName)
-      console.log(pvType)
-      console.log(pvFull)
+      const pvFull = post.imgUrl.split('com/')[1];      
       dispatch(imageActions.setPreview(post.imgUrl, pvName, pvType, pvFull));
     }
   }, [])
@@ -83,7 +80,7 @@ const PostWrite = (props) => {
   }
 
   const editPost = () => {
-
+    console.log(post_id);
     if (previewFile) {
       const awsUpload = new AWS.S3.ManagedUpload({
         params: {
@@ -97,8 +94,7 @@ const PostWrite = (props) => {
 
       const promise = awsUpload.promise();
 
-      promise.then(date => {
-        console.log('s3에 이미지 업로드 성공')
+      promise.then(date => {        
       }).catch(err => {
         console.log(err, err.code, err.message);
         console.log("env", process.env.AWS_CONFIG)

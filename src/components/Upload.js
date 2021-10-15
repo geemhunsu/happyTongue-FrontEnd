@@ -10,9 +10,7 @@ const Upload = () => {
     const selectFile = (e) => {        
         const fullName = e.target.files[0].name;
         const name = e.target.files[0].name.split('.')[0];
-        const type = e.target.files[0].name.split('.')[1];
-        console.log(name);
-        console.log(type);
+        const type = e.target.files[0].name.split('.')[1];        
         const reader = new FileReader();
         const file = fileInput.current.files[0];
 
