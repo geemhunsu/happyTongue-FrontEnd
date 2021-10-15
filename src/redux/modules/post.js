@@ -101,6 +101,7 @@ const getSearchPostMW = (keyword) => {
         const post_list = res.data;
         dispatch(getPost(post_list));
         history.push("/");
+
       })
       .catch((err) => {
         console.error(err);

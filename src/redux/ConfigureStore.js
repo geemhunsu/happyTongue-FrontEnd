@@ -6,15 +6,17 @@ import Post from "./modules/post";
 import User from "./modules/user";
 import Image from "./modules/image";
 import Comment from "./modules/comment";
+import Mypage from "./modules/mypage";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-    post : Post,
-    user : User,
-    image : Image,
-    comment : Comment,
-    router : connectRouter(history),   // 이거 없으면 Error: Could not find router reducer in state tree, it must be mounted under "router" 에러뜸
+  post: Post,
+  user: User,
+  image: Image,
+  comment: Comment,
+  mypage: Mypage,
+  router: connectRouter(history), // 이거 없으면 Error: Could not find router reducer in state tree, it must be mounted under "router" 에러뜸
 });
 
 const middlewares = [thunk.withExtraArgument({ history: history })]; // history를 마들웨어에서 사용하려면 필요.

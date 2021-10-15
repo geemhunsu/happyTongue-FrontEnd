@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import CommentList from "../components/CommentList";
 import CommentWrite from "../components/CommentWrite";
 import Search from "../components/Search";
@@ -51,19 +52,26 @@ const PostDetail = (props) => {
   if (!post || !user) {
     return <div></div>;
   }
+  // 게시물 작성시간
+  const post_date = moment(post.date).format("YYYY-MM-DD");  //post가 존재할때 실행되야 해서 밑에다 넣음.
+  
   return (
     <React.Fragment>
       <Grid>
         <Search />
         <Grid padding="16px">
           {/*이미지 Grid*/}
-          <Text align="center">{props.live_count}명이 보고있다.</Text>
+          <Grid margin="auto" flex="space-between" width = "50%">
+            <Text>작성자 : {post.nickname} </Text>
+            <Text align="center">{props.live_count}명이 보고있다.</Text>
+            <Text>작성일 : {post_date}</Text>
+          </Grid>
           {/*이미지*/}
           <Image
             shape="rectangle"
             margin="auto"
-            width="60%"
-            height="400px"
+            width="50%"
+            height="860px"
             src={post.imgUrl ? post.imgUrl : ""}
           />
         </Grid>
@@ -103,7 +111,7 @@ const PostDetail = (props) => {
             )}
           </Grid>
         </Grid>
-        <CommentWrite post_id={_id} /> {/*댓글 입력 component*/}
+        <CommentWrite post_id={_id} nickname={post.nickname} /> {/*댓글 입력 component*/}
         <CommentList post_id={_id} /> {/*댓글 리스트 component*/}
       </Grid>
     </React.Fragment>

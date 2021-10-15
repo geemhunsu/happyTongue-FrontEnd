@@ -24,6 +24,7 @@ const Button = (props) => {
     border_bottom,
     transition,
     line_height, //line-height
+    hover_font, //(김한준) hover때 폰트색 변경
   } = props;
 
   const style = {
@@ -45,6 +46,7 @@ const Button = (props) => {
     border_bottom,
     transition,
     line_height,
+    hover_font,
   };
 
   if (is_float) {
@@ -115,6 +117,7 @@ const ElButton = styled.button`
   :hover {
     background-color: ${(props) => props.hover};
     cursor: pointer;
+     ${(props)=>(props.hover_font?`color : ${props.hover_font}`:null)}
   }
 `;
 
