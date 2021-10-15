@@ -14,20 +14,30 @@ const Search = (props) => {
     dispatch(postActions.getSearchPostMW(search_text));
   };
   return (
-    <Grid flex width="80%" margin="auto" padding="16px">
+    <Grid
+      flex
+      width="80%"
+      border="1px solid lightgray"
+      margin="auto"
+      padding="3px"
+    >
       <Input
-        padding="15px"
+        padding="5px"
         placeholder="검색어를 입력해주세요."
         _onChange={onChange}
         value={search_text}
         onSubmit={write}
+        border="none"
+        outline="none"
+        size="18px"
       />
       <Button
-        padding="15px"
-        width="20%"
-        border_radius="0px 10px 10px 0px"
-        btn_color="#FF9696"
-        color="#FEFFBD"
+        text="검색"
+        text_size="20px"
+        padding="8px 0px"
+        width="23%"
+        border_radius="3px"
+        btn_color="#FDCD56"
         border="none"
         _onClick={write}
       />

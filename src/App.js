@@ -4,7 +4,7 @@ import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 
 import { history } from "./redux/ConfigureStore";
-import { Grid } from "./elements";
+import { Button, Grid } from "./elements";
 import { useDispatch } from "react-redux";
 
 import { actionCreators as userActions } from "./redux/modules/user";
@@ -18,6 +18,7 @@ import Mypage from "./pages/Mypage";
 
 import Header from "./shared/Header";
 import Chat from "./components/Chat";
+import Permit from "./shared/Permit";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,11 @@ function App() {
           <Route path="/chat" exact component={Chat} />
         </ConnectedRouter>
       </Grid>
+      <Permit>
+        <Button is_float text="+" _onClick={()=>{
+          history.push("/write")
+        }}></Button>
+      </Permit>
     </div>
   );
 }

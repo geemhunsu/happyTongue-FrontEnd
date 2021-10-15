@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Button = (props) => {
   const {
     text, // 텍스트
+    text_size, // 텍스트 크기
     btn_color, // 버튼색
     font_color, // 폰트색
     _onClick, // onClick
@@ -28,6 +29,7 @@ const Button = (props) => {
   const style = {
     btn_color,
     font_color,
+    text_size,
     border,
     width,
     height,
@@ -86,6 +88,7 @@ const ElButton = styled.button`
     props.font_color
       ? `color : ${props.font_color}`
       : `color : #ffffff`}; // 글자색 기본 white
+  ${(props) => (props.text_size ? `font-size : ${props.text_size}` : "14px")};
   ${(props) =>
     props.border ? `border : ${props.border}` : "none"}; // border 기본 none
   ${(props) =>
@@ -110,11 +113,8 @@ const ElButton = styled.button`
   transition: ${(props) => props.transition};
 
   :hover {
-<<<<<<< HEAD
-    background-color: ${props => props.hover};
+    background-color: ${(props) => props.hover};
     cursor: pointer;
-=======
->>>>>>> 5b83505a17490ad8aa247ea7815ea7deb59e9dcf
   }
 `;
 
@@ -128,6 +128,16 @@ const FloatButton = styled.button`
   font-weight: bold;
   border: none;
   background-color: orange;
+  position: fixed;
+  bottom: 50px;
+  right: 16px;
+  cursor: pointer;
+  transition: .3s all ease;
+
+  :hover {
+    background-color: blue;
+    color: aliceblue;
+  }
 `;
 
 export default Button;

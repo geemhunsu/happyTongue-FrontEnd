@@ -7,16 +7,16 @@ import { actionCreators as postActions } from '../redux/modules/post';
 import AWS from "aws-sdk";
 
 const PostWrite = (props) => {
-  const {history} = props;
+  const { history } = props;
 
   const dispatch = useDispatch();
-  
+
   const is_token = localStorage.getItem("MY_TOKEN") ? true : false;
   const is_login = useSelector((state) => state.user.is_login);
   const post_id = props.match.params.id;
   const preview = useSelector(state => state.image.preview);
   const previewName = useSelector(state => state.image.previewName);
-  const previewType = useSelector(state => state.image.previewType);  
+  const previewType = useSelector(state => state.image.previewType);
   const previewFile = useSelector(state => state.image.previewFile);
 
   const [title, setTitle] = React.useState("");
@@ -24,11 +24,6 @@ const PostWrite = (props) => {
   const [storeArea, setStoreArea] = React.useState("");
   const [content, setContent] = React.useState("");
 
-  
-    if(!is_token || !is_login){
-      console.log('로그인을 해주세요')
-      history.replace("/");
-    }  
 
   AWS.config.update({
     region: "ap-northeast-2",
@@ -48,11 +43,11 @@ const PostWrite = (props) => {
         ContentType: preview.type,
       },
     })
-  
+
     const promise = awsUpload.promise();
 
     promise.then(date => {
-      
+
       window.alert('업로드 성공');
     }).catch(err => {
       console.log(err, err.code, err.message);
@@ -67,11 +62,16 @@ const PostWrite = (props) => {
         storeArea,
       }));
     })
-    
+
+  }
+  
+  if(!is_login){
+    console.log('로그인을 해주세요')
+    history.replace("/");
   }
 
   return (
-    <React.Fragment>      
+    <React.Fragment>
       <Grid width="60%" padding="0 0 50px 0" margin="0 auto" flex_direction="column" flex>
         <Text family="GowunDodum-Regular" bold >미리보기</Text>
         <Image shape="rectangle" border="5px solid black" border_radius="7px" padding="7px"
