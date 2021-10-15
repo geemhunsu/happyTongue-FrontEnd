@@ -8,8 +8,9 @@ const CommentWrite = (props) => {
     const onChange = (e) => {
         setContent(e.target.value);
     }
+    const date = new Date();
     const write = () => {
-        dispatch(commentActions.addCommentMW(props.post_id,{content}));
+        dispatch(commentActions.addCommentMW(props.post_id,{content, _id:content+date,date:date}));
         setContent("");
     }
     return (

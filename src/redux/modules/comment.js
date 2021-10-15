@@ -30,7 +30,6 @@ const addCommentMW = (post_id, content) => {
       .addComment(post_id, content)
       .then((result) => {
         dispatch(addComment(content));
-        console.log(content);
       })
       .catch((err) => {
         console.log(err);
@@ -38,6 +37,7 @@ const addCommentMW = (post_id, content) => {
   };
 };
 
+// 댓글 조회
 const getCommentMW = (post_id) => {
   return function (dispatch) {
     apis
@@ -51,10 +51,11 @@ const getCommentMW = (post_id) => {
   };
 };
 
+// 댓글 삭제
 const deleteCommentMW = (post_id, comment_id) => {
   return function (dispatch) {
     apis.deleteComment(post_id, comment_id).then((res) => {
-      dispatch(deleteComment(post_id, comment_id));
+      dispatch(deleteComment(comment_id));
     });
   };
 };
@@ -74,7 +75,6 @@ export default handleActions(
         const delete_idx = draft.list.findIndex(
           (list) => list._id === action.payload.comment_id
         );
-        console.log(draft.list[delete_idx]);
         draft.list.splice(delete_idx, 1);
       }),
   },
