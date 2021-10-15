@@ -23,6 +23,7 @@ const Input = (props) => {
     id,
     name,
     border_bottom,
+    display,
   } = props;
 
   const styles = {
@@ -40,6 +41,7 @@ const Input = (props) => {
     outlinecolor: outlinecolor,
     value: value,
     border_bottom,
+    display,
   };
 
   if (multiple) {
@@ -97,6 +99,7 @@ Input.defaultProps = {
   id: null,
   name: null,
   border_bottom: null,
+  display: null,
 };
 
 const InputText = styled.input`
@@ -114,7 +117,9 @@ const InputText = styled.input`
     ${(props) =>
     props.outlinecolor ? `outline-color: ${props.outlinecolor};` : ""}
     ${(props) => (props.outline ? `outline: ${props.outline};` : "")}
+    display: ${props => props.display};
     box-sizing: border-box;
+    transition: 0.3s all ease;
 `;
 const InputTextArea = styled.textarea`
   // 크기를 고정시킴.
