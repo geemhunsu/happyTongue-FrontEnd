@@ -10,6 +10,7 @@ const Grid = (props) => {
     height,
     bg,
     flex, // justify-content의 값 설정
+    flex_align, //align-itmes의 값 설정
     is_center, // 글자 가운데 정렬
     _onClick,
     border,
@@ -20,6 +21,10 @@ const Grid = (props) => {
     overflow,
     border_bottom,
     ref,
+    min_width,
+    max_width,
+    shadow,
+    hover, // 커서 포인터
   } = props;
   const styles = {
     // props 중에서 스타일 부분만 따로 묶음
@@ -29,6 +34,7 @@ const Grid = (props) => {
     height,
     bg,
     flex,
+    flex_align,
     is_center,
     border,
     flex_direction,
@@ -38,6 +44,10 @@ const Grid = (props) => {
     overflow,
     border_bottom,
     ref,
+    min_width,
+    max_width,
+    shadow,
+    hover,
   };
 
   return (
@@ -58,6 +68,7 @@ Grid.defaultProps = {
   bg: null,
   flex: null,
   flex_direction: null,
+  flex_align: null,
   is_center: false,
   border: null,
   border_radius: null,
@@ -66,6 +77,10 @@ Grid.defaultProps = {
   flex_wrap: null,
   overflow: null,
   border_bottom: null,
+  min_width: false,
+  max_width: false,
+  shadow: null,
+  hover: false,
 };
 
 // flex의 경우 justify-content의 값만 바꾸는 것으로
@@ -73,6 +88,8 @@ const GridBox = styled.div`
   margin: ${(props) => props.margin};
   padding: ${(props) => props.padding};
   width: ${(props) => props.width};
+  min-width: ${(props) => props.min_width};
+  max-width: ${(props) => props.max_width};
   height: ${(props) => props.height};
   background-color: ${(props) => props.bg};
   ${(props) =>
@@ -80,13 +97,16 @@ const GridBox = styled.div`
       ? `display: flex; align-items: center; justify-content: ${props.flex};`
       : ""}
   ${(props) => (props.is_center ? `text-align: center;` : "")}
-    flex-direction: ${(props) => props.flex_direction};
+  flex-direction: ${(props) => props.flex_direction};
+  ${(props) => (props.flex_align ? `align-items: ${props.flex_align};` : "")}
   box-sizing: border-box;
   border: ${(props) => props.border};
   border-radius: ${(props) => props.border_radius};
   flex-wrap: ${(props) => props.flex_wrap};
   border-bottom: ${(props) => props.border_bottom};
   overflow: ${(props) => props.overflow};
+  ${(props) => (props.shadow ? `box-shadow: ${props.shadow};` : "")}
+  ${(props) => (props.hover ? `cursor:pointer;` : "")}
 
   ::-webkit-scrollbar {
     width: 5px;
