@@ -21,8 +21,8 @@ const Grid = React.forwardRef((props) => {
     flex_wrap,
     overflow,
     border_bottom,
-    ref,    
-    dispay,
+    ref,
+    display,
     min_width,
     max_width,
     max_height,
@@ -45,9 +45,9 @@ const Grid = React.forwardRef((props) => {
     flex_item,
     flex_wrap,
     overflow,
-    border_bottom,    
+    border_bottom,
     id,
-    dispay,    
+    display,
     ref,
     min_width,
     max_width,
@@ -86,7 +86,7 @@ Grid.defaultProps = {
   border_bottom: null,
   ref: null,
   id: null,
-  dispay: null,
+  display: null,
   min_width: false,
   max_width: false,
   max_height: false,
@@ -117,7 +117,7 @@ const GridBox = styled.div`
   flex-wrap: ${(props) => props.flex_wrap};
   border-bottom: ${(props) => props.border_bottom};
   overflow: ${(props) => props.overflow};
-  display: ${props => props.dispay};  
+  display: ${(props) => props.display};
   ${(props) => (props.shadow ? `box-shadow: ${props.shadow};` : "")}
   ${(props) => (props.hover ? `cursor:pointer;` : "")}
 

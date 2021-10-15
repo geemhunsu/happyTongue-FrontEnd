@@ -17,7 +17,8 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Grid
-          bg="rgba(254, 255, 189, 0.13)"
+          // bg="rgba(254, 255, 189, 0.13)"
+          bg="#fff"
           margin="0px 0px 80px 0px"
           height="130px"
           width="100%"
@@ -33,6 +34,7 @@ const Header = (props) => {
             <Grid
               hover
               width="auto"
+              height="auto"
               flex="center"
               _onClick={() => {
                 history.push("/");
@@ -71,6 +73,7 @@ const Header = (props) => {
                 <Button
                   _onClick={() => {
                     dispatch(userActions.logoutAPI());
+                    alert("로그아웃 되었습니다.");
                   }}
                   text="로그아웃"
                   text_size="16px"
