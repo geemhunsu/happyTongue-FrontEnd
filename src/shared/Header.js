@@ -96,7 +96,7 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Grid
-          bg="rgba(254, 255, 189, 0.13)"
+          bg="#fff"
           margin="0px 0px 80px 0px"
           height="130px"
           width="100%"
