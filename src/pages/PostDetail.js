@@ -111,7 +111,7 @@ const PostDetail = (props) => {
             )}
           </Grid>
         </Grid>
-        <CommentWrite post_id={_id} /> {/*댓글 입력 component*/}
+        <CommentWrite post_id={_id} nickname={post.nickname} /> {/*댓글 입력 component*/}
         <CommentList post_id={_id} /> {/*댓글 리스트 component*/}
       </Grid>
     </React.Fragment>
