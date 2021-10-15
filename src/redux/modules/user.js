@@ -42,42 +42,6 @@ const signupAPI = (id, name, pwd, pwd_confirm) => {
       });
   };
 };
-// 로그인
-const loginAPI = (id, pwd) => {
-  return function (dispatch, getState, { history }) {
-    apis
-      .createLogin({
-        email: id,
-        password: pwd,
-      })
-      .then((res) => {
-        const token = res.data.token;
-        console.log("로그인 res ", res);
-        //토큰을 로컬 스토리지에 저장
-        localStorage.setItem("MY_TOKEN", token);
-        apis.getUserInfo().then((res) => {
-          console.log("getusersinfo: ", res);
-          dispatch(
-            setUser({
-              id: id,
-              nickname: res.data.user.nickname,
-            })
-          );
-        });
-
-        //메인 화면으로 이동
-        history.replace("/");
-        console.log("로그인 성공");
-        console.log(localStorage.getItem("My_INFO"));
-        window.alert("로그인 성공");
-      })
-      .catch((err) => {
-        console.log("로그인 실패");
-        window.alert("로그인 실패");
-        console.log(err.code, err.message);
-      });
-  };
-};
 // 로그인 체크
 const loginCheckAPI = () => {
   return function (dispatch, getState, { history }) {
@@ -91,6 +55,34 @@ const loginCheckAPI = () => {
         })
       );
     });
+  };
+};
+
+// 로그인
+const loginAPI = (id, pwd) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .createLogin({
+        email: id,
+        password: pwd,
+      })
+      .then((res) => {
+        const token = res.data.token;
+        console.log("로그인 res ", res);
+        //토큰을 로컬 스토리지에 저장
+        localStorage.setItem("MY_TOKEN", token);
+        //로그인체크 미들웨어로 리덕스에 유저정보 저장
+        dispatch(loginCheckAPI());
+        history.push("/");
+        console.log("로그인 성공");
+        console.log(localStorage.getItem("My_INFO"));
+        window.alert("로그인 성공");
+      })
+      .catch((err) => {
+        console.log("로그인 실패");
+        window.alert("로그인 실패");
+        console.log(err.code, err.message);
+      });
   };
 };
 
