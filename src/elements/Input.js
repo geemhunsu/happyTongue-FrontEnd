@@ -22,6 +22,7 @@ const Input = (props) => {
     value,
     id,
     name,
+    border_bottom,
   } = props;
 
   const styles = {
@@ -38,6 +39,7 @@ const Input = (props) => {
     outline: outline,
     outlinecolor: outlinecolor,
     value: value,
+    border_bottom,
   };
 
   if (multiple) {
@@ -94,6 +96,7 @@ Input.defaultProps = {
   value: "",
   id: null,
   name: null,
+  border_bottom: null,
 };
 
 const InputText = styled.input`
@@ -104,6 +107,8 @@ const InputText = styled.input`
     ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
     ${(props) => (props.color ? `color: ${props.color};` : "")}
     ${(props) => (props.border ? `border: ${props.border};` : "")}
+    ${(props) =>
+    props.border_bottom ? `border-bottom: ${props.border_bottom};` : ""}
     ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
     ${(props) => (props.family ? `font-family: ${props.family};` : "")}
     ${(props) =>
