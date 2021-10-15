@@ -12,15 +12,13 @@ const Comment = (props) => {
     return <div></div>;
   }
   const deleteComment =  () => {
-    console.log(post_id, _id);
     dispatch(commentActions.deleteCommentMW(post_id,_id));
-    console.log("딜리트");
   }
   return (
     <React.Fragment>
       {/* 댓글 구분을 위해 줄 바뀔때 색 변경*/}
       <Grid flex="space-between" bg={is_even ? "#eeeeee" : null}>
-        <Grid flex width="20%">
+        <Grid flex="center" width="20%">
           {/* <Image
               src={user_profile}
               size="30"
@@ -32,10 +30,12 @@ const Comment = (props) => {
         <Grid width="50%">
           <Text>{content}</Text>
         </Grid>
-        <Grid width="10%">
+        <Grid width="10%" flex="center">
           <Text>{Time(date)}</Text>
         </Grid>
-        {user === nickname ? <Grid width="20%" flex>
+        <Grid width="20%" flex="space-between">
+        {user === nickname ? 
+        <>
           <Button
             text="수정"
             btn_color={is_even ? "#eeeeee" : "white"}
@@ -51,7 +51,9 @@ const Comment = (props) => {
             hover_font="red"
             _onClick = {deleteComment}
           />
-        </Grid> :null}
+          </>
+         :null}
+         </Grid>
         
       </Grid>
     </React.Fragment>
