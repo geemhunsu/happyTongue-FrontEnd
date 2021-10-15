@@ -17,13 +17,14 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Grid
-          margin="0px 0px 40px 0px"
+          margin="0px 0px 80px 0px"
           height="130px"
           width="100%"
-          border_bottom="1px solid lightgray"
+          shadow="rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;"
         >
-          <Grid width="80%" margin="auto" padding="20px" flex="space-between">
+          <Grid width="80%" margin="auto" padding="0px" flex="space-between">
             <Grid
+              hover
               width="auto"
               flex="center"
               _onClick={() => {
@@ -33,25 +34,31 @@ const Header = (props) => {
               <img
                 src={Logo}
                 style={{
-                  width: "60px",
+                  width: "83px",
                 }}
               />
             </Grid>
-            <Grid width="25%">
+            <Grid
+              width="25%"
+              min_width="200px"
+              height="auto"
+              margin="50px 0px 0px 0px"
+            >
               {/* 로그인 후 헤더 시작 */}
-              <Grid flex="flex">
+              <Grid flex="center">
                 <Button
                   _onClick={() => {
                     history.push("/mypage");
                   }}
                   text="내 정보"
+                  text_size="16px"
                   height="40px"
                   padding="0px"
-                  font_color="#fff"
-                  btn_color="#FF9696"
-                  border="none"
+                  font_color="#424852"
+                  btn_color="#fff"
+                  border="3px solid #FF9696"
                   margin="0 10px 0 0"
-                  border_radius="4px"
+                  border_radius="20px"
                   bold="bold"
                 ></Button>
                 <Button
@@ -59,12 +66,13 @@ const Header = (props) => {
                     dispatch(userActions.logoutAPI());
                   }}
                   text="로그아웃"
+                  text_size="16px"
                   height="40px"
                   padding="0px"
-                  font_color="#fff"
-                  btn_color="#FF9696"
-                  border="none"
-                  border_radius="4px"
+                  font_color="#424852"
+                  btn_color="#fff"
+                  border="3px solid #FF9696"
+                  border_radius="20px"
                   bold="bold"
                 ></Button>
               </Grid>
@@ -78,13 +86,14 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Grid
-          margin="0px 0px 40px 0px"
+          margin="0px 0px 80px 0px"
           height="130px"
           width="100%"
-          border_bottom="1px solid lightgray"
+          shadow="rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;"
         >
-          <Grid width="80%" margin="auto" padding="20px" flex="space-between">
+          <Grid width="80%" margin="auto" padding="0px" flex="space-between">
             <Grid
+              hover
               width="auto"
               flex="center"
               _onClick={() => {
@@ -94,11 +103,16 @@ const Header = (props) => {
               <img
                 src={Logo}
                 style={{
-                  width: "60px",
+                  width: "83px",
                 }}
               />
             </Grid>
-            <Grid width="25%">
+            <Grid
+              width="25%"
+              min_width="200px"
+              height="auto"
+              margin="50px 0px 0px 0px"
+            >
               {/* 로그인 전 헤더 시작*/}
               <Grid flex>
                 <Button
@@ -106,13 +120,14 @@ const Header = (props) => {
                     history.push("/login");
                   }}
                   text="로그인"
+                  text_size="16px"
                   height="40px"
                   padding="0px"
-                  font_color="#fff"
-                  btn_color="#FF9696"
-                  border="none"
+                  font_color="#424852"
+                  btn_color="#fff"
+                  border="3px solid #FF9696"
                   margin="0 10px 0 0"
-                  border_radius="4px"
+                  border_radius="20px"
                   bold
                 ></Button>
                 <Button
@@ -120,12 +135,13 @@ const Header = (props) => {
                     history.push("/signup");
                   }}
                   text="회원가입"
+                  text_size="16px"
                   height="40px"
                   padding="0px"
-                  font_color="#fff"
-                  btn_color="#FF9696"
-                  border="none"
-                  border_radius="4px"
+                  font_color="#424852"
+                  btn_color="#fff"
+                  border="3px solid #FF9696"
+                  border_radius="20px"
                   bold
                 ></Button>
               </Grid>
