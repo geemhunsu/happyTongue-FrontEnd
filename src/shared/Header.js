@@ -17,12 +17,19 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Grid
+          bg="rgba(254, 255, 189, 0.13)"
           margin="0px 0px 80px 0px"
           height="130px"
           width="100%"
-          shadow="rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;"
+          shadow="rgb(0 0 0 / 5%) 0px 3px 10px 0px, rgb(0 0 0 / 2%) 0px 0px 1px 1px"
         >
-          <Grid width="80%" margin="auto" padding="0px" flex="space-between">
+          <Grid
+            max_width="1200px"
+            width="80%"
+            margin="auto"
+            padding="0px"
+            flex="space-between"
+          >
             <Grid
               hover
               width="auto"
@@ -86,12 +93,19 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Grid
+          bg="rgba(254, 255, 189, 0.13)"
           margin="0px 0px 80px 0px"
           height="130px"
           width="100%"
-          shadow="rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;"
+          shadow="rgb(0 0 0 / 5%) 0px 3px 10px 0px, rgb(0 0 0 / 2%) 0px 0px 1px 1px"
         >
-          <Grid width="80%" margin="auto" padding="0px" flex="space-between">
+          <Grid
+            max_width="1200px"
+            width="80%"
+            margin="auto"
+            padding="0px"
+            flex="space-between"
+          >
             <Grid
               hover
               width="auto"
