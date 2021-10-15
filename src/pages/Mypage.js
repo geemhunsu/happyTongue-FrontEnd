@@ -5,6 +5,7 @@ import Post from "../components/Post";
 import { history } from "../redux/ConfigureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as mypageActions } from "../redux/modules/mypage";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Mypage = (props) => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Mypage = (props) => {
     dispatch(mypageActions.getMyPostAPI());
     // dispatch(mypageActions.getBookMarkAPI());
   }, []);
+  console.log("마이페이지에서 유저인포: ", user_info);
   const [mypost_check, setCheckPost] = React.useState(true);
   const [bookmark_check, setCheckMark] = React.useState(false);
 
@@ -40,33 +42,37 @@ const Mypage = (props) => {
           <Grid
             border_radius="14px"
             flex="flex-start"
-            width="35%"
+            width="45%"
             bg="#F4F6F8"
-            min_width="300px"
+            min_width="330px"
           >
-            <Image
-              border_radius="50%"
-              width="80px"
-              height="80px"
-              shape="rectangle"
-              margin="0px 0px 0px 25px"
-            ></Image>
-            <Grid width="40%" height="60px" margin="0px 0px 0px 10px">
+            <Grid width="30%" flex="center">
+              <Image
+                border_radius="50%"
+                width="80px"
+                height="80px"
+                shape="rectangle"
+                margin="0px 0px 0px 25px"
+              ></Image>
+            </Grid>
+            <Grid width="60%" height="60px" margin="0px 0px 0px 10px">
               <Text
+                width="100%"
+                align="left"
                 size="18px"
                 padding="2px"
                 margin="0px"
                 family="GowunDodum-Regular"
               >
-                닉네임: {user_info.nickname}
+                닉네임:{user_info ? user_info.nickname : ""}
               </Text>
               <Text
                 size="18px"
                 padding="2px"
-                margin="0px"
+                margin="0px 0px 0px 0px"
                 family="GowunDodum-Regular"
               >
-                아이디: {user_info.id}
+                아이디:{user_info ? user_info.id : ""}
               </Text>
             </Grid>
           </Grid>

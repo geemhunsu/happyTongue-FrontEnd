@@ -24,7 +24,7 @@ const PostList = (prowps) => {
           size="36px"
           margin="0px 0px 60px 0px"
         >
-          "맛집추천과 맛집 찾기를 동시에! 해티텅😋"
+          "맛집추천과 맛집 찾기를 동시에! 해피텅😋"
         </Text>
       </Grid>
       <Grid max_width="1200px" margin="auto">
@@ -42,7 +42,7 @@ const PostList = (prowps) => {
           post_list.map((p, idx) => {
             return (
               <Grid
-                margin="auto"
+                // margin="auto"
                 key={p._id}
                 _onClick={() => {
                   history.push(`/post/${p._id}`);
@@ -68,7 +68,7 @@ const FlexBox = styled.div`
   border: 1px solid #e4e8eb;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   box-sizing: border-box;
 
