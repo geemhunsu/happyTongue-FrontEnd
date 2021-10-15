@@ -14,7 +14,7 @@ const getPost = createAction(GET_POST, (post_list) => ({
   post_list,
 }));
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
-const editPost = createAction(EDIT_POST, (post_id, post) => ({post_id, post}));
+const updatePost = createAction(EDIT_POST, (post_id, post) => ({post_id, post}));
 
 const initialState = {
   //  리듀서 데이터 초기값
@@ -32,10 +32,11 @@ const createPostMW = (post) => {
       .then((res) => {
         dispatch(createPost(post));
         dispatch(imageActions.setPreview(null, null, null, null, null));
-        window.alert(res.result);
+        window.alert("게시글이 작성되었습니다");
         history.replace("/");
       })
       .catch((err) => {
+        dispatch(imageActions.setPreview(null, null, null, null, null));
         console.log(err);
         history.replace("/");
       });
@@ -44,20 +45,11 @@ const createPostMW = (post) => {
 
 // 게시글 수정
 const editPostMW = (post_id, post) => {
-  console.log(post);
-  return function (dispatch, getState, {history}) {
-    apis
-      .editPost(post_id, post)
-      .then(res => {
-        dispatch(editPost(post_id, post));
-        dispatch(imageActions.setPreview(null, null, null, null, null))
-        console.log(res.result);
-        history.replace("/");
-      })
-      .catch(err => {
-        console.log(err);
-        history.replace("/");
-      })
+  console.log('리덕스 모듈 post.js 진입')
+  return async function (dispatch, getState, {history}) {
+    await apis .editPost(post_id, post);
+    dispatch(imageActions.setPreview(null, null, null, null, null));    
+    history.replace("/");      
   }
 }
 
@@ -142,7 +134,7 @@ export default handleActions(
       }),
     [CREATE_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.unshift(action.payload.post);
+        draft.list.push(action.payload.post);
       }),
     [EDIT_POST]: (state, action) =>
       produce(state, (draft) => {
