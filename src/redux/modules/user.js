@@ -21,7 +21,7 @@ const initialState = {
 // 미들웨어 액션
 // 회원가입
 const signupAPI = (id, name, pwd, pwd_confirm) => {
-  return function (dispatch, getState, { history }) {
+  return function ({ history }) {
     apis
       .createUser({
         email: id,
@@ -32,8 +32,6 @@ const signupAPI = (id, name, pwd, pwd_confirm) => {
       .then(() => {
         console.log("회원가입 성공");
         window.alert("회원가입 성공");
-        //로그인 화면으로 이동
-        history.push("/login");
       })
       .catch((err) => {
         console.log("회원가입 실패");
@@ -44,23 +42,28 @@ const signupAPI = (id, name, pwd, pwd_confirm) => {
 };
 // 로그인 체크
 const loginCheckAPI = () => {
-  return function (dispatch, getState, { history }) {
-    const _token = localStorage.getItem("MY_TOKEN");
-    apis.getUserInfo().then((res) => {
-      console.log("헤더에 토큰있으면 불러오는 데이터: ", res);
-      dispatch(
-        setUser({
-          id: res.data.user.email,
-          nickname: res.data.user.nickname,
-        })
-      );
-    });
+  return function (dispatch) {
+    apis
+      .getUserInfo()
+      .then((res) => {
+        console.log("헤더에 토큰있으면 불러오는 데이터: ", res);
+        localStorage.setItem("MY_NAME", res.data.user.nickname);
+        dispatch(
+          setUser({
+            id: res.data.user.email,
+            nickname: res.data.user.nickname,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 
 // 로그인
 const loginAPI = (id, pwd) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch, { history }) {
     apis
       .createLogin({
         email: id,
@@ -71,10 +74,17 @@ const loginAPI = (id, pwd) => {
         console.log("로그인 res ", res);
         //토큰을 로컬 스토리지에 저장
         localStorage.setItem("MY_TOKEN", token);
+        localStorage.setItem("MY_ID", id);
         //로그인체크 미들웨어로 리덕스에 유저정보 저장
-        dispatch(loginCheckAPI());
-        history.push("/");
-        console.log(localStorage.getItem("My_INFO"));
+        apis.getUserInfo().then((res) => {
+          console.log("로그인 중 ~ 헤더에 토큰있으면 불러오는 데이터: ", res);
+          dispatch(
+            setUser({
+              id: res.data.user.email,
+              nickname: res.data.user.nickname,
+            })
+          );
+        });
       })
       .catch((err) => {
         console.log(err.code, err.message);
@@ -86,6 +96,8 @@ const loginAPI = (id, pwd) => {
 const logoutAPI = () => {
   return function (dispatch, getState, { history }) {
     localStorage.removeItem("MY_TOKEN");
+    localStorage.removeItem("MY_ID");
+    localStorage.removeItem("MY_NAME");
     dispatch(logOut());
     history.replace("/");
   };

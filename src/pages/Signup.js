@@ -1,19 +1,17 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React from "react";
 import { Grid, Button, Input, Text } from "../elements";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { useHistory } from "react-router-dom";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [id, setId] = React.useState("");
   const [name, setName] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [pwd_confirm, setPwdConfirm] = React.useState("");
 
-  // React.useEffect((e) => {
-  //   document.getElementById("background").style.backgroundColor = "#f2f2f2";
-  // }, []);
   const changeId = (e) => {
     setId(e.target.value);
     console.log(id);
@@ -33,6 +31,7 @@ const Signup = (props) => {
   const signUp = () => {
     console.log("값넘어감.");
     dispatch(userActions.signupAPI(id, name, pwd, pwd_confirm));
+    history.push("/login");
   };
   return (
     <React.Fragment>

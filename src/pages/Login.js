@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import { Grid, Button, Input, Text } from "../elements";
-import Post from "../components/Post";
+import { Grid, Button, Input } from "../elements";
+import { history } from "../redux/ConfigureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -9,8 +8,6 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
-
-  // document.getElementsByTagName("body").style.backgroundColor = "#F2F2F2";
 
   const changeId = (e) => {
     setId(e.target.value);
@@ -22,6 +19,7 @@ const Login = (props) => {
   };
   const login = () => {
     dispatch(userActions.loginAPI(id, pwd));
+    history.push("/");
   };
 
   return (
