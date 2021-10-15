@@ -74,13 +74,9 @@ const loginAPI = (id, pwd) => {
         //로그인체크 미들웨어로 리덕스에 유저정보 저장
         dispatch(loginCheckAPI());
         history.push("/");
-        console.log("로그인 성공");
         console.log(localStorage.getItem("My_INFO"));
-        window.alert("로그인 성공");
       })
       .catch((err) => {
-        console.log("로그인 실패");
-        window.alert("로그인 실패");
         console.log(err.code, err.message);
       });
   };
