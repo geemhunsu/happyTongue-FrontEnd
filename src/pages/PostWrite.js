@@ -21,6 +21,7 @@ const PostWrite = (props) => {
   const previewName = useSelector(state => state.image.previewName);
   const previewType = useSelector(state => state.image.previewType);
   const previewFile = useSelector(state => state.image.previewFile);
+  const previewFullName = useSelector(state => state.image.previewFullName);
 
   const [title, setTitle] = React.useState("");
   const [storeName, setStoreName] = React.useState("");
@@ -28,13 +29,19 @@ const PostWrite = (props) => {
   const [content, setContent] = React.useState("");
 
   React.useEffect(() => {
-    if(is_edit){
+    if (is_edit) {
       dispatch(postActions.getOnePostMW(post_id))
       setTitle(post.title);
       setStoreName(post.storeName);
       setStoreArea(post.storeArea);
-      setContent(post.content)
-      dispatch(imageActions.setPreview(post.imgUrl))
+      setContent(post.content);
+      const pvName = post.imgUrl.split('com/')[1].split('.')[0];
+      const pvType = post.imgUrl.split('com/')[1].split('.')[1];
+      const pvFull = post.imgUrl.split('com/')[1];
+      console.log(pvName)
+      console.log(pvType)
+      console.log(pvFull)
+      dispatch(imageActions.setPreview(post.imgUrl, pvName, pvType, pvFull));
     }
   }, [])
 
@@ -58,7 +65,7 @@ const PostWrite = (props) => {
 
     const promise = awsUpload.promise();
 
-    promise.then(date => {      
+    promise.then(date => {
     }).catch(err => {
       console.log(err, err.code, err.message);
       console.log("env", process.env.AWS_CONFIG)
@@ -67,7 +74,7 @@ const PostWrite = (props) => {
       dispatch(postActions.createPostMW({
         title,
         content,
-        imgUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewName}.${previewType}`,
+        imgUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewFullName}`,
         storeName,
         storeArea,
       }));
@@ -77,36 +84,47 @@ const PostWrite = (props) => {
 
   const editPost = () => {
 
-    const awsUpload = new AWS.S3.ManagedUpload({
-      params: {
-        Bucket: "hanghae-miniproject-team2-imagebucket",
-        Key: `${previewName}.${previewType}`,  // 이유는 모르겠지만 저렇게 쪼개서 파일명을 줘야한다
-        Body: previewFile,
-        ACL: "public-read",
-        ContentType: preview.type,
-      },
-    })
+    if (previewFile) {
+      const awsUpload = new AWS.S3.ManagedUpload({
+        params: {
+          Bucket: "hanghae-miniproject-team2-imagebucket",
+          Key: `${previewName}.${previewType}`,  // 이유는 모르겠지만 저렇게 쪼개서 파일명을 줘야한다
+          Body: previewFile,
+          ACL: "public-read",
+          ContentType: preview.type,
+        },
+      })
 
-    const promise = awsUpload.promise();
+      const promise = awsUpload.promise();
 
-    promise.then(date => {      
-    }).catch(err => {
-      console.log(err, err.code, err.message);
-      console.log("env", process.env.AWS_CONFIG)
-      window.alert('업로드 실패');
-    }).then(datat => {
-      dispatch(postActions.createPostMW({
+      promise.then(date => {
+        console.log('s3에 이미지 업로드 성공')
+      }).catch(err => {
+        console.log(err, err.code, err.message);
+        console.log("env", process.env.AWS_CONFIG)
+        window.alert('업로드 실패');
+      }).then(datat => {
+        dispatch(postActions.editPostMW(post_id, {
+          title,
+          content,
+          imgUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewFullName}`,
+          storeName,
+          storeArea,
+        }));
+      })
+    } else {
+      dispatch(postActions.editPostMW(post_id, {
         title,
         content,
-        imgUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewName}.${previewType}`,
+        imgUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewFullName}`,
         storeName,
         storeArea,
-      }));
-    })
+      }))
+    }
 
   }
-  
-  
+
+
 
   return (
     <React.Fragment>
@@ -151,7 +169,7 @@ const PostWrite = (props) => {
           <Input multline height="200px" margin="0 0 50px 0"
             border="2px solid #F18C8E" radius="7px" _onChange={(e) => {
               setContent(e.target.value);
-            }} onSubmit={addPost} value={content} />
+            }} onSubmit={is_edit ? editPost : addPost} value={content} />
           {is_edit ? (
             <Button text="수정하기" width="100%" padding="10px"
               border="none" border_radius="7px" _onClick={editPost}></Button>
