@@ -2,17 +2,19 @@ import produce from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { apis } from "../../shared/axios";
 
+import { actionCreators as imageActions } from "./image";
+
 // 액션
 const GET_POST = "GET_POST";
 const CREATE_POST = "CREATE_POST";
-
+const EDIT_POST = "EDIT_POST";
 
 // 액션 생성
 const getPost = createAction(GET_POST, (post_list) => ({
   post_list,
 }));
-
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
+const editPost = createAction(EDIT_POST, (post_id, post) => ({post_id, post}));
 
 const initialState = {
   //  리듀서 데이터 초기값
@@ -20,6 +22,8 @@ const initialState = {
 };
 
 // 미들웨어
+
+// 게시글 작성
 const createPostMW = (post) => {
   console.log(post);
   return (dispatch, getState, { history }) => {
@@ -27,14 +31,35 @@ const createPostMW = (post) => {
       .createPost(post)
       .then((res) => {
         dispatch(createPost(post));
+        dispatch(imageActions.setPreview(null, null, null, null, null));
         window.alert(res.result);
         history.replace("/");
       })
       .catch((err) => {
         console.log(err);
+        history.replace("/");
       });
   };
 };
+
+// 게시글 수정
+const editPostMW = (post_id, post) => {
+  console.log(post);
+  return function (dispatch, getState, {history}) {
+    apis
+      .editPost(post_id, post)
+      .then(res => {
+        dispatch(editPost(post_id, post));
+        dispatch(imageActions.setPreview(null, null, null, null, null))
+        console.log(res.result);
+        history.replace("/");
+      })
+      .catch(err => {
+        console.log(err);
+        history.replace("/");
+      })
+  }
+}
 
 // 전체페이지 조회
 const getPostMW = () => {
@@ -118,6 +143,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post);
       }),
+    [EDIT_POST]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.indexOf(p => p._id === action.payload.post_id);
+        draft.list[idx] = {...draft.list[idx], ...action.payload.post};
+      }),
   },
   initialState
 );
@@ -128,7 +158,7 @@ const actionCreators = {
   getOnePostMW,
   getSearchPostMW,
   deletePostMW,
-  
+  editPostMW,
   createPostMW,
 };
 

@@ -14,7 +14,7 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();
-
+  const {history} = props;
   const [is_like, setIsLike] = React.useState(false);
   const [is_favorite, setIsFavorite] = React.useState(false);
   const post = useSelector((state) => state.post.list.detail);
@@ -79,7 +79,9 @@ const PostDetail = (props) => {
           </Grid>
           {post.nickname === user.nickname && (
             <Grid flex>
-              <Button text="수정하기" /> {/*수정 버튼*/}
+              <Button text="수정하기" _onClick={()=>{
+                history.push(`/write/${_id}`)
+              }}/> {/*수정 버튼*/}
               <Button text="삭제하기" _onClick={deletePost} /> {/*삭제 버튼*/}
             </Grid>
           )}
