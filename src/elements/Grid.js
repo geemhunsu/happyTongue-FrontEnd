@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Grid = React.forwardRef((props) => {
   const {
+    id,
     children,
     margin,
     padding,
@@ -25,6 +26,7 @@ const Grid = React.forwardRef((props) => {
     dispay,
     min_width,
     max_width,
+    max_height,
     shadow,
     hover, // 커서 포인터
   } = props;
@@ -50,13 +52,14 @@ const Grid = React.forwardRef((props) => {
     ref,
     min_width,
     max_width,
+    max_height,
     shadow,
     hover,
   };
 
   return (
     <React.Fragment>
-      <GridBox {...styles} ref={ref} onClick={_onClick}>
+      <GridBox id={id} {...styles} ref={ref} onClick={_onClick}>
         {children}
       </GridBox>
     </React.Fragment>
@@ -64,6 +67,7 @@ const Grid = React.forwardRef((props) => {
 });
 
 Grid.defaultProps = {
+  id: null,
   children: null,
   margin: null,
   padding: null,
@@ -86,6 +90,7 @@ Grid.defaultProps = {
   dispay: null,
   min_width: false,
   max_width: false,
+  max_height: false,
   shadow: null,
   hover: false,
 };
@@ -97,6 +102,7 @@ const GridBox = styled.div`
   width: ${(props) => props.width};
   min-width: ${(props) => props.min_width};
   max-width: ${(props) => props.max_width};
+  max-height: ${(props) => props.max_height};
   height: ${(props) => props.height};
   background-color: ${(props) => props.bg};
   ${(props) =>
