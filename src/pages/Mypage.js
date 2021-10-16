@@ -19,6 +19,7 @@ const Mypage = (props) => {
   console.log("마이페이지에서 유저인포: ", user_info);
   const [mypost_check, setCheckPost] = React.useState(true);
   const [bookmark_check, setCheckMark] = React.useState(false);
+  const [title, setTitle] = React.useState("내 게시글");
 
   return (
     <React.Fragment>
@@ -89,6 +90,7 @@ const Mypage = (props) => {
             _onClick={() => {
               setCheckPost(true);
               setCheckMark(false);
+              setTitle("내 게시글");
             }}
             width="170px"
             border="none"
@@ -102,6 +104,7 @@ const Mypage = (props) => {
             _onClick={() => {
               setCheckPost(false);
               setCheckMark(true);
+              setTitle("즐겨찾기");
             }}
             width="170px"
             margin="0px 0px 0px 10px"
@@ -115,6 +118,16 @@ const Mypage = (props) => {
         </Grid>
         {/* 게시물 리스트 */}
         <FlexBox>
+          <TitleBox>
+            <Text
+              family="Wemakeprice-Bold"
+              color="#5077BA"
+              align="center"
+              size="30px"
+            >
+              {title}
+            </Text>
+          </TitleBox>
           {mypost_list &&
             mypost_check &&
             mypost_list.map((post) => {
@@ -169,6 +182,15 @@ const FlexBox = styled.div`
     content: "";
     width: 340px;
   }
+`;
+
+const TitleBox = styled.div`
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  box-sizing: border-box;
 `;
 
 export default Mypage;
