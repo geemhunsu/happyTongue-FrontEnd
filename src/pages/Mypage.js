@@ -14,7 +14,7 @@ const Mypage = (props) => {
   const bookmark_list = useSelector((state) => state.mypage.bookmark);
   React.useEffect(() => {
     dispatch(mypageActions.getMyPostAPI());
-    // dispatch(mypageActions.getBookMarkAPI());
+    dispatch(mypageActions.getBookMarkAPI());
   }, []);
   console.log("마이페이지에서 유저인포: ", user_info);
   const [mypost_check, setCheckPost] = React.useState(true);
@@ -154,7 +154,7 @@ const Mypage = (props) => {
 };
 
 const FlexBox = styled.div`
-  padding: 30px 0px;
+  padding: 30px 20px;
   width: 90%;
   min-width: 340px;
   margin: auto;
