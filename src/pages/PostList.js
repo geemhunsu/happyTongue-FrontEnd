@@ -16,13 +16,10 @@ const PostList = (prowps) => {
     dispatch(postActions.getPostMW());
   }, []);
 
-
-
   return (
     <React.Fragment>
       <Wrap>
-
-        <Grid margin="0 0 0 8.5%" >
+        <Grid margin="0 0 0 8.5%">
           <Grid>
             <Text
               family="Wemakeprice-Bold"
@@ -37,19 +34,11 @@ const PostList = (prowps) => {
           <Grid max_width="1200px" margin="auto">
             <Search />
           </Grid>
-          {/* <Grid
-        width="90%"
-        padding="16px"
-        margin="auto"
-        flex="flex-evenly"
-        flex_wrap="wrap"
-      > */}
           <FlexBox>
             {post_list &&
               post_list.map((p, idx) => {
                 return (
                   <Grid
-                    // margin="auto"
                     key={p._id}
                     _onClick={() => {
                       history.push(`/post/${p._id}`);
@@ -61,13 +50,10 @@ const PostList = (prowps) => {
                 );
               })}
           </FlexBox>
-          {/* </Grid> */}
         </Grid>
-
-        <Grid width="auto" margin="0 5% 0 0" > 
+        <Grid width="auto" margin="0 5% 0 0">
           <Chat id="chatDisplay" />
         </Grid>
-
       </Wrap>
     </React.Fragment>
   );
@@ -79,7 +65,6 @@ const FlexBox = styled.div`
   min-width: 340px;
   max-width: 1200px;
   margin: 100px auto;
-  border: 1px solid #e4e8eb;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -93,7 +78,7 @@ const FlexBox = styled.div`
 `;
 
 const Wrap = styled.div`
-  display: flex;  
+  display: flex;
   box-sizing: border-box;
   overflow-x: hidden;
 `;
