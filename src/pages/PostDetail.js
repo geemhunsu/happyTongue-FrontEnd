@@ -52,6 +52,11 @@ const PostDetail = (props) => {
       <Grid>
         <Search />
         <Grid padding="16px">
+        <Grid>
+            <Text align="center" bold size="50px">
+              {post.title} {/*글 제목*/}
+            </Text>
+          </Grid>
           {/*이미지 Grid*/}
           <Grid margin="auto" flex="space-between" width="50%">
             <Text>작성자 : {post.nickname} </Text>
@@ -70,13 +75,13 @@ const PostDetail = (props) => {
             src={post.imgUrl ? post.imgUrl : ""}
           />
         </Grid>
+        <Grid flex="space-between" margin="auto" width="50%">
+          <Text>가게명: {post.storeName}</Text>
+          <Text>지역: {post.storeArea}</Text>
+        </Grid>
         <Grid margin="auto" width="60%" padding="16px">
           {/*컨텐츠 Grid*/}
-          <Grid>
-            <Text align="center" bold>
-              {post.title} {/*글 제목*/}
-            </Text>
-          </Grid>
+          
           <Grid border="solid 1px" height="300px">
             <Text>{post.content}</Text> {/*글 내용*/}
           </Grid>
