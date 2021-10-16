@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
+  // baseURL: "http://3.34.138.243",
   baseURL: "http://15.164.225.3",
   // baseURL: "http://localhost:4000/",
   headers: {

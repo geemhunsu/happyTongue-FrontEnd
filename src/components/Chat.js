@@ -24,6 +24,11 @@ const Chat = (props) => {
   const chatBox = document.getElementById("chatBox");
   const userBox = document.getElementById("userBox");
 
+  const moveScroll = () => {
+    const chatBox = document.getElementById("chatBox");
+    chatBox.scrollTo({ top: chatBox.scrollHeight + 460, behavior: "smooth" });
+  };
+
   React.useEffect(() => {
     socketRef.current = io.connect("http://15.164.225.3", {
       transports: ["websocket"],
@@ -32,6 +37,7 @@ const Chat = (props) => {
 
     socketRef.current.on("chatLog", (chatLog) => {
       setChatList(chatLog);
+      setTimeout(moveScroll, 200);
     });
     socketRef.current.on("receiveMsg", (data) => {
       const { nickname, msg, time } = data;
@@ -51,9 +57,6 @@ const Chat = (props) => {
       return;
     }
     console.log(chatList.length);
-    const moveScroll = () => {
-      chatBox.scrollTo({ top: chatBox.scrollHeight + 460, behavior: "smooth" });
-    };
     const { message } = state;
     socketRef.current.emit("sendMsg", { nickname: _nickname, msg: message });
     setState({ ...state, message: "" });
@@ -262,7 +265,7 @@ const Chat = (props) => {
                     color="#0e77d3"
                     bold
                   >
-                    {user}
+                    {user ? user : `손님${index + 1}`}
                   </Text>
                 </Grid>
               );
