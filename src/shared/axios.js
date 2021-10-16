@@ -21,7 +21,7 @@ export const apis = {
   getUserInfo: () => instance.get("api/users/me"),
   getOnePost: (post_id) => instance.get(`api/posts/${post_id}`), // 상세페이지 조회
   deletePost: (post_id) => instance.delete(`api/posts/${post_id}`), // post 삭제
-  editPost: (post_id, post) =>  instance.patch(`api/posts/${post_id}`, post),
+  editPost: (post_id, post) => instance.patch(`api/posts/${post_id}`, post),
   getSearchPost: (keyword) => instance.get(`api/posts/search/${keyword}`), //검색 조회
   addComment: (post_id, content) =>
     instance.post(`api/posts/${post_id}/comments`, content), //댓글달기
@@ -30,4 +30,5 @@ export const apis = {
     instance.delete(`api/posts/${post_id}/comments/${comment_id}`), //댓글 삭제
   getMyPost: () => instance.get("api/posts/myinfo"), // 내 게시물 조회
   getBookMark: () => instance.get("api/posts/dibson"), // 즐겨찾기 조회
+  likePost: (post_id, likeState) => instance.post(`api/posts/${post_id}`, likeState),
 };

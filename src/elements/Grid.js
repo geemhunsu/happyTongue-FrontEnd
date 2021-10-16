@@ -28,6 +28,8 @@ const Grid = React.forwardRef((props) => {
     max_height,
     shadow,
     hover, // 커서 포인터
+    className,
+    transform,
   } = props;
   const styles = {
     // props 중에서 스타일 부분만 따로 묶음
@@ -45,7 +47,7 @@ const Grid = React.forwardRef((props) => {
     flex_item,
     flex_wrap,
     overflow,
-    border_bottom,    
+    border_bottom,
     id,
     display,    
     ref,
@@ -54,11 +56,12 @@ const Grid = React.forwardRef((props) => {
     max_height,
     shadow,
     hover,
+    transform,
   };
 
   return (
     <React.Fragment>
-      <GridBox id={id} {...styles} ref={ref} onClick={_onClick}>
+      <GridBox id={id} className={className} {...styles} ref={ref} onClick={_onClick}>
         {children}
       </GridBox>
     </React.Fragment>
@@ -92,6 +95,7 @@ Grid.defaultProps = {
   max_height: false,
   shadow: null,
   hover: false,
+  transform: null,
 };
 
 // flex의 경우 justify-content의 값만 바꾸는 것으로
@@ -119,7 +123,14 @@ const GridBox = styled.div`
   overflow: ${(props) => props.overflow};
   display: ${props => props.display};  
   ${(props) => (props.shadow ? `box-shadow: ${props.shadow};` : "")}
-  ${(props) => (props.hover ? `cursor:pointer;` : "")}
+  ${(props) => (props.hover ? `cursor:pointer;` : "")};
+  transition: 0.5s all ease;
+  transform: ${props => props.transform};
+
+  .active {
+    width: 450px;
+    transform: translate3d(0, 0, 0);
+  }
 
   ::-webkit-scrollbar {
     width: 5px;

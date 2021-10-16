@@ -1,20 +1,23 @@
 import produce from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { apis } from "../../shared/axios";
-
 import { actionCreators as imageActions } from "./image";
-
+import store from "../ConfigureStore";
 // 액션
 const GET_POST = "GET_POST";
 const CREATE_POST = "CREATE_POST";
 const EDIT_POST = "EDIT_POST";
+const LIKE_POST = "LIKE_POST";
 
 // 액션 생성
 const getPost = createAction(GET_POST, (post_list) => ({
   post_list,
 }));
 const createPost = createAction(CREATE_POST, (post) => ({ post }));
-const updatePost = createAction(EDIT_POST, (post_id, post) => ({post_id, post}));
+
+const likePost = createAction(LIKE_POST, (likeState) => ({
+  likeState,
+}));
 
 const initialState = {
   //  리듀서 데이터 초기값
@@ -92,7 +95,6 @@ const getSearchPostMW = (keyword) => {
         const post_list = res.data;
         dispatch(getPost(post_list));
         history.push("/");
-
       })
       .catch((err) => {
         console.error(err);
@@ -123,7 +125,18 @@ const deletePostMW = (post_id) => {
   };
 };
 
-
+const likeStateMW = (post_id, likeState) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .likePost(post_id, {likeState})
+      .then((res) => {
+        dispatch(likePost( likeState ));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 export default handleActions(
   //리듀서
@@ -138,8 +151,12 @@ export default handleActions(
       }),
     [EDIT_POST]: (state, action) =>
       produce(state, (draft) => {
-        let idx = draft.list.indexOf(p => p._id === action.payload.post_id);
-        draft.list[idx] = {...draft.list[idx], ...action.payload.post};
+        let idx = draft.list.indexOf((p) => p._id === action.payload.post_id);
+        draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
+      }),
+    [LIKE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.likeState = action.payload.likeState;
       }),
   },
   initialState
@@ -153,6 +170,7 @@ const actionCreators = {
   deletePostMW,
   editPostMW,
   createPostMW,
+  likeStateMW,
 };
 
 export { actionCreators };

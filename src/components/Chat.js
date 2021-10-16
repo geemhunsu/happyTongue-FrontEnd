@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as userActions } from "../redux/modules/user"
 
 const Chat = (props) => {
+  const {id} = props;
   const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user.is_login);
@@ -62,19 +63,22 @@ const Chat = (props) => {
     setTimeout(moveScroll, 200)
   }
 
-  const showChatting = () => {
+  const showChatting = (e) => {
+    e.stopPropagation();
     userBox.style.display = "none";
     chatBox.style.display = "block";
   }
 
-  const showNowUsers = () => {
+  const showNowUsers = (e) => {
+    e.stopPropagation();
     chatBox.style.display = "none";
     userBox.style.display = "block";
   }  
   return (
     <React.Fragment>
       <Grid width="450px" height="80vh" margin="0 auto" padding="1em 2em"
-        bg="#f0b7a4" flex="flex-start" flex_direction="column">
+        bg="#f0b7a4" flex="flex-start" flex_direction="column" id={id} 
+        width="0" transform="translate3d(600px, 0, 0)" >
         <Grid flex="space-between" height="10%">
 
           <Grid flex="flex-start" >

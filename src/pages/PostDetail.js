@@ -5,42 +5,36 @@ import CommentWrite from "../components/CommentWrite";
 import Search from "../components/Search";
 import { Grid, Image, Text, Button } from "../elements/index";
 import { useDispatch, useSelector } from "react-redux";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { yellow, red } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();
-  const {history} = props;
-  const [is_like, setIsLike] = React.useState(false);
-  const [is_favorite, setIsFavorite] = React.useState(false);
+  const { history } = props;
   const post = useSelector((state) => state.post.list.detail);
   const user = useSelector((state) => state.user.user);
-
+  const _like = useSelector((state) => state.post.list);
   const comment = useSelector((state) => state.comment.list);
   const _id = props.match.params.id;
 
   // const post_idx =post_list &&  post_list.findIndex((p) => p.id === _id);
   // const post = post_list[post_idx];
+  let is_like = _like.likeState;
+  
 
   const like = () => {
     if (is_like) {
-      setIsLike(false);
+      is_like=false;
+      dispatch(postActions.likeStateMW(_id, is_like));
     } else {
-      setIsLike(true);
+      is_like=true;
+      dispatch(postActions.likeStateMW(_id, is_like));
     }
   };
-  const favorite = () => {
-    if (is_favorite) {
-      setIsFavorite(false);
-    } else {
-      setIsFavorite(true);
-    }
-  };
+
   const deletePost = () => {
     dispatch(postActions.deletePostMW(_id));
   };
@@ -52,16 +46,17 @@ const PostDetail = (props) => {
   if (!post || !user) {
     return <div></div>;
   }
+
   // 게시물 작성시간
-  const post_date = moment(post.date).format("YYYY-MM-DD");  //post가 존재할때 실행되야 해서 밑에다 넣음.
-  
+  const post_date = moment(post.date).format("YYYY-MM-DD"); //post가 존재할때 실행되야 해서 밑에다 넣음.
+
   return (
     <React.Fragment>
       <Grid>
         <Search />
         <Grid padding="16px">
           {/*이미지 Grid*/}
-          <Grid margin="auto" flex="space-between" width = "50%">
+          <Grid margin="auto" flex="space-between" width="50%">
             <Text>작성자 : {post.nickname} </Text>
             <Text align="center">{props.live_count}명이 보고있다.</Text>
             <Text>작성일 : {post_date}</Text>
@@ -87,9 +82,13 @@ const PostDetail = (props) => {
           </Grid>
           {post.nickname === user.nickname && (
             <Grid flex>
-              <Button text="수정하기" _onClick={()=>{
-                history.push(`/write/${_id}`)
-              }}/> {/*수정 버튼*/}
+              <Button
+                text="수정하기"
+                _onClick={() => {
+                  history.push(`/write/${_id}`);
+                }}
+              />{" "}
+              {/*수정 버튼*/}
               <Button text="삭제하기" _onClick={deletePost} /> {/*삭제 버튼*/}
             </Grid>
           )}
@@ -104,14 +103,10 @@ const PostDetail = (props) => {
             ) : (
               <FavoriteBorderIcon sx={{ color: red[500] }} onClick={like} />
             )}
-            {is_favorite === true ? ( // 별
-              <StarIcon sx={{ color: yellow[500] }} onClick={favorite} />
-            ) : (
-              <StarBorderIcon sx={{ color: yellow[500] }} onClick={favorite} />
-            )}
           </Grid>
         </Grid>
-        <CommentWrite post_id={_id} nickname={post.nickname} /> {/*댓글 입력 component*/}
+        <CommentWrite post_id={_id} nickname={post.nickname} />{" "}
+        {/*댓글 입력 component*/}
         <CommentList post_id={_id} /> {/*댓글 리스트 component*/}
       </Grid>
     </React.Fragment>
