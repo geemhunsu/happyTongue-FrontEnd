@@ -13,7 +13,7 @@ const Header = (props) => {
   const is_token = localStorage.getItem("MY_TOKEN") ? true : false;
   console.log("토큰유무: ", is_token);
   // 토큰의 유무에 따라서만 로그인 상태인지 로그아웃 상태인지 확인
-  if (is_login && is_token) {
+  if (is_token) {
     return (
       <React.Fragment>
         <Grid

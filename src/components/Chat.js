@@ -27,7 +27,7 @@ const Chat = (props) => {
   
   React.useEffect(() => {
     
-    socketRef.current = io.connect('http://3.34.138.243', { transports: ['websocket'] });
+    socketRef.current = io.connect('http://15.164.225.3', { transports: ['websocket'] });
     socketRef.current.emit("join", _nickname );
 
     socketRef.current.on("chatLog", (chatLog) => {

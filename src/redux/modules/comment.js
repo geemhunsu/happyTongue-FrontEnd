@@ -6,7 +6,7 @@ import { instance } from "../../shared/axios";
 const ADD_COMMENT = "ADD_COMMENT";
 const GET_COMMENT = "GET_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
-
+const EDIT_COMMENT = "EDIT_COMMENT";
 const initialState = {
   //  리듀서 데이터 초기값
   list: [{ content: "asd" }, { content: "ㅎㅇ" }],
@@ -22,6 +22,10 @@ const getComment = createAction(GET_COMMENT, (comments) => ({
 const deleteComment = createAction(DELETE_COMMENT, (comment_id) => ({
   comment_id,
 }));
+const editComment = createAction(EDIT_COMMENT, (comment_id, content) => ({
+  comment_id,
+  content
+}))
 // 댓글달기
 const addCommentMW = (post_id, content) => {
   console.log(content);
@@ -59,6 +63,14 @@ const deleteCommentMW = (post_id, comment_id) => {
     });
   };
 };
+
+const editCommentMW = (post_id, comment_id, content) => {
+  return async function (dispatch) {
+    await apis.editComment(post_id, comment_id, {content});
+      dispatch(editComment(comment_id,content));
+  }
+}
+
 export default handleActions(
   //리듀서
   {
@@ -77,6 +89,12 @@ export default handleActions(
         );
         draft.list.splice(delete_idx, 1);
       }),
+      [EDIT_COMMENT] : (state, action) =>
+      produce(state, (draft)=> {
+        const comment_idx = draft.list.findIndex((list) => list._id, action.payload.comment_id);
+        console.log(comment_idx);
+        // draft.list.detail.
+      })
   },
   initialState
 );
@@ -85,6 +103,7 @@ const actionCreators = {
   addCommentMW,
   getCommentMW,
   deleteCommentMW,
+  editCommentMW,
 };
 
 export { actionCreators };

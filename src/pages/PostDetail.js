@@ -16,23 +16,20 @@ const PostDetail = (props) => {
   const { history } = props;
   const post = useSelector((state) => state.post.list.detail);
   const user = useSelector((state) => state.user.user);
+  
   const _like = useSelector((state) => state.post.list);
   const comment = useSelector((state) => state.comment.list);
   const _id = props.match.params.id;
 
-  // const post_idx =post_list &&  post_list.findIndex((p) => p.id === _id);
-  // const post = post_list[post_idx];
-  let is_like = _like.likeState;
-  
-
+  let is_like = _like.likeState; // bool
+  let likes = _like.likes; // number type
   const like = () => {
-    if (is_like) {
-      is_like=false;
-      dispatch(postActions.likeStateMW(_id, is_like));
+    if ( is_like) { 
+      likes=likes--;
     } else {
-      is_like=true;
-      dispatch(postActions.likeStateMW(_id, is_like));
+      likes=likes++;
     }
+    dispatch(postActions.likeStateMW(_id, !is_like,likes));
   };
 
   const deletePost = () => {
@@ -41,7 +38,7 @@ const PostDetail = (props) => {
   React.useEffect(() => {
     dispatch(postActions.getOnePostMW(_id));
     dispatch(commentActions.getCommentMW(_id));
-  }, []);
+  }, [is_like]);
 
   if (!post || !user) {
     return <div></div>;
@@ -58,15 +55,18 @@ const PostDetail = (props) => {
           {/*이미지 Grid*/}
           <Grid margin="auto" flex="space-between" width="50%">
             <Text>작성자 : {post.nickname} </Text>
-            <Text align="center">{props.live_count}명이 보고있다.</Text>
             <Text>작성일 : {post_date}</Text>
           </Grid>
           {/*이미지*/}
           <Image
             shape="rectangle"
-            margin="auto"
+            border="5px solid black"
+            border_radius="7px"
+            padding="7px"
             width="50%"
-            height="860px"
+            height="500px"
+            is_center
+            margin="0 auto"
             src={post.imgUrl ? post.imgUrl : ""}
           />
         </Grid>
@@ -97,7 +97,8 @@ const PostDetail = (props) => {
           <Grid>
             <Text>댓글: {comment.length}개</Text> {/*댓글갯수*/}
           </Grid>
-          <Grid width="10%">
+          <Grid width="17%" flex = "space-between">
+            <Text>좋아요 : {likes}</Text>
             {is_like === true ? ( // 하트
               <FavoriteIcon sx={{ color: red[500] }} onClick={like} />
             ) : (
@@ -112,11 +113,5 @@ const PostDetail = (props) => {
     </React.Fragment>
   );
 };
-// PostDetail.defaultProps = {
-//   title: "타이틀",
-//   content:
-//     "글 내용!skjdfhsjkfhjksdfhjksdhjfjksahdfjksdhjkfhsdjkfhsjkdfjksdhfjkshdjkfhsdjkfhjksdhfkjsdhfjkshdjkfshdjkf", //text word-break : break-all;
-//   live_count: 0,
-//   comment_count: 0,
-// };
+
 export default PostDetail;
