@@ -31,37 +31,39 @@ function App() {
   }, []);
 
   const toggleChatBox = (e) => {
-    console.log('클릭중')
-    let chatDisplay = document.getElementById('chatDisplay')    
-    chatDisplay.classList.toggle("active")      
+    let chatDisplay = document.getElementById('chatDisplay')
+    chatDisplay.classList.toggle("active")
   }
 
   return (
     <div className="App">
       <Grid margin="auto">
         <Header></Header>
-        <ConnectedRouter history={history}>
-          <Route path="/" exact component={PostList} />
+        <ConnectedRouter history={history}>          
+          <Route path="/" exact>
+            <PostList />
+            <Permit>
+              <Button
+                is_float
+                text="+"
+                _onClick={() => {
+                  history.push("/write");
+                }}
+              ></Button>
+              <DoChat _onClick={toggleChatBox} >
+                <ChatBubbleIcon />
+              </DoChat>
+            </Permit>
+          </Route>
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/write" exact component={PostWrite} />
           <Route path="/write/:id" exact component={PostWrite} />
-          <Route path="/mypage" exact component={Mypage} />          
+          <Route path="/mypage" exact component={Mypage} />
         </ConnectedRouter>
       </Grid>
-      <Permit>
-        <Button
-          is_float
-          text="+"
-          _onClick={() => {
-            history.push("/write");
-          }}
-        ></Button>
-        <DoChat _onClick={toggleChatBox} >
-          <ChatBubbleIcon/>
-        </DoChat>
-      </Permit>
+
     </div>
   );
 }
