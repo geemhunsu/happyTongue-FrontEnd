@@ -34,6 +34,7 @@ const addCommentMW = (post_id, content) => {
       .addComment(post_id, content)
       .then((result) => {
         dispatch(addComment(content));
+        dispatch(getCommentMW(post_id));
       })
       .catch((err) => {
         console.log(err);
@@ -57,6 +58,7 @@ const getCommentMW = (post_id) => {
 
 // 댓글 삭제
 const deleteCommentMW = (post_id, comment_id) => {
+  console.log(post_id, comment_id);
   return function (dispatch) {
     apis.deleteComment(post_id, comment_id).then((res) => {
       dispatch(deleteComment(comment_id));
