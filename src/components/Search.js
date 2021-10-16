@@ -17,13 +17,13 @@ const Search = (props) => {
       flex
       width="80%"
       height="50px"
-      border="1px solid lightgray"
+      border="2px solid #FDCD56"
       margin="auto"
       padding="0px"
     >
       <Input
         size="20px"
-        padding="0px 15px"
+        padding="0px 12px"
         placeholder="검색어를 입력해주세요."
         _onChange={onChange}
         value={search_text}
@@ -33,6 +33,7 @@ const Search = (props) => {
         height="100%"
       />
       <Button
+        bold
         text="검색"
         text_size="20px"
         height="50px"

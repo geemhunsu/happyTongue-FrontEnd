@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "http://3.34.138.243",
+  baseURL: "http://15.164.225.3",
   // baseURL: "http://localhost:4000/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
@@ -30,5 +30,6 @@ export const apis = {
     instance.delete(`api/posts/${post_id}/comments/${comment_id}`), //댓글 삭제
   getMyPost: () => instance.get("api/posts/myinfo"), // 내 게시물 조회
   getBookMark: () => instance.get("api/posts/dibson"), // 즐겨찾기 조회
-  likePost: (post_id, likeState) => instance.post(`api/posts/${post_id}`, likeState),
+  likePost: (post_id, likeState) =>
+    instance.post(`api/posts/${post_id}`, likeState),
 };
