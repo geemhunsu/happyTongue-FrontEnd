@@ -24,14 +24,19 @@ const Chat = (props) => {
   const chatBox = document.getElementById('chatBox');
   const userBox = document.getElementById('userBox');
 
+  const moveScroll = () => {
+    const chatBox = document.getElementById('chatBox');
+    chatBox.scrollTo({ top: chatBox.scrollHeight + 460, behavior: 'smooth' });
+  }
   
   React.useEffect(() => {
     
-    socketRef.current = io.connect('http://3.34.138.243', { transports: ['websocket'] });
+    socketRef.current = io.connect('http://15.164.225.3', { transports: ['websocket'] });
     socketRef.current.emit("join", _nickname );
 
     socketRef.current.on("chatLog", (chatLog) => {
       setChatList(chatLog);
+      setTimeout(moveScroll, 200);
     })    
     socketRef.current.on("receiveMsg", (data) => {
       const { nickname, msg, time} = data;
@@ -47,6 +52,7 @@ const Chat = (props) => {
 
 
 
+  
 
   const sendMessage = () => {
     if (state.message === "") {
@@ -54,13 +60,10 @@ const Chat = (props) => {
       return
     }
     console.log(chatList.length)
-    const moveScroll = () => {
-      chatBox.scrollTo({ top: chatBox.scrollHeight + 460, behavior: 'smooth' });
-    }
     const { message } = state;
     socketRef.current.emit("sendMsg", { nickname:_nickname, msg: message, });
     setState({ ...state, message: "" });
-    setTimeout(moveScroll, 200)
+    setTimeout(moveScroll, 200);
   }
 
   const showChatting = (e) => {
@@ -183,7 +186,7 @@ const Chat = (props) => {
                   bg="aliceblue" padding="0.5em" border_radius="10px" width="auto" >
                   <Image shape="circle" size="30" margin="0 10px 0 0" />
                   <Text margin="0" family="GowunDodum-Regular" color="#0e77d3" bold >
-                    {user}
+                    {user ? user : `손님${index+1}`}
                   </Text>
                 </Grid>
               )
