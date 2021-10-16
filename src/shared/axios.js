@@ -33,5 +33,6 @@ export const apis = {
     instance.patch(`api/posts/${post_id}/comments/${comment_id}`,content)},
   getMyPost: () => instance.get("api/posts/myinfo"), // 내 게시물 조회
   getBookMark: () => instance.get("api/posts/dibson"), // 즐겨찾기 조회
-  likePost: (post_id, likeState) => instance.post(`api/posts/${post_id}`, likeState),
+  likePost: (post_id, likeState) =>
+    instance.post(`api/posts/${post_id}`, likeState),
 };

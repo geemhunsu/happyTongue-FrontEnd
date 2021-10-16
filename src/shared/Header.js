@@ -9,16 +9,18 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 const Header = (props) => {
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
+  let is_login = useSelector((state) => state.user.is_login);
   const is_token = localStorage.getItem("MY_TOKEN") ? true : false;
   console.log("토큰유무: ", is_token);
+  if (is_login === false && is_token === true) {
+    is_login = true;
+  }
   // 토큰의 유무에 따라서만 로그인 상태인지 로그아웃 상태인지 확인
   if (is_token) {
     return (
       <React.Fragment>
         <Grid
-          // bg="rgba(254, 255, 189, 0.13)"
-          bg="#fff"
+          bg="rgba(254, 255, 189, 0.13)"
           margin="0px 0px 80px 0px"
           height="130px"
           width="100%"
@@ -96,7 +98,7 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Grid
-          bg="#fff"
+          bg="rgba(254, 255, 189, 0.13)"
           margin="0px 0px 80px 0px"
           height="130px"
           width="100%"
