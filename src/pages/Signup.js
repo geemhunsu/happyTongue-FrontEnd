@@ -54,19 +54,29 @@ const Signup = (props) => {
           width="95%"
           height="55%"
         >
-          <Input
-            _onChange={changeId}
-            value={id}
-            size="18px"
-            family="GowunDodum-Regular"
-            outlinecolor="#EB5463"
-            padding="5px 10px"
-            margin="0px"
-            border="1px solid #ded9dc"
-            placeholder="이메일"
-            radius="7px"
-            width="70%"
-          ></Input>
+          <Grid width="70%" margin="5px 0px 0px 0px" height="auto">
+            <Text
+              color="#E8553E"
+              padding="0px 10px"
+              size="16px"
+              margin="0px 0px 8px 0px"
+            >
+              이메일 형식에 맞춰주세요.
+            </Text>
+            <Input
+              _onChange={changeId}
+              value={id}
+              size="18px"
+              family="GowunDodum-Regular"
+              outlinecolor="#EB5463"
+              padding="5px 10px"
+              margin="0px"
+              border="1px solid #ded9dc"
+              placeholder="이메일"
+              radius="7px"
+              width="100%"
+            ></Input>
+          </Grid>
           <Grid width="70%" margin="5px 0px 0px 0px" height="auto">
             <Text
               color="#E8553E"
