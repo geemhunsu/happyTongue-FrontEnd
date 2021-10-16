@@ -2,7 +2,6 @@ import produce from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { apis } from "../../shared/axios";
 import { actionCreators as imageActions } from "./image";
-import store from "../ConfigureStore";
 // 액션
 const GET_POST = "GET_POST";
 const CREATE_POST = "CREATE_POST";
@@ -78,6 +77,7 @@ const getOnePostMW = (post_id) => {
       .getOnePost(post_id)
       .then((res) => {
         const post = res.data;
+        console.log(res);
         dispatch(getPost(post));
       })
       .catch((err) => {
@@ -125,12 +125,12 @@ const deletePostMW = (post_id) => {
   };
 };
 
-const likeStateMW = (post_id, likeState) => {
+const likeStateMW = (post_id, likeState,likes) => {
   return function (dispatch, getState, { history }) {
     apis
       .likePost(post_id, {likeState})
       .then((res) => {
-        dispatch(likePost( likeState ));
+        dispatch(likePost( likeState, likes));
       })
       .catch((err) => {
         console.log(err);
@@ -157,6 +157,7 @@ export default handleActions(
     [LIKE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.likeState = action.payload.likeState;
+        draft.list.likes = action.payload.likes;
       }),
   },
   initialState

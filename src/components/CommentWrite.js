@@ -3,7 +3,7 @@ import { Grid, Input, Button } from "../elements/index";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import { useDispatch, useSelector } from "react-redux";
 const CommentWrite = (props) => {
-  const nickname = props.nickname;
+  const nickname = useSelector(state => state.user.user.nickname);
   const dispatch = useDispatch();
   const [content, setContent] = React.useState("");
   const onChange = (e) => {
