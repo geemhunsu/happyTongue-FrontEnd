@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+# 항해 4주차 미니프로젝트2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Untitled](readme_img/Untitled.png)
 
-## Available Scripts
+# 해피텅!
 
-In the project directory, you can run:
+### 음식은 두가지로 나뉜다. 내가 먹어본 것, 내가 앞으로 먹어볼 것. 맛집추천과 맛집 찾기를 동시에!😋
 
-### `yarn start`
+# 팀원
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Backend
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+신성웅
 
-### `yarn test`
+허선희
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+오정민
 
-### `yarn build`
+Frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+김세연
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+김현수
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+김한준
 
-### `yarn eject`
+# 와이어프레임
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Figma를 이용해 와이어프레임을 설계했습니다!
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![와이어프레임.jpg](readme_img/와이어프레임.jpg)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+[https://www.figma.com/file/uUDubcptUhos77TzoODvyP/Untitled?node-id=0%3A1](https://www.figma.com/file/uUDubcptUhos77TzoODvyP/Untitled?node-id=0%3A1)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![API.PNG](readme_img/API.png)
 
-## Learn More
+![API2.PNG](readme_img/API2.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# API 설계
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**user**
 
-### Code Splitting
+POST /api/users/auth
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+DELETE /api/users/auth
 
-### Analyzing the Bundle Size
+POST /api/users/signup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+GET /api/users/me
 
-### Making a Progressive Web App
+**posts**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+GET /api/posts
 
-### Advanced Configuration
+POST /api/posts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+GET /api/posts/search/:keyword
 
-### Deployment
+DELETE /api/posts/:post-id
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+PATCH /api/posts/:post-id
 
-### `yarn build` fails to minify
+**comment - controller**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GET /api/posts/:post-id/comments
+
+POST /api/posts/:post-id/comments
+
+DELETE /api/posts/:post-id/comments/:comment-id
+
+PATCH /api/posts/:post-id/comments/:comment-id
+
+## 깃허브 주소
+
+프론트엔드
+
+[https://github.com/geemhunsu/happyTongue-FrontEnd](https://github.com/geemhunsu/happyTongue-FrontEnd)
+
+백엔드
+
+[https://github.com/shinsw627/happyTongue-Back](https://github.com/shinsw627/happyTongue-Back)
+
+### 프론트엔드
+
+### **월요일**
+
+최소단위 컴포넌트 만들기
+
+각자 맡은 페이지 뷰
+
+### 화요일
+
+뷰 끝내기
+
+기능구현
+
+### 수요일
+
+기능구현 끝내기
+
+### 백엔드
+
+### 월요일
+
+DB설계
+
+기능 작업시작
+
+### 화요일
+
+로그인 회원가입 끝내기
+
+기능 라우팅api
+
+### 수요일
+
+게시물 댓글 끝내기
+
+채팅창 끝내기
+
+모든 작업완료!!
+
+## 전체
+
+### 목요일
+
+병합하기
+
+문제점확인
+
+### 금요일
+
+문제점 확인
+
+추가기능 생각하기
+
+### 토요일
+
+마무리 및 정리
+
+동영상제작
+
+회고록 작성
